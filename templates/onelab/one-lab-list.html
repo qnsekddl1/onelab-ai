@@ -1,0 +1,508 @@
+{% extends 'onelab/base.html' %}
+
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" href="{% static 'onelab/css/one-lab-list.css' %}">
+{% endblock %}
+
+{% block title %}원랩 목록{% endblock %}
+
+{% block content %}
+    <div class="page-container">
+        <main id="main-app">
+            <!-- 헤더 -->
+            <!-- <div class="web-header"></div>  -->
+            <div class="mainWrapper-content">
+                <!-- 헤더 쪽 탭 부분 -->
+                <!-- <div class="mainWrapper-cotent-header"></div> -->
+                <div class="main-container">
+                    <div class="main-list-title-container">
+                        <div class="main-list-title-container-inner"></div>
+                        <h2>원랩목록</h2>
+                        <div class="main-list-count">624</div>
+                        <div class="main-list-count-kor">개</div>
+                    </div>
+                    <!-- 전체/인기순 필터 부분 -->
+                    <div class="main-list-filter-container" style="position: relative;">
+                        <ul class="filter-list-wrapper">
+                            <button type="button" class="major-btn active-btn">
+                                <span>전체</span>
+                            </button>
+                            <button type="button" class="major-btn">
+                                <span>인기글</span>
+                            </button>
+                            <!-- 글 작성 버튼 -->
+                            <div style="position: absolute; left: 96%; border: none; height: 32px; background-color: #008243; border-radius: 6px; line-height: 2; width: 60px; text-align: center;">
+                                <a href="">
+                                    <button type="button" style="color: #fff;">글 작성</button>
+                                </a>
+                            </div>
+                        </ul>
+                        
+                    </div>
+                    <!-- 광고 배너~ 전체 리스트들 감싸는 div -->
+                    <div class="search-result-container">
+                        <!-- 광고 배너 -->
+                        <div class="adv-banner-box">
+                            <div class="event-banner" style="background-color: rgb(210, 217, 222);">
+                                <div class="banner-ad-badge">AD</div>
+                                <a href="" class="banner-link" data-promo-acid="10047886" data-promo-id="https://www.wadiz.kr/web/wcomingsoon/rwd/245153?acid=10047886&amp;_refer_section_st=SPA_1" data-promo-name="우리집 헬스장 머신 후키" data-promo-position="SPA" data-gtm-vis-recent-on-screen11319722_2047="1522112" data-gtm-vis-first-on-screen11319722_2047="1522112" data-gtm-vis-total-visible-time11319722_2047="2000" data-gtm-vis-recent-on-screen11319722_2115="1522112" data-gtm-vis-first-on-screen11319722_2115="1522112" data-gtm-vis-total-visible-time11319722_2115="2000" data-gtm-vis-recent-on-screen11319722_2358="1522112" data-gtm-vis-first-on-screen11319722_2358="1522112" data-gtm-vis-total-visible-time11319722_2358="2000" data-gtm-vis-recent-on-screen11319722_2372="1522113" data-gtm-vis-first-on-screen11319722_2372="1522113" data-gtm-vis-total-visible-time11319722_2372="2000" data-gtm-vis-has-fired11319722_2047="1" data-gtm-vis-has-fired11319722_2115="1" data-gtm-vis-has-fired11319722_2358="1" data-gtm-vis-has-fired11319722_2372="1">
+                                    <div class="banner-inner">
+                                        <div class="banner-contents" style="background-image: url('{% static "onelab/images/AD-img1.png"%}');">
+                                            <div class="banner-text">
+                                                <p>100가지 운동 가능</p>
+                                                <strong>우리집 헬스장 머신 후키</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="search-result-card-container">
+                            <div class="table-layout-container" style="grid-template-columns: repeat(4, calc(25% - 18px));
+                            gap: 24px;" >
+                            <!-- 알림 버튼 있는 card list -->
+                                <!-- <div class="one-lab-list-card">
+                                    <a class="list-card-content" href="https://www.wadiz.kr/web/wcomingsoon/rwd/267580">
+                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">
+                                            <div class="list-card-thumbnailWrap">
+                                                <div class="thumbnail-image-container">
+                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-card-info-box">
+                                            <div class="list-card-info">
+                                                <p class="info-string-wrapper">
+                                                    1,433명 기다려요
+                                                </p>
+                                                <strong class="info-title">
+                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드
+                                                </strong>
+                                                <p class="info-maker-name">
+                                                    주식회사 디깅미인터내셔널
+                                                </p>
+                                            </div>
+                                        </div>
+                                         <div class="CardSpinner_container__1cKRs">
+                                            <div class="CardSpinner_loader__2-LrZ" style="width: 32px; height: 32px;">
+                                                <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                    <g class="Loader_circular__33-pw">
+                                                        <circle class="Loader_path__2Hwnt" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"></circle>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div> 
+                                    </a>
+                                    <div class="notification-button-box">
+                                        <button class="notificatione-btn" type="button">
+                                             svg 이미지 가져오기 알림버트
+
+                                            <img src="images/alarm.png" class="notification-btn-img" alt="">
+                                            <span class="button-children">
+                                                <span class="notification-btn-text">2/5(월) 오픈 알림 신청</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div> -->
+                                
+                                <!-- 리스트 1개 시작 -->
+                                <div class="one-lab-list-card">
+                                    <a class="list-card-content" href="https://www.wadiz.kr/web/wcomingsoon/rwd/267580">
+                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">
+                                            <div class="list-card-thumbnailWrap">
+                                                <div class="thumbnail-image-container">
+                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-card-info-box-ing">
+                                            <div class="list-card-info">
+                                                <div class="price-info-wrapper">
+                                                    <span>109,000원</span>
+                                                </div>
+                                                <strong class="info-title">
+                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드
+                                                </strong>
+                                                <p class="info-maker-name">
+                                                    주식회사 디깅미인터내셔널
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="list-card-badge-group">
+                                            <div class="store-rating-wrapper">
+                                                <div class="rating-score-container">
+                                                    <div class="rating-score-icon"></div>
+                                                    <span class="rating-score">4.9</span>
+                                                </div>
+                                                <em class="store-rating-count">
+                                                    (42)
+                                                </em>
+                                            </div>
+                                            <div class="store-badge-group-container">
+                                                <div class="stroe-badges">
+                                                    <span class="wadiz-label-badge">wadiz-only</span>
+                                                    <span class="label-badge">무료배송</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <button type="button" class="wish-btn like-btn">
+                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">
+                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- 리스트 1개 끝 -->
+
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="https://www.wadiz.kr/web/wcomingsoon/rwd/267580">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                                <div class="one-lab-list-card">#}
+{#                                    <a class="list-card-content" href="">#}
+{#                                        <div class="list-card-thumbnailBox" style="padding-top: 56.25%;">#}
+{#                                            <div class="list-card-thumbnailWrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="[포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드" src="https://cdn3.wadiz.kr/studio/images/2024/01/14/e7e16549-d75c-4dd6-a6ca-414f95553084.png/wadiz/resize/600/format/jpg/quality/85/">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-info-box-ing">#}
+{#                                            <div class="list-card-info">#}
+{#                                                <div class="price-info-wrapper">#}
+{#                                                    <span>109,000원</span>#}
+{#                                                </div>#}
+{#                                                <strong class="info-title">#}
+{#                                                    [포렌/만족도4.8] 와디즈 1등, 퐁-신한 오가닉 광목 이불&amp;패드#}
+{#                                                </strong>#}
+{#                                                <p class="info-maker-name">#}
+{#                                                    주식회사 디깅미인터내셔널#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="list-card-badge-group">#}
+{#                                            <div class="store-rating-wrapper">#}
+{#                                                <div class="rating-score-container">#}
+{#                                                    <div class="rating-score-icon"></div>#}
+{#                                                    <span class="rating-score">4.9</span>#}
+{#                                                </div>#}
+{#                                                <em class="store-rating-count">#}
+{#                                                    (42)#}
+{#                                                </em>#}
+{#                                            </div>#}
+{#                                            <div class="store-badge-group-container">#}
+{#                                                <div class="stroe-badges">#}
+{#                                                    <span class="wadiz-label-badge">wadiz-only</span>#}
+{#                                                    <span class="label-badge">무료배송</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                     <button type="button" class="wish-btn like-btn">#}
+{#                                        <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="wish-icon" aria-hidden="true">#}
+{#                                            <path class="dislike-icon" d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"></path>#}
+{#                                        </svg>#}
+{#                                    </button>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+
+                        <!-- 더보기 버튼 -->
+                        <div class="search-result-more-container">
+                            <button class="get-more-result-btn">
+                                <span>
+                                    <span class="more-result-btn-text">더보기 48/624</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'onelab/js/one-lab-list.js' %}"></script>
+{% endblock %}
