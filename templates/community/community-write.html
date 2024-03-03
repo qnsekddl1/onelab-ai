@@ -6,23 +6,9 @@
     <link rel="stylesheet" href="{% static 'community/css/community-write.css' %}">
 {% endblock %}
 
-{% block title %}커뮤니티 글쓰기{% endblock %}
+{% block title %}커뮤니티 글 작성{% endblock %}
 
 {% block content %}
-    
-{% endblock %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="16x16" href="/templates/html/one-lab-soyoung/favicon/favicon-32x32.png">
-    <link rel="stylesheet" href="/staticfiles/css/community-soyoung/community-write.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <title>커뮤니티 글 작성</title>
-</head>
-<body>
     <div id="root">
         <div id="layout-container">
             <div class="layout-main">
@@ -109,7 +95,7 @@
                                 </div>
                             </button>
                         </div>
-                        
+
                         <div class="page-content">
                             <nav class="project-navbar-container">
                                 <div>
@@ -189,7 +175,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    
+
                                                     <li class="announce-list-item">
                                                         <div class="announce-list-item-badge-area">
                                                         </div>
@@ -370,7 +356,7 @@
                                     </div>
                                 </section>
 
-                                
+
                                 <section class="section-container" style="max-width: 630px;">
                                     <div class="section-header profile">
                                         <h3 class="section-title">게시글 내용
@@ -423,7 +409,7 @@
                                                     <img id="thumbnail" src="#" alt="Thumbnail" style="display: none;" width="100px">
                                                 </li>
                                             </ul>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </section>
                             </form>
@@ -433,7 +419,8 @@
             </div>
         </div>
     </div>
-</body>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="/staticfiles/js/community-soyoung/community-write.js"></script>
-</html>
+{% endblock %}
+
+{% block js %}
+    <script src="/community/static/community/js/community-write.js"></script>
+{% endblock %}

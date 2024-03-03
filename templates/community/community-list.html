@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="16x16" href="/templates/html/one-lab-soyoung/favicon/favicon-32x32.png">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="/staticfiles/css/community-soyoung/community-list.css">
-    <title>커뮤니티 목록</title>
-</head>
-    <body>
-        <!--헤더-->
+{% extends 'community/base.html' %}
+
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" href="{% static 'onelab/css/one-lab-list.css' %}">
+{% endblock %}
+
+{% block title %}커뮤니티 목록{% endblock %}
+
+{% block content %}
+    <!--헤더-->
         <!-- 메인 시작 -->
         <main class="main-board">
             <div class="board-header">
@@ -65,7 +65,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -76,7 +76,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -87,7 +87,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -98,7 +98,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -109,7 +109,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -120,7 +120,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -131,7 +131,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -142,7 +142,7 @@
                         <a href="" class="article">
                             <em class="category">이벤트</em>
                             <div class="info">
-                                <div class="thumb" style="background-image:url(https://cdn.wadiz.kr/ft/images/green001/2024/0201/20240201202145306_0.png/wadiz/resize/400/format/jpg/quality/80)"></div>
+                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
                                 <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
                                 <span class="author">와디즈</span>
                                 <span class="created-at">2024.02.01</span>
@@ -198,15 +198,17 @@
         <div class="floating-buttons-container">
             <a href="">
                 <button type="button" class="float-top-btn">
-                    <img src="/templates/html/community-soyoung/images/write_pen.png" class="write-form-img">
+                    <img src="/community/static/community/images/write_pen.png" class="write-form-img">
                 </button>
             </a>
         </div>
         <!-- 푸터 자리 -->
-    </body>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="/staticfiles/js/community-soyoung/commuity-list.js"></script>
-</html>
+{% endblock %}
+
+{% block js %}
+    <script src="/community/static/community/js/commuity-list.js"></script>
+{% endblock %}
+
 
 
 
