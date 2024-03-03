@@ -17,7 +17,7 @@ class Share(Period):
 
     class Meta:
         db_table = 'tbl_share'
-        ordering = ['-id']
+        ordering = ['id']
 
 
 class ShareFile(Period):
