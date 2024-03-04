@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'myPage',
     'oauth',
     'onelabMember',
     'onelab',
@@ -130,7 +131,7 @@ DATABASES = {
         # 비밀번호
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
-        'HOST': '15.164.102.111',
+        'HOST': '54.180.30.195',
         # DBMS의 포트번호
         'PORT': '3306'
     }
@@ -171,7 +172,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # 파일 접근시
 MEDIA_URL = '/upload/'

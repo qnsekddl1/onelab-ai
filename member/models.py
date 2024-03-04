@@ -9,6 +9,7 @@ class Member(Period):
     member_phone = models.CharField(null=False, blank=False, max_length=100)
     # 일반 회원: True, 관리자: False
     member_status = models.BooleanField(null=False, default=True)
+    member_type = models.TextField(blank=False, default="oneLabProject")
 
 
     class Meta:

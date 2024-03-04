@@ -1,4 +1,7 @@
+from datetime import date
+
 from django.db import models
+from django.utils.timezone import now
 
 from file.models import File
 from like.models import Like
@@ -18,12 +21,19 @@ class Place(Period):
     place_review_rating = models.FloatField(null=False, default=0.0)
     place_image_file = models.ImageField(null=False, blank=False, upload_to='')
     school = models.ForeignKey(School, on_delete=models.PROTECT, null=False)
+    place_date = models.DateField(null=False, blank=False, default=now)
+    place_ask_email = models.CharField(null=False, max_length=300)
+    place_url = models.CharField(null=False, max_length=300, default='http://localhost:')
 
     class Meta:
         db_table = 'tbl_place'
         ordering = ['-id']
 
+    def get_absolute_url(self):
+        return f'/place/detail/?id={self.id}'
+
 class PlaceFile(Period):
+    post = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='place/%Y/%m/%d')
 
