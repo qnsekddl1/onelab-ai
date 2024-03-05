@@ -15,6 +15,8 @@ class Notification(Period):
     notification_content = models.CharField(null=False, blank=False, max_length=2000)
     notification_view_count = models.IntegerField(null=False, blank=False, default=0)
     notification_status = models.SmallIntegerField(choices=NOTIFICATION_STATUS, default=0)
+    # True=게시 중, False=게시 종료
+    notification_post_status = models.BooleanField(null=False, default=True)
 
 
     class Meta:

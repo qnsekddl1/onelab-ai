@@ -1,5 +1,6 @@
 from django.db import models
 
+from community.managers import CommunityManager
 from file.models import File
 from like.models import Like
 from member.models import Member
@@ -17,6 +18,11 @@ class Community(Period):
     community_content = models.CharField(null=False, max_length=2000)
     community_status = models.SmallIntegerField(choices=COMMUNITY_STATUS, default=0)
     member = models.ForeignKey(Member, on_delete=models.PROTECT, null=False)
+    # True=게시 중, False=게시 종료
+    community_post_status = models.BooleanField(null=False, default=True)
+
+    objects = models.Manager()
+    enabled_objects = CommunityManager()
 
     class Meta:
         db_table = 'tbl_community'

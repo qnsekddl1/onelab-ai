@@ -3,6 +3,7 @@ from django.db import models
 from file.models import File
 from like.models import Like
 from oneLabProject.models import Period
+from onelab.managers import OnelabManager
 from university.models import University
 
 
@@ -14,6 +15,11 @@ class OneLab(Period):
     # 활동중: True, 탈퇴: False
     onelab_status = models.BooleanField(null=False, default=True)
     university = models.ForeignKey(University, on_delete=models.PROTECT, null=False)
+    # True=게시 중, False=게시 종료
+    onelab_post_status = models.BooleanField(null=False, default=True)
+
+    objects = models.Manager()
+    enabled_objects = OnelabManager()
 
     class Meta:
         db_table = 'tbl_onelab'

@@ -12,6 +12,8 @@ class Exhibition(Period):
     # False=관리자, True=school
     exhibition_status = models.BooleanField(null=False, blank=False, default=True)
     school = models.ForeignKey(School, on_delete=models.PROTECT)
+    # True=게시 중, False=게시 종료
+    exhibition_post_status = models.BooleanField(null=False, default=True)
 
     class Meta:
         db_table = 'tbl_exhibition'

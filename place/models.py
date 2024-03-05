@@ -24,6 +24,9 @@ class Place(Period):
     place_date = models.DateField(null=False, blank=False, default=now)
     place_ask_email = models.CharField(null=False, max_length=300)
     place_url = models.CharField(null=False, max_length=300, default='http://localhost:')
+    # True=게시 중, False=게시 종료
+    place_post_status = models.BooleanField(null=False, default=True)
+
 
     class Meta:
         db_table = 'tbl_place'

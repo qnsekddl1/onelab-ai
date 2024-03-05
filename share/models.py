@@ -14,6 +14,7 @@ class Share(Period):
     share_content = models.CharField(null=False, max_length=2000)
     share_points = models.BigIntegerField(null=True, default=1000)
     university = models.ForeignKey(University, on_delete=models.PROTECT, null=False)
+    share_post_status = models.BooleanField(null=False, default=True)
 
     class Meta:
         db_table = 'tbl_share'
