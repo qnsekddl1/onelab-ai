@@ -36,9 +36,9 @@ class Place(Period):
         return f'/place/detail/?id={self.id}'
 
 class PlaceFile(Period):
-    post = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='place/%Y/%m/%d')
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_place_file'

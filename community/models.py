@@ -31,6 +31,7 @@ class Community(Period):
 class CommunityFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='community/%Y/%m/%d')
+    community = models.ForeignKey(Community, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_community_file'

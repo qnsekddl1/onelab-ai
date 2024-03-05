@@ -19,7 +19,7 @@
                             <span class="sidebar-reward-info-flag2">작성 중</span>
                         </div>
                         <a href="" class="sidebar-reward-info-project-name" target="_blank">
-                            익명이의<br>글 작성 페이지
+                            {{ request.session.member.member_name }}<br>글 작성 페이지
                         </a>
                         <button class="project-number-box" type="button">
                             <span>
@@ -108,7 +108,7 @@
                                         <span></span>
                                     </div>
                                     <!-- 회원 이름 -->
-                                    <div>익명이</div>
+                                    <div>{{ request.session.member.member_name }}</div>
                                 </div>
                                 <div class="project-navbar-btn-group">
                                     <button type="button" class="pre-save-btn">

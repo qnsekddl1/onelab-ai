@@ -22,6 +22,8 @@ class Exhibition(Period):
 class ExhibitionFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='exhibition/%Y/%m/%d')
+    exhibition = models.ForeignKey(Exhibition, on_delete=models.PROTECT, null=False)
+
     class Meta:
         db_table = 'tbl_exhibition_file'
 

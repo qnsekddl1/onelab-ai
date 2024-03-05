@@ -28,6 +28,7 @@ class OneLab(Period):
 class OneLabFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='onelab/%Y/%m/%d')
+    onelab = models.ForeignKey(OneLab, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_onelab_file'
@@ -35,6 +36,7 @@ class OneLabFile(Period):
 class OneLabBannerFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='onelab_banner/%Y/%m/%d')
+    onelab = models.ForeignKey(OneLab, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_onelab_banner_file'

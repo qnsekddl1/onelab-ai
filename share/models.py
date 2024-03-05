@@ -24,6 +24,7 @@ class Share(Period):
 class ShareFile(Period):
     file = models.ForeignKey(File, primary_key=True,  on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='share/%Y/%m/%d')
+    share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_share_file'

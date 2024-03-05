@@ -26,6 +26,7 @@ class Notification(Period):
 class NotificationFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='notification/%Y/%m/%d')
+    notification = models.ForeignKey(Notification, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_notification_file'
