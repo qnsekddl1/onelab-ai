@@ -43,7 +43,8 @@ class SharePoints(Period):
         db_table = 'tbl_share_points'
 
 class ShareReview(Period):
-    share = models.ForeignKey(Review, primary_key=True, on_delete=models.PROTECT, null=False)
+    review = models.ForeignKey(Review, primary_key=True, on_delete=models.PROTECT, null=False)
+    share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_share_review'

@@ -57,6 +57,7 @@ class PlacePoints(Period):
 
 class PlaceReview(Period):
     review = models.ForeignKey(Review, primary_key=True, on_delete=models.PROTECT, null=False)
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_place_review'
