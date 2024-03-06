@@ -14,7 +14,7 @@
         <main class="main-board">
             <div class="board-header">
                 <!-- 큰 제목 쪽 -->
-                <h2 class="title">커뮤니티 목록</h2>
+                <h2 class="title">커뮤니티 목록</h2>`
                 
             </div>
             
@@ -59,98 +59,22 @@
             </div>
             <!-- 리스트들 감싸는 div -->
             <div class="board-list-main">
-                <ul>
-                    <!-- 리스트 1개 -->
-                    <li>
-                        <a href="" class="article">
-                            <em class="category">이벤트</em>
-                            <div class="info">
-                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>
-                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>
-                                <span class="author">와디즈</span>
-                                <span class="created-at">2024.02.01</span>
-                            </div>
-                        </a>
-                    </li>
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="" class="article">#}
-{#                            <em class="category">이벤트</em>#}
-{#                            <div class="info">#}
-{#                                <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
-{#                                <h3 class="title">[공간와디즈] '와디즈 플래그십 스토어 성수' Grand Open Event! (~2/14)</h3>#}
-{#                                <span class="author">와디즈</span>#}
-{#                                <span class="created-at">2024.02.01</span>#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
+                {% for community in communities %}
+                    <ul>
+                        <!-- 리스트 1개 -->
+                        <li>
+                            <a href="{{ community.get_absolute_url }}" class="article">
+                                <em class="category">???</em>
+                                <div class="info">
+                            {# <div class="thumb" style="background-image:url('{% static "community/images/test-img1.jpg"%}');"></div>#}
+                                    <h3 class="title">{{ community.community_title }}</h3>
+                                    <span class="author">{{ community.member.member_name }}</span><br>
+                                    <span class="created-at">{{ community.updated_date|date:"Y년 m월 d일 A h시 i분" }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                {% endfor %}
             <div class="board-footer">
                 <div class="pagination">
                     <!-- 모바일용 버튼 -->
@@ -206,7 +130,7 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static '/community/js/commuity-list.js' %}"></script>
+    <script src="{% static '/community/js/community-list.js' %}"></script>
 {% endblock %}
 
 

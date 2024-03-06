@@ -28,6 +28,9 @@ class Community(Period):
         db_table = 'tbl_community'
         ordering = ['-id']
 
+    def get_absolute_url(self):
+        return f'/community/detail/?id={self.id}'
+
 class CommunityFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='community/%Y/%m/%d')

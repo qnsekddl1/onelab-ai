@@ -18,7 +18,8 @@
                         <div class="community-content-wrapper">
                             <div class="community-content">
                                 <div class="community-detail-container">
-                                    <a href="">
+                                    <a href="{% url 'community:list' %}">
+                                        {#{%  url 'community:list' page=1 %}#}
                                         <button type="button" class="go-to-list-btn">
                                             <span>
                                                 <svg viewBox="0 0 24 24" fill="none" focusable="false" role="presentation" class="go-to-list-svg" aria-hidden="true">
@@ -30,13 +31,14 @@
                                     </a>
                                     <div class="community-title-container">
                                         <p>
-                                            <span class="community-detail-head">이벤트</span>
+                                            <span class="community-detail-head">커뮤니티</span>
                                             <span class="community-detail-line"></span>
+                                            {# 오픈예정 -> 커뮤니티 카테고리 중 하나로 질문, 자료요청, 기타 #}
                                             <span class="community-detail-state">오픈예정</span>
                                         </p>
                                         <div class="community-title-wrapper">
                                             <p class="community-title">
-                                                [이벤트3탄]프리미엄 탄소매트 증정/ 베게커버100장 추가
+                                                {{ community.community_title}}
                                             </p>
                                             <!-- 좋아요 버튼 -->
                                             <div class="community-like-icon">
@@ -48,58 +50,28 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <p class="community-write-date">2024.01.30 12:19
+                                        <div class="community-writer">
+                                            <span style="font-size: 18px">{{ community.member.member_name }} | 조회 {{ community.community_view_count }}</span>
+                                            <span style="font-size: 18px"></span>
+                                        </div>
+                                       
+                                        <p class="community-write-date">{{ community.updated_date|date:"Y년 m월 d일 A h시 i분" }}
+                                            {% if request.session.member.id == community.member.id %}
                                             <!-- 수정,삭제 버튼(글작성자만 볼수있음) -->
-                                            <button type="button" class="update-btn">수정하기</button>
-                                            <button type="button" class="delete-btn">삭제하기</button>
+                                                <br>
+                                                <a href="/community/update/?id={{ community.id }}" class="update-btn">수정하기</a>
+                                                {#{% url 'community:update community_id=community.id' %}#}
+                                                <a href="/community/delete/?id={{ community.id }}" class="delete-btn">삭제하기</a>
+                                            {% endif %}
                                         </p>
+                                        
                                     </div>
 
                                     <!-- 글 바디 쪽 -->
                                     <div class="community-detail-contents-container">
                                         <div class="community-detail-contents-wrapper">
                                             <div class="community-detail-contents">
-                                                <p>안녕하세요 서포터님들. 수면공감입니다!</p>
-                                                <p>끝추위가 아직도 좀 남았지요?&nbsp;🥶</p>
-                                                <p>여러분의 따뜻한 응원의 결과로 이제 알림신청 수가 1000명을 바라보고 있습니다!🥳</p>
-                                                <p>하지만 스틸 헝그리...그래서 다시 한번 응원 이벤트를 준비했습니다.</p>
-                                                <p>이벤트 2탄의 레벨업 🤩!! 베개커버 100명추가 증정과</p>
-                                                <p>이벤트 3탄 . 끝추위를 끝내줄 이름도 아주 긴 "워시리스 볼트론 프리미엄 탄소매트"🤖 증정 입니다.</p>
-                                                <p>아래 내용 잘 읽어보시고 어여어여 탑승하세요.🚀</p>
-                                                <p><br></p>
-                                                <p>&nbsp;</p>
-                                                <p></p>
-                                                <p><br></p>
-                                                <img src="https://cdn3.wadiz.kr/studio/images/2024/01/30/3bfefea2-1ce9-4d9b-ade9-aa674ae41d44.jpeg" style="display: block; margin: 5px auto; text-align: center;" alt="event_04_혜택추가.jpg">
-                                                <p>
-                                                    <img src="https://cdn3.wadiz.kr/studio/images/2024/01/30/610df4f3-3191-47f0-96b1-49f5ef01e430.jpeg" style="display: block; margin: 5px auto; text-align: center;" alt="event_05.jpg">
-                                                </p>
-                                                <p><br></p>
-                                                <p><br></p>
-                                                <img src="https://cdn3.wadiz.kr/studio/images/2024/01/30/efd7cb82-5fcd-41bd-ba64-f84ec7ed5c80.gif" style="display: block; margin: 5px auto; text-align: center;" alt="event_06.gif">
-                                                <p></p>
-                                                <p>
-                                                    <img src="https://cdn3.wadiz.kr/studio/images/2024/01/30/9f08c76f-76c2-4880-bb77-c4837105215d.jpeg" style="display: block; margin: 5px auto; text-align: center;" alt="event_06.jpg">
-                                                </p>
-                                                <p>
-                                                    <img src="https://cdn3.wadiz.kr/studio/images/2024/01/30/19b9a55f-a23f-4d0c-bc78-e912b3adcb1d.jpeg" style="display: block; margin: 5px auto; text-align: center;" alt="event_07.jpg">
-                                                </p>
-                                                <p><br></p>
-                                                <p>🙋‍♀️수면공감 플러스친구 링크입니다. "상담원연결"이라고 타이핑 하시면 위의 메뉴가 열립니다.
-                                                    <br>
-                                                    <a href="" target="_blank">
-                                                        카카오톡채널 - 수면공감 (kakao.com)
-                                                    </a>
-                                                </p>
-                                                <p>🙋‍♂경품이 궁금하시다면 아래 링크서 살펴보셔요~</p>
-                                                <p>
-                                                    <a href="" target="_blank">
-                                                        [[수면공감] 워시리스 볼트론 프리미엄 탄소매트] (sleep-gonggam.com)
-                                                    </a>
-                                                </p>
-                                                <p><br></p>
-                                                <p><br></p>
-                                                <p><br></p>
+                                                {{ community.community_content }}
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +144,7 @@
                                                         <!-- a태그 클릭시 해당 댓글 작성 회원의 마이페이지 이동 -->
                                                         <a href="">
                                                             <div class="avatar" style="width: 36px; height: 36px;">
-                                                                <span class="avatar-has-image" style="background-image: url(&quot;https://www.wadiz.kr/wwwwadiz/green001/sns_profile_pics/20200127133238509_45281725.jpg&quot;), url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYzl1cmF3eHIyYSIgZD0iTTAgMGg4MHY4MEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Zz4KICAgICAgICAgICAgPG1hc2sgaWQ9IjZ2emt3OXN5NWIiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjYzl1cmF3eHIyYSIvPgogICAgICAgICAgICA8L21hc2s+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik04MCA0MGMwIDIyLjA5Mi0xNy45MDkgNDAtNDAgNDBTMCA2Mi4wOTIgMCA0MCAxNy45MDkgMCA0MCAwczQwIDE3LjkwOCA0MCA0MCIgZmlsbD0iI0U5RUNFRiIgbWFzaz0idXJsKCM2dnprdzlzeTViKSIvPgogICAgICAgIDwvZz4KICAgICAgICA8cGF0aCBkPSJtMjIuMzA1IDI2LjkxNC4yMyAyLjEyMWMtLjAxLjI5LjA0OS41NTkuMTgxLjgwNy4wODUuMjYxLjIyOC40ODUuNDMzLjY3Ni4xOS4yMDMuNDEzLjM0OC42NzQuNDMyLjI0OS4xMzIuNTE5LjE5MS44MDYuMThsLjU1Ny0uMDc1Yy4zNTUtLjA5OS42NjMtLjI3OS45MjQtLjUzN2wuMzI4LS40MjVjLjE5LS4zMjYuMjg1LS42OC4yODctMS4wNTgtLjA3OC0uNzA2LS4xNTQtMS40MTUtLjIzLTIuMTIxLjAxLS4yOS0uMDUtLjU1OS0uMTgtLjgwN2ExLjU3IDEuNTcgMCAwIDAtLjQzNC0uNjc1IDEuNTUzIDEuNTUzIDAgMCAwLS42NzQtLjQzMyAxLjU4NCAxLjU4NCAwIDAgMC0uODA3LS4xOGMtLjE4NS4wMjYtLjM3Mi4wNS0uNTU3LjA3NWEyLjA4MyAyLjA4MyAwIDAgMC0uOTI1LjUzOGwtLjMyNi40MjRjLS4xOS4zMjctLjI4NS42NzktLjI4NyAxLjA1OE01My44ODIgMjcuMzI4djIuNTIyYzAgLjUzOC4yMzMgMS4xMDIuNjEzIDEuNDgyLjE5LjIwMy40MTQuMzQ4LjY3NC40MzMuMjUuMTMuNTE4LjE5LjgwNy4xOC41NDItLjAyNCAxLjEwNC0uMjAyIDEuNDgxLS42MTMuMzc2LS40MS42MTQtLjkxNC42MTQtMS40ODJ2LTIuNTIyYzAtLjUzNi0uMjM0LTEuMS0uNjE0LTEuNDhhMS41NzYgMS41NzYgMCAwIDAtLjY3NC0uNDM0IDEuNTczIDEuNTczIDAgMCAwLS44MDctLjE4Yy0uNTQyLjAyNC0xLjEwNC4yMDItMS40ODEuNjE0LS4zNzYuNDA5LS42MTMuOTEzLS42MTMgMS40OE0zNi4yOTcgMjUuOTQ1Yy0uNzQzIDQuMzM1LTEuNDg0IDguNjczLTIuMjI1IDEzLjAxLS4xODQgMS4wNzUuMjg1IDIuMzA3IDEuNDYzIDIuNTc2IDEuMDE0LjIzIDIuMzc4LS4zMDkgMi41NzYtMS40NjJsMi4yMjUtMTMuMDExYy4xODQtMS4wNzUtLjI4NS0yLjMwOC0xLjQ2My0yLjU3Ny0xLjAxNS0uMjMtMi4zOC4zMDgtMi41NzYgMS40NjRNNDUuMTU4IDUwLjM4NmMtLjE2LS4zMy0uMTAxLS40NzctLjA0NS0uODA2LS4xMTEuMTc1LS4xMjUuMjAxLS4wNDIuMDc3YS4zNy4zNyAwIDAgMSAuMjAzLS4xNzhjLS4yMi4xMTctLjIzNS4xMzgtLjA0Ny4wNjRhMy40MyAzLjQzIDAgMCAxLS4zOTMuMTE2Yy0uMDgyLjAyLS42NTkuMS0uMjY1LjA1Ny0xLjExNS4xMjQtMi4yNC4xOS0zLjM2LjI4NWwtNi44NzcuNTc3Yy0xLjA4OS4wOTItMi4xNDguODk3LTIuMDk1IDIuMDk0LjA0OCAxLjA1Ni45MjYgMi4xOTIgMi4wOTUgMi4wOTNsOC44NC0uNzRjMS40NS0uMTIzIDMuMDQxLS4xMyA0LjI4Ny0uOTggMS42LTEuMDkzIDIuMTYzLTMuMDI4IDEuMzE2LTQuNzcyLS40OC0uOTktMS45NjYtMS4zMzMtMi44NjYtLjc1Mi0xLjAxMy42NTQtMS4yNjMgMS44MDctLjc1IDIuODY1IiBmaWxsPSIjQ0REM0Q4Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=&quot;); box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;"></span>
+                                                                <span class="avatar-has-image"></span>
                                                             </div>
                                                         </a>
                                                     </div>
@@ -251,35 +223,13 @@
                                                                     </div>
                                                                 </a>
                                                             </div>
-                                                <!-- 로그인 되어있을 경우 댓글 창 시작 -->
-                                                <!-- <div class="comment-user-wrapper-main">
-                                                    <div class="comment-write-form">
-                                                        <p class="comment-write-form-nickname">익명의 서포터 350</p>
-                                                        <form action="" class="comment-form-container">
-                                                            <div class="comment-form-textarea">
-                                                                <textarea class="comment-textarea" rows="2" maxlength="2000" placeholder="댓글을 남겨주세요."></textarea>
-                                                                <textarea aria-hidden="true" readonly="" tabindex="-1" class="comment-textarea" style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0px); pointer-events: none;"></textarea>
-                                                            </div>
-                                                            <div class="comment-form-bottom">
-                                                                <span class="comment-form-count">0/2,000</span>
-                                                                <button type="submit" class="comment-ok-btn">
-                                                                    <span>
-                                                                        <span class="comment-ok-text">등록</span>
-                                                                    </span>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div> -->
-                                                <!-- 로그인o 끝 -->
-
                                                 <!-- 로그인 안되어있을 경우 댓글 창 시작-->
-                                                <div class="comment-user-wrapper-main">
-                                                    <div class="comment-write-form">
-                                                        <p class="comment-write-form-nickname"></p>
-                                                        <div class="comment-disable-write-form">로그인이 필요합니다.</div>
-                                                    </div>
-                                                </div>
+                                                            <div class="comment-user-wrapper-main">
+                                                                <div class="comment-write-form">
+                                                                    <p class="comment-write-form-nickname"></p>
+                                                                    <div class="comment-disable-write-form">로그인이 필요합니다.</div>
+                                                                </div>
+                                                            </div>
                                                 <!-- 로그인x 끝 -->
                                                         </div>
                                                     </ul>

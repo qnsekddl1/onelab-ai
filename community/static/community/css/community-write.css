@@ -920,6 +920,8 @@ button.save-btn {
     vertical-align: middle;
     text-decoration: none;
     white-space: nowrap;
+    top: -1285px;
+    right: -525px;
 }
 
 button.save-btn:hover {

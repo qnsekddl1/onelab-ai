@@ -26,7 +26,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     vertical-align: baseline;
 }
 
-body, button, html, input, textarea {
+a, body, button, html, input, textarea {
     font-family: Pretendard,-apple-system,blinkmacsystemfont,system-ui,roboto,Helvetica Neue,Segoe UI,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
 }
 
@@ -815,17 +815,19 @@ button.comment-ok-btn.active.submit {
 }
 
 /* 수정,삭제 버튼(작성자만 볼수있음) */
-button.update-btn, button.delete-btn {
+a.update-btn, a.delete-btn {
     cursor: pointer;
-    color: #008243;
     border-radius: 4px;
     font-size: 15px;
     margin-left: 3px;
 }
 
-button.update-btn::after {
+a.update-btn::after {
     margin-left: 6px;
     content: "|";
 }
 
-
+/*.community-writer::after {*/
+/*    margin-left: 6px;*/
+/*    content: "|";*/
+/*}*/

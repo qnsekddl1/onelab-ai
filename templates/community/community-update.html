@@ -1,12 +1,12 @@
 {% extends 'community/base.html' %}
 
 {% load static %}
-
+    
 {% block static %}
     <link rel="stylesheet" href="{% static 'community/css/community-write.css' %}">
 {% endblock %}
 
-{% block title %}커뮤니티 글 작성{% endblock %}
+{% block title %}커뮤니티 수정하기{% endblock %}
 
 {% block content %}
     <div id="root">
@@ -286,7 +286,7 @@
                                     </button>
                                 </div>
                             </nav>
-                            <form action="{% url 'community:write' %}" method="post" name="write-form" enctype="multipart/form-data">
+                            <form action="/community/update/?id={{ community.id }}" method="post" name="write-form" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <section class="section-container" style="max-width: 630px;">
                                     <div class="section-header">
@@ -299,7 +299,7 @@
                                     </div>
                                     <div class="section-content">
                                         <div class="text-field">
-                                            <input type="text" class="maker-input input-maker-name" name="community-title" placeholder="글제목 입력" maxlength="30" value="">
+                                            <input type="text" class="maker-input input-maker-name" name="community-title" placeholder="글제목 입력" maxlength="30" value="{{ community.community_title }}">
                                         </div>
                                         <em class="helper-msg">30자 남음</em>
                                     </div>
@@ -372,7 +372,7 @@
                                             <div class="textarea-field">
                                                 <div class="textarea-box">
                                                     <div class="textarea-input">
-                                                        <textarea placeholder="내용 입력" maxlength="2000" name="community-content" rows="10" style="resize: none;" ></textarea>
+                                                        <textarea placeholder="내용 입력" maxlength="2000" name="community-content" rows="10" style="resize: none;" >{{ community.community_content }}</textarea>
                                                     </div>
                                                     <em class="form-field-helper">2000자 남음</em>
                                                 </div>
@@ -428,5 +428,9 @@
 {% endblock %}
 
 {% block js %}
+{#    <script>#}
+{#        const communities = {{ community.communityfile_set.all | safe }}#}
+{#    </script>#}
     <script src="{% static '/community/js/community-write.js' %}"></script>
+    <script src="{% static '/community/js/community-update.js' %}"></script>
 {% endblock %}
