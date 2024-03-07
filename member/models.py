@@ -3,6 +3,7 @@ from oneLabProject.models import Period
 
 
 class Member(Period):
+    # 일반 이메일
     member_email = models.CharField(blank=False, null=False, max_length=50)
     # 학교 이메일
     member_school_email = models.CharField(blank=False, null=False, max_length=50, default="<EMAIL>")
