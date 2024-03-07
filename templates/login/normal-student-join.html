@@ -164,31 +164,31 @@
               <h3 class="easy-join-title">
                 대학생 간편가입
               </h3>
-                {% if memberType == 'kakao' or memberType == 'naver' %}
-                 <form action="{% url 'member:join' %}" method="post" enctype="multipart/form-data" name="join-normal">
+
+                 <form action="{% url 'member:join-normal' %}" method="post" enctype="multipart/form-data" name="join-normal">
                     {% csrf_token %}
                     <div class="easy-join-email-container">
                         <div class="easy-join-email-inner">
                             <label class="easy-join-email-label">이메일</label>
                             <div class="easy-join-email-box">
                                 <div class="easy-join-email-input-box">
-                                    <input name="email" value="{{ memberEmail }}" type="email" class="email-input" />
+                                    <input name="member-email" placeholder="ex) abc123@smu.ac.kr" type="email" class="email-input" />
                                 </div>
                             </div>
-                            
+                            <p class="validate-msg email-validate">이메일 정보를 입력해 주세요</p>
                         </div>
                         <div class="easy-join-email-inner">
                             <label class="easy-join-email-label">학교 이메일</label>
                             <div class="easy-join-email-box">
                                 <div class="easy-join-email-input-box">
-                                    <input name="member-school-email" placeholder="ex) abc123@smu.ac.kr" type="email" class="email-input el-input" />
+                                    <input name="member-school-email" placeholder="ex) abc123@smu.ac.kr" type="email" class="email-input ei-input" />
                                 </div>
                                 <button class="email-submit-btn" disabled="true">
                                     <span>
                                         <span> 인증하기 </span>
                                     </span>
                                 </button>
-                                 
+
                                 <button class="email-edit-btn" type="button">
                                     <span>
                                         <span> 수정 </span>
@@ -197,6 +197,7 @@
                             </div>
                             <p class="validate-msg email-validate">이메일 정보를 입력해 주세요</p>
                         </div>
+{#                        이메일인증 #}
                         <div class="certification-number-form">
                             <div class="certification-number-container">
                                 <label class="certification-number-label">인증번호</label>
@@ -212,23 +213,16 @@
                                 <p class="validate-msg certification-validate">인증번호를 정확히 입력해 주세요.</p>
                                 <p class="validate-msg certification-validate">인증 유효 시간을 초과했습니다. 다시 시도해 주세요.</p>
                             </div>
-                        </div>
-                        <div class="retry" style="display: none">
-                            <span class="retry-inner"> 인증번호 다시 보내기 </span>
-                        </div>
+                        </div>  
+                    </div>
+                     
+                    <div class="retry" style="display: none">
+                        <span class="retry-inner"> 인증번호 다시 보내기 </span>
                     </div>
                     <div class="easy-join-name-input-box">
                         <label>이름</label>
                         <div class="name-input-box">
-                            <input name="name" value="{{ memberName }}" type="text" class="name-input" />
-                        </div>
-                        <p class="validate-msg name-validate">최소 2자 이상입니다.</p>
-                        <p class="validate-msg name-validate">이름을 입력해 주세요</p>
-                    </div>
-                    <div class="easy-join-name-input-box">
-                        <label>핸드폰 번호</label>
-                        <div class="name-input-box">
-                            <input name="member-phone" id="phone" placeholder="예)01011112222" type="text" class="name-input" autocomplete="off"/>
+                            <input name="member-name" placeholder="이름 입력" type="text" class="name-input" />
                         </div>
                         <p class="validate-msg name-validate">최소 2자 이상입니다.</p>
                         <p class="validate-msg name-validate">이름을 입력해 주세요</p>
@@ -240,11 +234,18 @@
                         </div>
                         <p class="validate-msg department-validate">학과명을 입력해 주세요</p>
                     </div>
+                     <div class="easy-join-name-input-box">
+                        <label>핸드폰 번호</label>
+                        <div class="name-input-box">
+                            <input name="member-phone" id="phone" placeholder="예 0100000000" type="text" class="name-input" autocomplete="off" />
+                        </div>
+                        <p class="validate-msg name-validate">최소 2자 이상입니다.</p>
+                        <p class="validate-msg name-validate">이름을 입력해 주세요</p>
+                    </div>
                     <div class="easy-join-password-input-box">
-                        {% else %}
                         <label>비밀번호</label>
                         <div class="password-input-box">
-                            <input name="password" autocomplete="password" disabled placeholder="비밀번호 입력" type="password" class="password-input" />
+                            <input name="member-password" autocomplete="password" disabled placeholder="비밀번호 입력" type="password" class="password-input" />
                             <button class="password-visible-btn" type="button">
                                 <span>
                                     <span class="password-visible-btn-icon-box">
@@ -289,11 +290,11 @@
                         </div>
                         <p class="validate-msg password-check-validate">동일한 비밀번호를 입력해주세요.</p>
                     </div>
-                     {% endif %}
                     <button class="join-submit-btn send" type="submit" name="join-normal" disabled="true">
                         <span class="join-submit-btn-text"> 약관 동의후 가입 완료하기 </span>
                     </button>
                 </form>
+                
             </div>
           </div>
         </div>
@@ -317,9 +318,12 @@
         </div>
         <div class="modal-footer">
           <div class="modal-submit-btn-box">
-            <button class="modal-submit-btn" type="button">
-              <span><span class="modal-submit-btn-text">확인</span></span>
-            </button>
+{#              <form action="{% url 'member:activate' %}" method="post" enctype="multipart/form-data" name="activate">#}
+{#                {% csrf_token %}#}
+                <button class="modal-submit-btn">
+                    <span><span class="modal-submit-btn-text">확인</span></span>
+                </button>
+{#              </form>#}
           </div>
         </div>
       </div>
@@ -1135,9 +1139,8 @@
 {#            mname.value = memberName#}
 {#    </script>#}
 
-    <script src="{% static 'js/login/college-student-join.js' %}"></script>
-    <script>const memberType = `{{ member_type }}`</script>
+    <script src="{% static 'js/login/college-student-normal-join.js' %}"></script>
 {#    <script src="{% static 'js/login/check.js' %}"></script>#}
-{#    <script src="{% static 'js/login/login.js' %}"></script>#}
+{#    <script src="{% static 'js/login/join.js' %}"></script>#}
 {% endblock %}
 

@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_LOGOUT_ON_GET = True
@@ -75,6 +75,16 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/member/login/'
 
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
+
+
+
+EMAIL_HOST = 'smtp.gmail.com' 		 # 메일 호스트 서버
+EMAIL_PORT = '587' 			 # 서버 포트
+EMAIL_SENDER = 'wmoon0024@gmail.com'
+EMAIL_RECEIVER = 'wmoon0024@gmail.com'
+EMAIL_HOST_PASSWORD = 'pqxh ciic adcg numz'		 # 우리가 사용할 Gmail p
+EMAIL_USE_TLS = True			 # TLS 보안 설정
+EMAIL_MESSAGE = '<h1>내용</h1>'	 # 응답 메일 관련 설정
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -130,7 +140,8 @@ DATABASES = {
         # 비밀번호
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
-        'HOST': '15.164.102.111',
+        # 'HOST': '54.180.30.195',
+        'HOST': '13.209.64.208',
         # DBMS의 포트번호
         'PORT': '3306'
     }

@@ -511,6 +511,7 @@ button:not(:disabled) {
   display: block;
   padding-bottom: 4px;
   margin-bottom: 4px;
+  margin-top: 30px;
 }
 .email-input {
   height: 40px;
