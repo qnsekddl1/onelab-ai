@@ -14,6 +14,7 @@ class Share(Period):
     share_content = models.CharField(null=False, max_length=2000)
     share_points = models.BigIntegerField(null=True, default=1000)
     university = models.ForeignKey(University, on_delete=models.PROTECT, null=False)
+    share_post_status = models.BooleanField(null=False, default=True)
 
     class Meta:
         db_table = 'tbl_share'
@@ -23,6 +24,7 @@ class Share(Period):
 class ShareFile(Period):
     file = models.ForeignKey(File, primary_key=True,  on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='share/%Y/%m/%d')
+    share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_share_file'
@@ -41,7 +43,8 @@ class SharePoints(Period):
         db_table = 'tbl_share_points'
 
 class ShareReview(Period):
-    share = models.ForeignKey(Review, primary_key=True, on_delete=models.PROTECT, null=False)
+    review = models.ForeignKey(Review, primary_key=True, on_delete=models.PROTECT, null=False)
+    share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_share_review'

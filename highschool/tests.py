@@ -1,3 +1,11 @@
 from django.test import TestCase
 
-# Create your tests here.
+from highschool.models import HighSchool
+
+
+class HighschoolTestCase(TestCase):
+    # highschool = HighSchool.objects.create(
+    #     member_id= 5,
+    #     high_school_member_birth= '2006-04-27'
+    # )
+    pass
