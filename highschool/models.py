@@ -4,7 +4,7 @@ from oneLabProject.models import Period
 
 
 class HighSchool(Period):
-    high_school_member_birth = models.DateField(null=False, blank=False)
+    high_school_member_birth = models.DateField(null=False, blank=False, default='2008-01-01')
     member = models.ForeignKey(Member, on_delete=models.PROTECT)
 
     class Meta:
