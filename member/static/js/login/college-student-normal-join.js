@@ -1,5 +1,5 @@
 // 이메일
-const emailInput = document.querySelector(".el-input");
+const emailInput = document.querySelector(".ei-input");
 const emailValidateMsg = document.querySelector(".email-validate");
 const emailSubmitBtn = document.querySelector(".email-submit-btn");
 const emailEditBtn = document.querySelector(".email-edit-btn");
@@ -39,6 +39,10 @@ const passwordCheckValidate = document.querySelector(
 const passwordVisibleBtn = document.querySelectorAll(".password-visible-btn");
 const joinSubmitBtn = document.querySelector(".join-submit-btn");
 
+// 메일쪽
+const realEmailValue = document.querySelector('.real-email')
+
+
 // 이메일 유효성 검사
 emailInput.addEventListener("keyup", (e) => {
   let inputValue = e.target.value;
@@ -46,11 +50,12 @@ emailInput.addEventListener("keyup", (e) => {
   if (!isValidate) {
     emailInput.style.border = "1px solid #f66";
     emailValidateMsg.classList.add("validate");
-    emailSubmitBtn.readOnly = true;
+    emailSubmitBtn.disabled = true;
   } else {
     emailInput.style.border = "";
     emailValidateMsg.classList.remove("validate");
     emailSubmitBtn.disabled = false;
+
   }
 });
 
@@ -91,8 +96,14 @@ function timer() {
 }
 
 // 이메일 인증하기 버튼 클릭 시
+
 emailSubmitBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  if (emailInput) {
+    realEmailValue.value = emailInput.value
+    console.log(realEmailValue.value)
+  }
+
   modalContainer.classList.add("modal-open");
   emailSubmitBtn.style.display = "none";
   emailEditBtn.style.display = "block";
@@ -100,11 +111,42 @@ emailSubmitBtn.addEventListener("click", (e) => {
   certificationNumberForm.style.display = "block";
   retry.style.display = "block";
   timer();
+  console.log("들어옴3")
 });
+
+
+// 모달창 안에 버튼 클릭 시
+modalSubmitBtn.addEventListener("click", async (e)=>{
+  e.preventDefault();
+  if (response.ok)
+  window.history.back();
+  const data = {
+      member_school_email: realEmailValue.value
+  }
+  console.log("들어옴!!!!!!")
+  console.log(data)
+
+  await fetch(`/member/activate/`, {
+  method: 'POST',
+  headers: {
+    'X-CSRFToken': csrf_token,
+    'Content-Type': 'application/json',
+  },
+  //body에서는 JSON 형식으로 된 data 값을 문자열로 변환한다.
+    body: JSON.stringify(data)
+  }).then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error', error);
+      })
+})
 
 // 이메일 수정하기 버튼 클릭 시
 emailEditBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  console.log("들어옴2")
   modalContainer.classList.remove("modal-open");
   emailSubmitBtn.style.display = "block";
   emailEditBtn.style.display = "none";
@@ -127,9 +169,7 @@ certificationInput.addEventListener("keyup", (e) => {
     certificationInput.style.border = "";
     defaultCertificationMsg.add("validate");
     minCertificationMsg.remove("validate");
-    joinSubmitBtn.disabled = false;
   }
-
 });
 
 // 인증번호 다시 보내기 버튼 클릭 시
@@ -170,7 +210,6 @@ departmentInput.addEventListener("keyup", (e) => {
     departmentInput.style.border = "";
     emptyDepartmentMsg.remove("validate");
   }
-
 });
 // 이름 입력 시
 nameInput.addEventListener("keyup", (e) => {
@@ -205,6 +244,7 @@ certificationNumberBtn.addEventListener("click", (e) => {
     passwordInputs.forEach((input) => {
       input.disabled = false;
     });
+
     certificationInput.disabled = true;
     certificationNumberBtn.disabled = true;
     clearInterval(timerInterval);
@@ -223,70 +263,70 @@ certificationNumberBtn.addEventListener("click", (e) => {
   }, 3000);
 });
 
-// // 비밀번호 유효성 검사
-// const passwordInput = passwordInputs[0];
-// passwordInput.addEventListener("click", (e) => {
-//   let inputValue = e.target.value;
-//   let isValidate = validatePassWord(inputValue);
-//   const emptyPWmsg = passwordValidateMsg[0].classList;
-//   const minPWmsg = passwordValidateMsg[1].classList;
-//   const validatePWmsg = passwordValidateMsg[2].classList;
-//   passwordInput.style.border = "1px solid #f66";
-//   if (!inputValue) {
-//     emptyPWmsg.add("validate");
-//     minPWmsg.remove("validate");
-//     validatePWmsg.remove("validate");
-//   } else if (inputValue.length <= 8) {
-//     emptyPWmsg.remove("validate");
-//     minPWmsg.add("validate");
-//     validatePWmsg.remove("validate");
-//   } else if (!isValidate) {
-//     emptyPWmsg.remove("validate");
-//     minPWmsg.remove("validate");
-//     validatePWmsg.add("validate");
-//   } else {
-//     passwordInput.style.border = "";
-//     emptyPWmsg.remove("validate");
-//     minPWmsg.remove("validate");
-//     validatePWmsg.remove("validate");
-//   }
-// });
-// // 비밀번호 유효성 검사 함수
-// function validatePassWord(password) {
-//   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-//   return passwordPattern.test(password);
-// }
-//
-// // 비밀번호 확인 검사
-// const passwordCheckInput = passwordInputs[1];
-// passwordCheckInput.addEventListener("keyup", (e) => {
-//   let inputValue = e.target.value;
-//   let inputCheckValue = passwordInput.value;
-//   passwordCheckInput.style.border = "1px solid #f66";
-//   if (inputValue != inputCheckValue) {
-//     passwordCheckValidate.classList.add("validate");
-//     joinSubmitBtn.disabled = true;
-//   } else if (inputValue === inputCheckValue) {
-//     passwordCheckInput.style.border = "";
-//     passwordCheckValidate.classList.remove("validate");
-//     joinSubmitBtn.disabled = false;
-//   }
-// });
-// // 비밀번호 보기(눈 아이콘) 클릭시
-// passwordVisibleBtn.forEach((btn) => {
-//   btn.addEventListener("click", () => {
-//     const visibleIcon = btn.querySelector(".visible-icon");
-//     const unvisibleIcon = btn.querySelector(".unvisible-icon");
-//     visibleIcon.classList.toggle("on");
-//     unvisibleIcon.classList.toggle("on");
-//
-//     if (!visibleIcon.classList.contains("on")) {
-//       btn.previousElementSibling.type = "text";
-//     } else {
-//       btn.previousElementSibling.type = "password";
-//     }
-//   });
-// });
+// 비밀번호 유효성 검사
+const passwordInput = passwordInputs[0];
+passwordInput.addEventListener("click", (e) => {
+  let inputValue = e.target.value;
+  let isValidate = validatePassWord(inputValue);
+  const emptyPWmsg = passwordValidateMsg[0].classList;
+  const minPWmsg = passwordValidateMsg[1].classList;
+  const validatePWmsg = passwordValidateMsg[2].classList;
+  passwordInput.style.border = "1px solid #f66";
+  if (!inputValue) {
+    emptyPWmsg.add("validate");
+    minPWmsg.remove("validate");
+    validatePWmsg.remove("validate");
+  } else if (inputValue.length <= 8) {
+    emptyPWmsg.remove("validate");
+    minPWmsg.add("validate");
+    validatePWmsg.remove("validate");
+  } else if (!isValidate) {
+    emptyPWmsg.remove("validate");
+    minPWmsg.remove("validate");
+    validatePWmsg.add("validate");
+  } else {
+    passwordInput.style.border = "";
+    emptyPWmsg.remove("validate");
+    minPWmsg.remove("validate");
+    validatePWmsg.remove("validate");
+  }
+});
+// 비밀번호 유효성 검사 함수
+function validatePassWord(password) {
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  return passwordPattern.test(password);
+}
+
+// 비밀번호 확인 검사
+const passwordCheckInput = passwordInputs[1];
+passwordCheckInput.addEventListener("keyup", (e) => {
+  let inputValue = e.target.value;
+  let inputCheckValue = passwordInput.value;
+  passwordCheckInput.style.border = "1px solid #f66";
+  if (inputValue != inputCheckValue) {
+    passwordCheckValidate.classList.add("validate");
+    joinSubmitBtn.disabled = true;
+  } else if (inputValue === inputCheckValue) {
+    passwordCheckInput.style.border = "";
+    passwordCheckValidate.classList.remove("validate");
+    joinSubmitBtn.disabled = false;
+  }
+});
+// 비밀번호 보기(눈 아이콘) 클릭시
+passwordVisibleBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const visibleIcon = btn.querySelector(".visible-icon");
+    const unvisibleIcon = btn.querySelector(".unvisible-icon");
+    visibleIcon.classList.toggle("on");
+    unvisibleIcon.classList.toggle("on");
+
+    if (!visibleIcon.classList.contains("on")) {
+      btn.previousElementSibling.type = "text";
+    } else {
+      btn.previousElementSibling.type = "password";
+    }
+  });
+});
 // 체크박스 선택
 //전체 선택
 NodeList.prototype.filter = Array.prototype.filter;
@@ -416,22 +456,28 @@ arrows.forEach((arrow) => {
 // });
 
 const radioInputs = document.querySelectorAll(".radio-label");
-const radioHighSchool = document.querySelectorAll(".radio-high-school");
-const emailsInput = document.querySelector(".easy-join-email-container")
-// const majorInput = document.querySelector(".easy-major")
-radioInputs.forEach((item) => {
-  console.log(item.classList);
+const emailsInput = document.querySelector(".easy-join-email-container");
+const majorInput = document.querySelector(".easy-major");
 
+radioInputs.forEach((item) => {
+  console.log(radioInputs);
   item.addEventListener("click", (e) => {
+    console.log(item)
     if(item.classList.contains("radio-high-school")) {
       emailsInput.style.display = "none";
-      // majorInput.style.display = "none";
-      joinSubmitBtn.disabled = false;
+      // majorInput.style.display ="none";
+      certificationInput.disabled = false;
+      certificationNumberBtn.disabled = false;
+      passwordInputs.forEach((input) => {
+        input.disabled = false;
+      });
     }
     else {
       emailsInput.style.display = "block";
       // majorInput.style.display = "block";
-      joinSubmitBtn.disabled = false;
+      passwordInputs.forEach((input) => {
+        input.disabled = false;
+      });
     }
     radioInputs.forEach((radio) => {
       radio
@@ -449,10 +495,6 @@ radioInputs.forEach((item) => {
       .closest("label")
       .querySelector(".inner-radio-box")
       .classList.add("inner-radio-choice");
-    // if(e.target === "on") {
-    //     emailsInput.display = "none";
-    //     majorInput.display = "none";
-    // }
   });
 });
 

@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-SITE_ID = 2
+SITE_ID = 3
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_LOGOUT_ON_GET = True
@@ -135,13 +135,13 @@ DATABASES = {
         # DBMS 모듈 경로
         'ENGINE': 'django.db.backends.mysql',
         # DATABASE 이름
-        'NAME': 'onelab',
+        'NAME': 'woo',
         # 계정 이름
-        'USER': 'onelab',
+        'USER': 'woo',
         # 비밀번호
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
-        'HOST': '13.209.64.208',
+        'HOST': 'localhost',
         # DBMS의 포트번호
         'PORT': '3306'
     }
