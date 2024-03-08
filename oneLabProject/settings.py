@@ -68,7 +68,7 @@ INSTALLED_APPS = [
 ]
 
 
-SITE_ID = 3
+SITE_ID = 2
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_LOGOUT_ON_GET = True
@@ -138,13 +138,13 @@ DATABASES = {
         # DBMS 모듈 경로
         'ENGINE': 'django.db.backends.mysql',
         # DATABASE 이름
-        'NAME': 'woo',
+        'NAME': 'onelab',
         # 계정 이름
-        'USER': 'woo',
+        'USER': 'onelab',
         # 비밀번호
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
-        'HOST': 'localhost',
+        'HOST': '13.209.64.208',
         # DBMS의 포트번호
         'PORT': '3306'
     }
