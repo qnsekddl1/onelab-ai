@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+
 SITE_ID = 2
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -79,6 +80,7 @@ SOCIALACCOUNT_AUTO_SIGNUP = True
 
 
 
+
 EMAIL_HOST = 'smtp.gmail.com'       # 메일 호스트 서버
 EMAIL_PORT = '587'         # 서버 포트
 EMAIL_SENDER = 'wmoon0024@gmail.com'
@@ -86,6 +88,7 @@ EMAIL_RECEIVER = 'wmoon0024@gmail.com'
 EMAIL_HOST_PASSWORD = 'pqxh ciic adcg numz'     # 우리가 사용할 Gmail p
 EMAIL_USE_TLS = True           # TLS 보안 설정
 EMAIL_MESSAGE = '<h1>내용</h1>'    # 응답 메일 관련 설정
+
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`

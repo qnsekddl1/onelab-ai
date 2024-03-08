@@ -16,7 +16,6 @@ class Member(Period):
     member_status = models.BooleanField(null=False, default=True)
     member_type = models.TextField(blank=False, default="oneLabProject")
 
-
     class Meta:
         db_table = 'tbl_member'
 
