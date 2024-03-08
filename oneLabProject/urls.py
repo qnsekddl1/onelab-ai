@@ -11,7 +11,9 @@ urlpatterns = [
     path('onelab/', include('onelab.urls')),
     path('community/', include('community.urls')),
     # path('myPage/', include('myPage.urls')),
+    # path('point/', include('point.urls')),
     path('alarm/', include('alarm.urls')),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
