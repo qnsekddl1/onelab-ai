@@ -4,9 +4,9 @@ if(check){
 }
 
 document.querySelector("button.login").addEventListener("click", () => {
-   const member_id = document.querySelector("input[name=member-id]");
+   const member_id = document.querySelector("input[name=member-email]");
    const member_password = document.querySelector("input[name=member-password]")
-   const passhash = CryptoJS.SHA256(member_password.value);
+   // const passhash = CryptoJS.SHA256(member_password.value);
 
    member_id.addEventListener("keyup", (e) => {
        if(member_id.value){
@@ -27,13 +27,13 @@ document.querySelector("button.login").addEventListener("click", () => {
        showHelp(member_id, "error.png");
        return;
    }
-   
+
    if(!member_password.value){
        member_password.parentElement.nextElementSibling.innerText = "비밀번호를 입력하세요.";
        showHelp(member_password, "error.png");
        return;
    }
-   member_password.value = passhash.toString(CryptoJS.enc.Hex);
+   // member_password.value = passhash.toString(CryptoJS.enc.Hex);
 
     document.login.submit();
 });
