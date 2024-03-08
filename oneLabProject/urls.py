@@ -8,6 +8,10 @@ urlpatterns = [
     path('member/', include('member.urls')),
     path('accounts/', include('allauth.urls')),
     path('oauth/', include('oauth.urls')),
+    path('onelab/', include('onelab.urls')),
+    path('community/', include('community.urls')),
+    # path('myPage/', include('myPage.urls')),
+    path('alarm/', include('alarm.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
