@@ -17,8 +17,7 @@ from django.conf.urls.static import static
 
 from django.urls import path
 
-from community.views import CommunityWriteView, CommunityDetailView, CommunityListView, CommunityDeleteView, \
-    CommunityUpdateView
+from community.views import CommunityWriteView, CommunityDetailView, CommunityListView, CommunityDeleteView, CommunityUpdateView
 
 
 app_name = 'community'
@@ -31,5 +30,3 @@ urlpatterns = [
     path('update/', CommunityUpdateView.as_view(), name='update'),
 
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -74,6 +74,13 @@
                                                 {{ community.community_content }}
                                             </div>
                                         </div>
+                                        <div class="community-detail-file-wrapper">
+                                            {% for file in community_file.all %}
+                                                <div class="community-detail-file">
+                                                    <img src="/upload/{{ file.path }}" width="100%" class="file-list">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
 
                                     <!-- 댓글 목록 전 유의사항 -->
@@ -81,52 +88,46 @@
                                         <div class="comment-container">
                                             
                                             <!-- 댓글 목록 -->
-                                            <div class="comment-user-wrapper-container-write">
-                                                <div class="comment-user-wrapper-avatar">
-                                                    <!-- a태그 클릭시 마이페이지 이동 -->
-                                                    <!-- 로그인 안되어있을 경우 로그인 페이지로 이동 -->
-                                                    <a href="">
-                                                        <div class="avatar" style="width: 36px; height: 36px;">
-                                                            <span></span>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- 로그인 되어있을 경우 댓글 창 시작 -->
-                                                <div class="comment-user-wrapper-main">
-                                                    <div class="comment-write-form">
-                                                        <p class="comment-write-form-nickname">익명의 서포터 350</p>
-                                                        <form action="" class="comment-form-container">
+{#                                            <form action="{% url 'replies:write' %}" class="comment-form-container">#}
+                                                <div class="comment-user-wrapper-container-write">
+                                                    <div class="comment-user-wrapper-avatar">
+                                                        <!-- a태그 클릭시 마이페이지 이동 -->
+                                                        <!-- 로그인 안되어있을 경우 로그인 페이지로 이동 -->
+                                                        <a href="">
+                                                            <div class="avatar" style="width: 36px; height: 36px;">
+                                                                <span></span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <!-- 로그인 되어있을 경우 댓글 창 시작 -->
+                                                    <div class="comment-user-wrapper-main">
+                                                        <div class="comment-write-form">
+                                                            <p class="comment-write-form-nickname">{{ request.session.member.member_name }}</p>
                                                             <div class="comment-form-textarea">
                                                                 <textarea class="comment-textarea" rows="2" maxlength="2000" placeholder="댓글을 남겨주세요."></textarea>
                                                                 <textarea aria-hidden="true" readonly="" tabindex="-1" class="comment-textarea" style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0px); pointer-events: none;"></textarea>
                                                             </div>
                                                             <div class="comment-form-bottom">
                                                                 <span class="comment-form-count">0/2,000</span>
-                                                                <!-- <button type="submit" class="comment-ok-btn">
-                                                                    <span>
-                                                                        <span class="comment-ok-text">등록</span>
-                                                                    </span>
-                                                                </button> -->
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div style="display: flex;">
-                                                    <div class="comment-notice">
-                                                        <div class="comment-warning-msg">
-                                                            <div class="comment-info">
-                                                                <div class="comment-info-text">
-                                                                   해당 게시글의 내용과 무관한 댓글 혹은 악의적 댓글 작성자는 법적 책임을 부담하게 될 수 있으니, 유의하여 주시기 바랍니다.
-                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <button type="submit" class="comment-ok-btn">
-                                                        <span>
+                                                        <div style="display: flex;">
+                                                            <div class="comment-notice">
+                                                                <div class="comment-warning-msg">
+                                                                    <div class="comment-info">
+                                                                        <div class="comment-info-text">
+                                                                           해당 게시글의 내용과 무관한 댓글 혹은 악의적 댓글 작성자는 법적 책임을 부담하게 될 수 있으니, 유의하여 주시기 바랍니다.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <button class="comment-ok-btn" id="reply-write">
                                                             <span class="comment-ok-text">등록</span>
-                                                        </span>
-                                                    </button>
+                                                        </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+{#                                            </form>#}
                                                 <!-- 로그인o 끝 -->
 
                                                 <!-- 로그인 안되어있을 경우 댓글 창 시작-->
@@ -137,105 +138,6 @@
                                                     </div>
                                                 </div> -->
                                                 <!-- 로그인x 끝 -->
-                                            </div>
-                                            <div class="comment-item-container">
-                                                <div class="comment-user-wrapper-container">
-                                                    <div class="comment-user-wrapper-avatar">
-                                                        <!-- a태그 클릭시 해당 댓글 작성 회원의 마이페이지 이동 -->
-                                                        <a href="">
-                                                            <div class="avatar" style="width: 36px; height: 36px;">
-                                                                <span class="avatar-has-image"></span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="comment-user-wrapper-main">
-                                                        <div class="comment-user-info-container">
-                                                            <span class="comment-user-info-name">
-                                                                <a href="">
-                                                                    <strong>최수현</strong>
-                                                                </a>
-                                                            </span>
-                                                            <span class="comment-user-info-date">4일 전</span>
-                                                        </div>
-                                                        <div>
-                                                            <div class="comment-text-content-container">
-                                                                <div class="comment-text-content-box"> 
-                                                                    온가족이 우유베개 사용하고 있어요<br> 
-                                                                    이번 펀딩으로 저희 부부꺼는 바꾸려구요<br> 
-                                                                    펀딩 기대중ㅋㅋㅋㅋㅋ
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="comment-content-bottom">
-                                                            <button type="button" class="comment-of-comment-btn">
-                                                                <span>
-                                                                    <span class="comment-of-comment-text">답글 1</span>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="comment-content-utils"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-reply-list-container">
-                                                    <ul>
-                                                        <div class="comment-user-wrapper-container">
-                                                            <div class="">
-                                                                <div class="comment-user-wrapper-avatar">
-                                                                    <a href="">
-                                                                        <div class="avatar" style="width: 36px; height: 36px;">
-                                                                            <span class="avatar-has-image" style="background-image: url('https://cdn.wadiz.kr/wwwwadiz/green001/2019/0607/20190607172550707_37194.jpg'); box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;">
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="comment-user-wrapper-main">
-                                                                    <div class="comment-user-info-container">
-                                                                        <span class="comment-user-info-name">
-                                                                            <a href="">
-                                                                                <strong>(주)달콤한고래들</strong>
-                                                                            </a>
-                                                                        </span>
-                                                                        <span class="badge-container">
-                                                                            <span class="badge-label">메이커</span>
-                                                                        </span>
-                                                                        <span class="comment-user-info-date">4일 전</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="comment-text-content-container">
-                                                                            <div class="comment-text-content-box">
-                                                                                안녕하세요. 최수현 서포터님<br> 
-                                                                                온가족이 우유베개 사용하고 계시다니 펀딩 오픈을 앞두고 정말 힘이 납니다. <br> 
-                                                                                앞으로도 가족분들의 편안한 수면 환경을 우유베개가 책임질 수 있도록<br> 
-                                                                                많은 기대와 응원 부탁 드립니다! 🥰
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="comment-reply-content-utils"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="comment-user-wrapper-container">
-                                                            <div class="comment-user-wrapper-avatar">
-                                                                <!-- a태그 클릭시 마이페이지 이동 -->
-                                                                <a href="">
-                                                                    <div class="avatar" style="width: 36px; height: 36px;">
-                                                                        <span></span>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                <!-- 로그인 안되어있을 경우 댓글 창 시작-->
-                                                            <div class="comment-user-wrapper-main">
-                                                                <div class="comment-write-form">
-                                                                    <p class="comment-write-form-nickname"></p>
-                                                                    <div class="comment-disable-write-form">로그인이 필요합니다.</div>
-                                                                </div>
-                                                            </div>
-                                                <!-- 로그인x 끝 -->
-                                                        </div>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
                                             <div class="comment-item-container">
                                                 <div class="comment-user-wrapper-container">
                                                     <div class="comment-user-wrapper-avatar">
@@ -264,17 +166,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="comment-content-bottom">
-                                                            <button type="button" class="comment-of-comment-btn">
-                                                                <span>
-                                                                    <span class="comment-of-comment-text">답글 0</span>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="comment-content-utils"></div>
                                                     </div>
                                                 </div>
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -331,8 +224,14 @@
 {% endblock %}
 
 
-
-{% block js %}
+ {% block js %}
+     <script>
+         const csrf_token ='{{ csrf_token}}'
+         const community_id = '{{ community.id }}'
+         const memberId = '{{ request.session.member.id }}'
+     </script>
+     <script src="{% static 'reply/js/reply-module.js' %}"></script>
+    <script src="{% static 'reply/js/reply.js' %}"></script>
     <script src="{% static '/community/js/community-detail.js' %}"></script>
 {% endblock %}
 

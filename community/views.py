@@ -1,57 +1,17 @@
-# from django.shortcuts import render, redirect
-# from django.views import View
-#
-# from community.models import Community, CommunityFile
-# from member.models import Member
-#
-#
-# class CommunityWriteView(View):
-#     def get(self, request):
-#         return render(request, 'community/community-write.html')
-#
-#     def post(self, request):
-#         data = request.POST
-#
-#         files =request.FILES.getlist('upload-file')
-#
-#         member = Member(**request.session['member'])
-#
-#         data = {
-#             'community_title': data['community_title'],
-#             'community_content': data['community_content'],
-#             'community_status': data['community_status'],
-#             'member': member
-#         }
-#         community = Community.objects.create(**data)
-#
-#         for file in files:
-#             CommunityFile.objects.create(community=community, path=file)
-#
-#         return redirect(community.get_absolute_url())
-#
-# class CommunityListView(View):
-#     def get(self, request):
-#         return render(request, 'community/community-list.html')
-#
-# class CommunityDetailView(View):
-#     def get(self, request):
-#         return render(request, 'community/community-detail.html')
-
-
-
 import math
-
 from django.db import transaction
+
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views import View
 
-from community.models import Community
+from community.models import Community, CommunityFile
 from member.models import Member
 
 
 class CommunityWriteView(View):
     def get(self, request):
+        Member(**request.session['member'])
         return render(request, 'community/community-write.html')
 
     @transaction.atomic
@@ -59,64 +19,52 @@ class CommunityWriteView(View):
         data = request.POST
         files = request.FILES
 
+        # member = Member.objects.get(id=request.session['member']['id']) #이거 주석 해제 하면 밑에 member 주석 해야함
         member = Member(**request.session['member'])
 
         data = {
             'member': member,
+            # 'member': Member.objects.get(id=request.session['member']['id']),
             'community_title': data['community-title'],
             'community_content': data['community-content']
         }
 
         community = Community.objects.create(**data)
 
+        for key in files:
+            members = CommunityFile.objects.create(community=community, path=files[key])
         return redirect(community.get_absolute_url())
+
+
 
 class CommunityDetailView(View):
     def get(self, request):
         community = Community.objects.get(id=request.GET['id'])
-        community.updated_date = timezone.now()
+
+        community.update_date = timezone.now()
         community.save(update_fields=['updated_date'])
 
         context = {
             'community': community,
-            # 'community_files': list(community.community_files_set.all())
+            'community_file': community.communityfile_set
         }
-        return render(request, 'community/community-detail.html', {'community': community})
+        return render(request, 'community/community-detail.html', context)
 
 class CommunityListView(View):
+
     def get(self, request):
-        page = request.GET.get('page', 1)
-
-        row_count = 5
-        offset = (page - 1) * row_count
-        limit = page * row_count
-        total = Community.objects.all().count()
-        page_count = 5
-        end_page = math.ceil(page / page_count) * page_count
-        start_page = end_page - page_count + 1
-        real_end = math.ceil(total / row_count)
-        end_page = real_end if end_page > real_end else end_page
-
-        if end_page == 0:
-            end_page = 1
-
         context = {
-            'communities': list(Community.enabled_objects.all()[offset:limit]),
-            'start_page': start_page,
-            'end_page': end_page,
-            'page': page,
-            'real_end': real_end,
-            'page_count': page_count,
+            'communities': list(Community.enabled_objects.all()),
         }
 
-        return  render(request, 'community/community-list.html', context)
+        return render(request, 'community/community-list.html', context)
 
 class CommunityDeleteView(View):
     def get(self, request):
         community = Community.objects.get(id=request.GET['id'])
-        community.community_post_status = False
+        community.status = False
         community.updated_date = timezone.now()
-        community.save(update_fields=['community_post_status', 'updated_date'])
+        community.save(update_fields=['status', 'updated_date'])
 
         return redirect('community:list')
 
