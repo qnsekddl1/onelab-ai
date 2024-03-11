@@ -13,7 +13,7 @@ urlpatterns = [
     # path('myPage/', include('myPage.urls')),
     # path('point/', include('point.urls')),
     path('alarm/', include('alarm.urls')),
-
+    path('replies/', include('reply.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
