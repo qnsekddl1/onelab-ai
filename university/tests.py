@@ -1,5 +1,8 @@
+from django.db.models import Sum
 from django.test import TestCase
 
+from member.models import Member
+from point.models import Point
 from university.models import University
 
 
@@ -17,5 +20,4 @@ class UniversityTests(TestCase):
     #     university_member_major='인공위성시스템학과',
     #     university_member_birth='1999-05-07',
     # )
-
     pass

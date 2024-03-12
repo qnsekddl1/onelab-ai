@@ -1,15 +1,16 @@
 from django.db import models
 
 from member.models import Member
+from point.managers import UsePointManager
 from oneLabProject.models import Period
 from point.managers import UsePointManager
-
 
 class Point(Period):
     POINT_STATUS = [
         (1, '사용 중'),
         (2, '결제 완료'),
-        (3, '결제 취소'),
+        (3, '결제 취소')
+
     ]
 
     point_status = models.SmallIntegerField(choices=POINT_STATUS)

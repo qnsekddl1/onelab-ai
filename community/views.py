@@ -7,7 +7,7 @@ from django.views import View
 
 from community.models import Community, CommunityFile
 from member.models import Member
-
+from file.models import File
 
 class CommunityWriteView(View):
     def get(self, request):
