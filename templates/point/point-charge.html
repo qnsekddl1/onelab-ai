@@ -294,12 +294,14 @@
                             </div>
                         </div>
                     </div>
-                    {% if error %}
-                        <script>
-                        alert("{{ error }}")
-                        </script>
-                    {% endif %}
-
+                     <!-----버튼 클릭 시 나오는 모달 창--------------->
+                    <div class="modal">
+                        <div class="warn-modal">
+                            <div id="content-wrap">
+                                
+                            </div>
+                        </div>
+                    </div>
                     <!-- 푸터 부분 -->
                     <footer></footer>
                 </div>
@@ -315,10 +317,27 @@
         src="https://js.bootpay.co.kr/bootpay-4.3.4.min.js"
         type="application/javascript"
     ></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="{% static 'payment/js/payment.js' %}"></script>
     <script src="{% static 'payment/js/payContent.js' %}"></script>
     <script src="{%  static 'payment/js/payAPI.js' %}"></script>
+    <script src="{% static 'payment/js/modal.js' %}"></script>
+    
+    <script>
+        purchaseBtn = document.querySelector('#order-button')
+        purchaseBtn.addEventListener('click', (e) => {
+            let price = document.querySelector('#totalPrice')
+            if(price.value < 100){
+                let modalMessage = "<span>100원 부터 충전 가능합니다!</span>"
+                showWarnModal(modalMessage)
+            }
+            else {
+                let modalMessage = "<span>충전중입니다.</span>"
+                showWarnModal(modalMessage)
+            }
+            
+        });
+    </script>
 {#    <script src="{% static 'payment/js/pay.js' %}"></script>#}
    
 {#   <script>#}

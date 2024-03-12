@@ -204,7 +204,7 @@
                                                     <dd
                                                         class="my-page-accumulate-value"
                                                     >
-                                                        {{ current_point }}
+                                                        {{ current_point }}P
                                                     </dd>
                                                 </dl>
                                             </a>
@@ -2554,9 +2554,11 @@
                                                 <em class="notice">제목</em>
                                                 <em class="notice">{{ community.community_status }}</em>
                                                 <div class="info">
-                                                    {% for community_file in community.community_files.all %}
-                                                        <div class="thumb" style="background-image: url('/upload/{{ community_file.path }}');"></div>
-                                                    {% endfor %}
+                                                
+{#                                                    {% for community_file in community.community_file_set.all %}#}
+{#                                                        <div class="thumb" style="background-image: url('/upload/{{ community_file.path }}');"></div>#}
+                                                        <div class="thumb" style="background-image: url('{% static 'community/images/realfavicon.png' %}');"></div>
+{#                                                    {% endfor %}#}
                                                     <h3 class="title">{{ community.community_title }}</h3>
                                                     <span class="author">{{ members.member_name }}</span>
                                                     <span class="created-at">{{ community.updated_date }}</span>

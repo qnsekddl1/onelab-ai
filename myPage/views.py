@@ -132,7 +132,7 @@ class MyPageCommunityView(View):
 
 class DeleteProfileView(View):
     def post(self, request):
-        new_profile_path = request.POST.get('new_profile_path')
+        new_profile_path = 'member/2024/03/10/default.jpg'
         member = request.session['member']['id']
 
         print('삭제기능 들어옴')
@@ -141,7 +141,8 @@ class DeleteProfileView(View):
         try:
             profile = MemberFile.objects.get(member_id=member)
             print(profile)
-            profile.path = new_profile_path
+
+            profile = MemberFile.objects.filter(member_id=member).update(path=new_profile_path)
             profile.save()
             print('프로필 업데이트 성공')
         except MemberFile.DoesNotExist:
