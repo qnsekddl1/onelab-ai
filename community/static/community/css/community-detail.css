@@ -480,7 +480,7 @@ div.comment-reply-content-wrapper {
 
 div.comment-user-wrapper-container {
     position: relative;
-    padding: 0 0 0 56px;
+    padding: 0 0 30px 56px;
 }
 
 button.go-to-list-btn:hover {
@@ -831,3 +831,11 @@ a.update-btn::after {
 /*    margin-left: 6px;*/
 /*    content: "|";*/
 /*}*/
+
+.reply-more-btn {
+    text-align: center;
+}
+
+#replies-wrap {
+    padding: 40px;
+}

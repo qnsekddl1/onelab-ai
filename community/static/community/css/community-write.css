@@ -87,6 +87,7 @@ div.layout-main {
 
 div.layout-main {
     padding-top: 56px;
+    /*padding-top: 56px;*/
 }
 
 
@@ -1085,7 +1086,7 @@ div.upload-dropzone span {
 div.upload-dropzone a {
     text-decoration: none;
     font-size: 13px;
-    color: rgb(89 189 181);
+    color: #008243;
     background-color: transparent;
     touch-action: manipulation;
 }
