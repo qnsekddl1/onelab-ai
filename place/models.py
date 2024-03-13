@@ -6,6 +6,7 @@ from django.utils.timezone import now
 from file.models import File
 from like.models import Like
 from oneLabProject.models import Period
+from place.managers import PlaceManager, PlaceReviewManager
 from point.models import Point
 from review.models import Review
 from school.models import School
@@ -24,9 +25,10 @@ class Place(Period):
     place_date = models.DateField(null=False, blank=False, default=now)
     place_ask_email = models.CharField(null=False, max_length=300)
     place_url = models.CharField(null=False, max_length=300, default='http://localhost:')
-    # True=게시 중, False=게시 종료
-    place_post_status = models.BooleanField(null=False, default=True)
+    place_post_status = models.BooleanField(default=True, null=False)
 
+    objects = models.Manager()
+    enabled_objects = PlaceManager()
 
     class Meta:
         db_table = 'tbl_place'
@@ -45,12 +47,14 @@ class PlaceFile(Period):
 
 class PlaceLike(Period):
     like = models.ForeignKey(Like, primary_key=True, on_delete=models.PROTECT, null=False)
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False, default=1)
 
     class Meta:
         db_table = 'tbl_place_like'
 
 class PlacePoints(Period):
     points = models.ForeignKey(Point, primary_key=True, on_delete=models.PROTECT, null=False)
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_place_points'
@@ -59,5 +63,7 @@ class PlaceReview(Period):
     review = models.ForeignKey(Review, primary_key=True, on_delete=models.PROTECT, null=False)
     place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
 
+    objects = models.Manager()
+    enabled_objects = PlaceReviewManager()
     class Meta:
         db_table = 'tbl_place_review'

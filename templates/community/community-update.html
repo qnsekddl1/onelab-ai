@@ -304,7 +304,7 @@
                                         <em class="helper-msg">30자 남음</em>
                                     </div>
                                 </section>
-
+                            
                                 <!-- 게시글 유형 선택 섹션 -->
                                 <section class="section-container project-type">
                                     <div style="max-width: 630px;">
@@ -315,8 +315,8 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="radios-box">
-                                                <label for="" class="radio">
-                                                    <input type="radio" id="" value="">
+                                                <label for="categories_request" class="radio">
+                                                    <input type="radio" name="categories" id="categories_request" value="1" {% if community.post_status == '1' %}checked{% endif %}>
                                                     <span class="radio-icon"></span>
                                                     <span class="radio-label">
                                                         <span class="radios-label-content">
@@ -324,8 +324,8 @@
                                                         </span>
                                                     </span>
                                                 </label>
-                                                <label for="" class="radio">
-                                                    <input type="radio" name="" id="">
+                                                <label for="categories_question" class="radio">
+                                                    <input type="radio" name="categories" id="categories_question" value="2" {% if community.post_status == '2' %}checked{% endif %}>
                                                     <span class="radio-icon"></span>
                                                     <span class="radio-label">
                                                         <span class="radios-label-content">
@@ -333,8 +333,8 @@
                                                         </span>
                                                     </span>
                                                 </label>
-                                                <label for="" class="radio etc">
-                                                    <input type="radio" name="" id="">
+                                                <label for="categories_other" class="radio etc">
+                                                    <input type="radio" name="categories" id="categories_other" value="3" {% if community.post_status == '3' %}checked{% endif %}>
                                                     <span class="radio-icon"></span>
                                                     <span class="radio-label">
                                                         <span class="radios-label-content">
@@ -356,8 +356,8 @@
                                         </div>
                                     </div>
                                 </section>
-
-
+                            
+                            
                                 <section class="section-container" style="max-width: 630px;">
                                     <div class="section-header profile">
                                         <h3 class="section-title">게시글 내용
@@ -380,7 +380,7 @@
                                         </div>
                                     </div>
                                 </section>
-
+                            
                                 <section class="section-container" style="max-width: 630px;">
                                     <div class="section-header profile">
                                         <h3 class="section-title-not-possible">사진 등록
@@ -396,7 +396,7 @@
                                                 <span class="optional">(선택 사항)</span>
                                             </label>
                                             <div class="upload-dropzone">
-                                                <input type="file" multiple="true" name="" id="file-input">
+                                                <input type="file" multiple="true" name="file" id="file-input">
                                                 <span>
                                                     <a href="">파일 추가</a>
                                                 </span>
@@ -414,10 +414,10 @@
                                     </div>
                                 </section>
                                 <button class="save-btn">
-                                <span>
-                                    <span class="save-btn-text">저장하기</span>
-                                </span>
-                            </button>
+                                    <span>
+                                        <span class="save-btn-text">저장하기</span>
+                                    </span>
+                                </button>
                             </form>
                         </div>
                     </section>
