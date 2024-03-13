@@ -3,6 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from share.views import ShareDownloadView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('member/', include('member.urls')),
@@ -14,6 +16,11 @@ urlpatterns = [
     # path('point/', include('point.urls')),
     path('alarm/', include('alarm.urls')),
     path('replies/', include('reply.urls')),
+    path('place/', include('place.urls')),
+    path('school/', include('school.urls')),
+    path('review/', include('review.urls')),
+    path('share/', include('share.urls')),
+    path('upload/<path:file_path>', ShareDownloadView.as_view(), name='download'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
