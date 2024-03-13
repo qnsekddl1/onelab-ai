@@ -1,23 +1,7 @@
-# from django.urls import path
-#
-# from community.views import CommunityWriteView, CommunityListView, CommunityDetailView
-#
-# app_name = 'community'
-#
-# urlpatterns = [
-#     path('write/', CommunityWriteView.as_view(), name='community-write'),
-#     path('list/', CommunityListView.as_view(), name='community-list'),
-#     path('detail/', CommunityDetailView.as_view(), name='community-detail')
-# ]
-
-
-
-from django.conf import settings
-from django.conf.urls.static import static
-
 from django.urls import path
 
-from community.views import CommunityWriteView, CommunityDetailView, CommunityListView, CommunityDeleteView, CommunityUpdateView
+from community.views import CommunityWriteView, CommunityDetailView, CommunityListView, CommunityDeleteView, \
+    CommunityUpdateView
 
 
 app_name = 'community'

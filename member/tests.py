@@ -4,12 +4,12 @@ from member.models import Member
 
 
 class MemberTest(TestCase):
-    member = Member.objects.create(
-        member_email='mwr123@snu.ac.kr',
-        member_password='1234',
-        member_phone='010-1234-1234',
-        member_name='문우람',
-    )
+    # member = Member.objects.create(
+    #     member_email='mwr123@snu.ac.kr',
+    #     member_password='1234',
+    #     member_phone='010-1234-1234',
+    #     member_name='문우람',
+    # )
 
     # member = Member.objects.create(
     #     member_email='jsh1234@yonsei.ac.kr',
