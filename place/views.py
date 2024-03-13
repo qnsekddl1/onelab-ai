@@ -33,7 +33,7 @@ class PlaceDetailView(View):
         post = Place.objects.get(id=id)
 
         school_member = School.objects.get(id=post.school_id)
-        post_list = Place.objects.filter(school_id=school_member.id).order_by('-id')
+        post_list = Place.enabled_objects.filter(school_id=school_member.id).order_by('-id')
         page = request.GET.get('page', 1)
         paginator = Paginator(post_list, 4)
         posts = paginator.page(page)
