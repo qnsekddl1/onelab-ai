@@ -5,45 +5,42 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'myPage/images/favicon-16x16.png' %}">
     <link rel="stylesheet" href="{% static 'myPage/css/school-exhibit-list.css'%}">
     <link rel="stylesheet" href="{% static 'myPage/css/my-page-body.css' %}">
-       <style>
+    <style>
         .profile {
             width: 100%;
             height: 100%;
             border-radius: 80%;
             object-fit: cover;
         }
-         .cardlist-item-container{
-        margin-bottom: 10px;
-    }
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .step-links a {
-        padding: 10px;
-        margin: 0 5px;
-        border: 1px solid #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        color: #333;
-        background-color: #ffffff;
-        cursor: pointer;
-    }
-
-    .step-links .current {
-        padding: 10px;
-        margin: 0 5px;
-        border: 1px solid #fff;
-        border-radius: 5px;
-        background-color: #008244;
-        color: #fff;
-    }
-
-    .step-links a:hover {
-        background-color:  #E8F5E9;
-    }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    
+        .step-links a {
+            padding: 10px;
+            margin: 0 5px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+    
+        .step-links .current {
+            padding: 10px;
+            margin: 0 5px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: #008244;
+            color: #fff;
+        }
+    
+        .step-links a:hover {
+            background-color:  #E8F5E9;
+        }
     </style>
 {% endblock %}
     {% block title %}마이페이지 메인화면{% endblock %}
@@ -792,999 +789,78 @@
                                 </div>
                             </div>
 
-                            <!-- 자료 공유 클릭했을 때 나타나는 페이지 -->
-                            <div class="main-container">
-                                <div
-                                    class="table-layout-container"
-                                    style="
-                                        grid-template-columns: repeat(
-                                            4,
-                                            calc(25% - 18px)
-                                        );
-                                        gap: 24px;
-                                    "
-                                >
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
+                       <!-- 자료 공유 클릭했을 때 나타나는 페이지 -->
+<div class="main-container">
+    <div class="table-layout-container" style="grid-template-columns: repeat(4, calc(25% - 18px)); gap: 24px;">
+        {% for share in shares %}
+            <div class="HomeVerticalCard_container">
+                <a href="{% url 'share:detail' id=share.id %}">
+                    <div class="HomeVerticalCard_content">
+                        <div class="HomeVerticalCard_thumbnailBox" style="padding-top: 56.25%;">
+                            <div class="HomeVerticalCard_thumbnailWrap">
+                                <div class="thumbnail-img-container">
+                                    {% with university=share.university.university_member_school %}
+                                        {% if university == '연세대학교' %}
+                                            <div class="thumbnail-image-container">
+                                                <img class="thumbnail-image-img" src="{% static 'share/images/yns-logo.png' %}" alt="">
                                             </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
+                                        {% elif university == '카이스트' %}
+                                            <div class="thumbnail-image-container">
+                                                <img class="thumbnail-image-img" src="{% static 'share/images/kaist-logo.svg' %}" alt="">
                                             </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
+                                        {% elif university == '서울대학교' %}
+                                            <div class="thumbnail-image-container">
+                                                <img class="thumbnail-image-img" src="{% static 'share/images/snu-logo.svg' %}" alt="">
                                             </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
+                                        {% elif university == '고려대학교' %}
+                                            <div class="thumbnail-image-container">
+                                                <img class="thumbnail-image-img" src="{% static 'share/images/korea-logo.svg' %}" alt="">
                                             </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
+                                        {% else %}
+                                            <div class="thumbnail-image-container">
+                                                <img class="thumbnail-image-img" src="{% static 'public/images/realfavicon.png' %}" alt="">
                                             </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div class="home-vertical-card-container">
-                                        <a
-                                            href=""
-                                            class="home-vertical-card-content"
-                                        >
-                                            <div
-                                                class="home-vertical-card-thumbnail-box"
-                                                style="padding-top: 56.25%"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-thumbnail-wrap"
-                                                >
-                                                    <div
-                                                        class="thumbnail-img-container"
-                                                    >
-                                                        <img
-                                                            class="thumbnail-img"
-                                                            src="https://cdn2.wadiz.kr/2024/01/09/90fa83b9-d3e1-44f7-bbb3-1895a7d082fc.png/wadiz/resize/800/format/jpg/quality/85/"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="home-vertical-card-info-box"
-                                            >
-                                                <div
-                                                    class="home-vertical-card-info"
-                                                >
-                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                                    <div
-                                                        class="store-badge-group-container"
-                                                    >
-                                                        <div
-                                                            class="store-badges"
-                                                        >
-                                                            <span
-                                                                class="label-badge pdf"
-                                                                >pdf</span
-                                                            >
-                                                            <span
-                                                                class="label-badge docx"
-                                                                >docx</span
-                                                            >
-                                                            <span
-                                                                class="label-badge xls"
-                                                                >xls</span
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <p
-                                                        class="info-string-wrapper"
-                                                    >
-                                                        1,000 포인트
-                                                    </p>
-                                                    <strong class="title"
-                                                        >자취생 필수품 남은
-                                                        음식도 갓만든 촉촉한
-                                                        요리로!
-                                                        아쿠아웨이브</strong
-                                                    >
-                                                    <p
-                                                        class="home-vertical-card-maker-name-wrapper"
-                                                        style="font-size: 15px"
-                                                    >
-                                                        롱테일컴퍼니
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <button
-                                            type="button"
-                                            class="wish-btn like-btn"
-                                        >
-                                            <svg
-                                                viewBox="0 0 32 32"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="wish-icon"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    class="dislike-icon"
-                                                    d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                ></path>
-                                            </svg>
-                                        </button>
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="HomeVerticalCard_infoBox HomeVerticalCard_isStore">
+                            <div class="HomeVerticalCard_info">
+                                <div class="store-badge-group-container">
+                                    <div class="store-badges">
+                                        <!-- 자료의 확장자가 들어가는 뱃지 -->
+                                        {% with first_file=shares.sharefile_set.first %}
+                                            {% if first_file %}
+                                                {% if first_file.file_extension == 'pdf' %}
+                                                    <span class="label-badge pdf">PDF</span>
+                                                {% elif first_file.file_extension == 'hwp' %}
+                                                    <span class="label-badge hwp">HWP</span>
+                                                {% elif first_file.file_extension == 'xlsx' %}
+                                                    <span class="label-badge xls">XLS</span>
+                                                {% elif first_file.file_extension == 'docx' %}
+                                                    <span class="label-badge docx">DOCX</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endwith %}
                                     </div>
                                 </div>
-                                <div class="main-intersection"></div>
+                                <p class="info-string-wrapper">{{ share.share_points }}포인트</p>
+                                <strong class="title">{{ share.share_title }}</strong>
+                                <p class="home-vertical-card-maker-name-wrapper" style="font-size: 15px">{{ share.share_author }}</p>
                             </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+     {% if shares.has_next %}
+    <button class="load-more-btn">더보기</button>
+    {% endif %}
+    </div>
+        <div class="main-intersection"></div>
+    </div>
+
 
                             <!-- 장소 공유 클릭했을 때 나타나는 페이지  -->
                             <div class="main-container">
@@ -1804,624 +880,54 @@
                                                 gap: 24px;
                                             "
                                         >
-                                            <div
-                                                class="HomeVerticalCard_container"
-                                            >
-                                                <a
-                                                    class="HomeVerticalCard_content"
-                                                    href="https://www.wadiz.kr/web/store/detail/599"
-                                                >
-                                                    <div
-                                                        class="HomeVerticalCard_thumbnailBox"
-                                                        style="
-                                                            padding-top: 56.25%;
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_thumbnailWrap"
-                                                        >
-                                                            <div
-                                                                class="ThumbnailImage_container HomeVerticalCard_thumbnail"
-                                                            >
-                                                                <img
-                                                                    class="ThumbnailImage_img"
-                                                                    src="https://cdn2.wadiz.kr/2021/11/16/9316e0ac-0be7-467e-8bf4-816f5a81803c.jpg/wadiz/resize/300/format/jpg/quality/85/"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 이미지 아래 글씨쪽 -->
-                                                    <div
-                                                        class="HomeVerticalCard_infoBox HomeVerticalCard_isStore"
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_info"
-                                                        >
-                                                            <div
-                                                                class="PriceInfoWrapper_container"
-                                                            >
-                                                                <span
-                                                                    >14,600원</span
-                                                                >
-                                                            </div>
-                                                            <strong
-                                                                class="Title_title"
-                                                                >[누적 11,600%]
-                                                                진짜 그릭요거트,
-                                                                그릭오</strong
-                                                            >
-                                                            <p
-                                                                class="HomeVerticalCard_makerNameWrapper"
-                                                            >
-                                                                앤드식스주식회사
-                                                            </p>
-                                                        </div>
-                                                        <div
-                                                            class="HomeVerticalCard_badgeGroup"
-                                                        >
-                                                            <div
-                                                                class="StoreRatingWrapper_ratingWrapper"
-                                                            >
-                                                                <div
-                                                                    class="RatingScore_container"
-                                                                >
-                                                                    <div
-                                                                        class="RatingScore_icon"
-                                                                    ></div>
-                                                                    <span
-                                                                        class="RatingScore_score"
-                                                                        >4.5</span
-                                                                    >
+                                           {% for place in places %}
+                                                <div class="HomeVerticalCard_container">
+                                                    <a href="/place/detail/{{ place.id }}"> <!-- 수정된 부분 -->
+                                                        <div class="HomeVerticalCard_content">
+                                                            <div class="HomeVerticalCard_thumbnailBox" style="padding-top: 56.25%;">
+                                                                <div class="HomeVerticalCard_thumbnailWrap">
+                                                                
+                                                                    <div class="ThumbnailImage_container HomeVerticalCard_thumbnail">
+                                                                    {% for placefile in place.placefile_set.all %}
+                                                                            <img src="/upload/{{ placefile.path }}">
+                                                                             <!-- 수정된 부분 -->
+                                                                    {% endfor %}
+                                                                        </div>
                                                                 </div>
-                                                                <em
-                                                                    class="StoreRatingWrapper_count"
-                                                                    >(147)</em
-                                                                >
                                                             </div>
-                                                            <div
-                                                                class="StoreBadgeGroup_container"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="CardSpinner_container"
-                                                    >
-                                                        <div
-                                                            class="CardSpinner_loader"
-                                                            style="
-                                                                width: 32px;
-                                                                height: 32px;
-                                                            "
-                                                        >
-                                                            <svg
-                                                                viewBox="25 25 50 50"
-                                                                aria-label="Loading"
-                                                            >
-                                                                <g
-                                                                    class="Loader_circular"
-                                                                >
-                                                                    <circle
-                                                                        class="Loader_path"
-                                                                    ></circle>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <!-- 찜하기 버튼 쪽 -->
-                                                <button
-                                                    type="button"
-                                                    class="WishButton_button active"
-                                                    id="like"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon_icon"
-                                                    >
-                                                        <path
-                                                            d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-
-                                            <div
-                                                class="HomeVerticalCard_container"
-                                            >
-                                                <a
-                                                    class="HomeVerticalCard_content"
-                                                    href="https://www.wadiz.kr/web/store/detail/599"
-                                                >
-                                                    <div
-                                                        class="HomeVerticalCard_thumbnailBox"
-                                                        style="
-                                                            padding-top: 56.25%;
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_thumbnailWrap"
-                                                        >
-                                                            <div
-                                                                class="ThumbnailImage_container HomeVerticalCard_thumbnail"
-                                                            >
-                                                                <img
-                                                                    class="ThumbnailImage_img"
-                                                                    src="https://cdn2.wadiz.kr/2021/11/16/9316e0ac-0be7-467e-8bf4-816f5a81803c.jpg/wadiz/resize/300/format/jpg/quality/85/"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 이미지 아래 글씨쪽 -->
-                                                    <div
-                                                        class="HomeVerticalCard_infoBox HomeVerticalCard_isStore"
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_info"
-                                                        >
-                                                            <div
-                                                                class="PriceInfoWrapper_container"
-                                                            >
-                                                                <span
-                                                                    >14,600원</span
-                                                                >
-                                                            </div>
-                                                            <strong
-                                                                class="Title_title"
-                                                                >[누적 11,600%]
-                                                                진짜 그릭요거트,
-                                                                그릭오</strong
-                                                            >
-                                                            <p
-                                                                class="HomeVerticalCard_makerNameWrapper"
-                                                            >
-                                                                앤드식스주식회사
-                                                            </p>
-                                                        </div>
-                                                        <div
-                                                            class="HomeVerticalCard_badgeGroup"
-                                                        >
-                                                            <div
-                                                                class="StoreRatingWrapper_ratingWrapper"
-                                                            >
-                                                                <div
-                                                                    class="RatingScore_container"
-                                                                >
-                                                                    <div
-                                                                        class="RatingScore_icon"
-                                                                    ></div>
-                                                                    <span
-                                                                        class="RatingScore_score"
-                                                                        >4.5</span
-                                                                    >
+                                                            
+                                                            <div class="HomeVerticalCard_infoBox HomeVerticalCard_isStore">
+                                                                <div class="HomeVerticalCard_info">
+                                                                    <strong class="Title_title">{{ place.place_title }}</strong>
+                                                                    <p class="HomeVerticalCard_makerNameWrapper">{{ place.place_address }}</p>
                                                                 </div>
-                                                                <em
-                                                                    class="StoreRatingWrapper_count"
-                                                                    >(147)</em
-                                                                >
-                                                            </div>
-                                                            <div
-                                                                class="StoreBadgeGroup_container"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="CardSpinner_container"
-                                                    >
-                                                        <div
-                                                            class="CardSpinner_loader"
-                                                            style="
-                                                                width: 32px;
-                                                                height: 32px;
-                                                            "
-                                                        >
-                                                            <svg
-                                                                viewBox="25 25 50 50"
-                                                                aria-label="Loading"
-                                                            >
-                                                                <g
-                                                                    class="Loader_circular"
-                                                                >
-                                                                    <circle
-                                                                        class="Loader_path"
-                                                                    ></circle>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <!-- 찜하기 버튼 쪽 -->
-                                                <button
-                                                    type="button"
-                                                    class="WishButton_button"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon_icon"
-                                                    >
-                                                        <path
-                                                            d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-
-                                            <div
-                                                class="HomeVerticalCard_container"
-                                            >
-                                                <a
-                                                    class="HomeVerticalCard_content"
-                                                    href="https://www.wadiz.kr/web/store/detail/599"
-                                                >
-                                                    <div
-                                                        class="HomeVerticalCard_thumbnailBox"
-                                                        style="
-                                                            padding-top: 56.25%;
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_thumbnailWrap"
-                                                        >
-                                                            <div
-                                                                class="ThumbnailImage_container HomeVerticalCard_thumbnail"
-                                                            >
-                                                                <img
-                                                                    class="ThumbnailImage_img"
-                                                                    src="https://cdn2.wadiz.kr/2021/11/16/9316e0ac-0be7-467e-8bf4-816f5a81803c.jpg/wadiz/resize/300/format/jpg/quality/85/"
-                                                                />
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- 이미지 아래 글씨쪽 -->
-                                                    <div
-                                                        class="HomeVerticalCard_infoBox HomeVerticalCard_isStore"
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_info"
-                                                        >
-                                                            <div
-                                                                class="PriceInfoWrapper_container"
-                                                            >
-                                                                <span
-                                                                    >14,600원</span
-                                                                >
-                                                            </div>
-                                                            <strong
-                                                                class="Title_title"
-                                                                >[누적 11,600%]
-                                                                진짜 그릭요거트,
-                                                                그릭오</strong
-                                                            >
-                                                            <p
-                                                                class="HomeVerticalCard_makerNameWrapper"
-                                                            >
-                                                                앤드식스주식회사
-                                                            </p>
-                                                        </div>
-                                                        <div
-                                                            class="HomeVerticalCard_badgeGroup"
-                                                        >
-                                                            <div
-                                                                class="StoreRatingWrapper_ratingWrapper"
-                                                            >
-                                                                <div
-                                                                    class="RatingScore_container"
-                                                                >
-                                                                    <div
-                                                                        class="RatingScore_icon"
-                                                                    ></div>
-                                                                    <span
-                                                                        class="RatingScore_score"
-                                                                        >4.5</span
-                                                                    >
-                                                                </div>
-                                                                <em
-                                                                    class="StoreRatingWrapper_count"
-                                                                    >(147)</em
-                                                                >
-                                                            </div>
-                                                            <div
-                                                                class="StoreBadgeGroup_container"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="CardSpinner_container"
-                                                    >
-                                                        <div
-                                                            class="CardSpinner_loader"
-                                                            style="
-                                                                width: 32px;
-                                                                height: 32px;
-                                                            "
-                                                        >
-                                                            <svg
-                                                                viewBox="25 25 50 50"
-                                                                aria-label="Loading"
-                                                            >
-                                                                <g
-                                                                    class="Loader_circular"
-                                                                >
-                                                                    <circle
-                                                                        class="Loader_path"
-                                                                    ></circle>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <!-- 찜하기 버튼 쪽 -->
-                                                <button
-                                                    type="button"
-                                                    class="WishButton_button"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon_icon"
-                                                    >
-                                                        <path
-                                                            d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-
-                                            <div
-                                                class="HomeVerticalCard_container"
-                                            >
-                                                <a
-                                                    class="HomeVerticalCard_content"
-                                                    href="https://www.wadiz.kr/web/store/detail/599"
-                                                >
-                                                    <div
-                                                        class="HomeVerticalCard_thumbnailBox"
-                                                        style="
-                                                            padding-top: 56.25%;
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_thumbnailWrap"
-                                                        >
-                                                            <div
-                                                                class="ThumbnailImage_container HomeVerticalCard_thumbnail"
-                                                            >
-                                                                <img
-                                                                    class="ThumbnailImage_img"
-                                                                    src="https://cdn2.wadiz.kr/2021/11/16/9316e0ac-0be7-467e-8bf4-816f5a81803c.jpg/wadiz/resize/300/format/jpg/quality/85/"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 이미지 아래 글씨쪽 -->
-                                                    <div
-                                                        class="HomeVerticalCard_infoBox HomeVerticalCard_isStore"
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_info"
-                                                        >
-                                                            <div
-                                                                class="PriceInfoWrapper_container"
-                                                            >
-                                                                <span
-                                                                    >14,600원</span
-                                                                >
-                                                            </div>
-                                                            <strong
-                                                                class="Title_title"
-                                                                >[누적 11,600%]
-                                                                진짜 그릭요거트,
-                                                                그릭오</strong
-                                                            >
-                                                            <p
-                                                                class="HomeVerticalCard_makerNameWrapper"
-                                                            >
-                                                                앤드식스주식회사
-                                                            </p>
-                                                        </div>
-                                                        <div
-                                                            class="HomeVerticalCard_badgeGroup"
-                                                        >
-                                                            <div
-                                                                class="StoreRatingWrapper_ratingWrapper"
-                                                            >
-                                                                <div
-                                                                    class="RatingScore_container"
-                                                                >
-                                                                    <div
-                                                                        class="RatingScore_icon"
-                                                                    ></div>
-                                                                    <span
-                                                                        class="RatingScore_score"
-                                                                        >4.5</span
-                                                                    >
-                                                                </div>
-                                                                <em
-                                                                    class="StoreRatingWrapper_count"
-                                                                    >(147)</em
-                                                                >
-                                                            </div>
-                                                            <div
-                                                                class="StoreBadgeGroup_container"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="CardSpinner_container"
-                                                    >
-                                                        <div
-                                                            class="CardSpinner_loader"
-                                                            style="
-                                                                width: 32px;
-                                                                height: 32px;
-                                                            "
-                                                        >
-                                                            <svg
-                                                                viewBox="25 25 50 50"
-                                                                aria-label="Loading"
-                                                            >
-                                                                <g
-                                                                    class="Loader_circular"
-                                                                >
-                                                                    <circle
-                                                                        class="Loader_path"
-                                                                    ></circle>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <!-- 찜하기 버튼 쪽 -->
-                                                <button
-                                                    type="button"
-                                                    class="WishButton_button"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon_icon"
-                                                    >
-                                                        <path
-                                                            d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-
-                                            <div
-                                                class="HomeVerticalCard_container"
-                                            >
-                                                <a
-                                                    class="HomeVerticalCard_content"
-                                                    href="https://www.wadiz.kr/web/store/detail/599"
-                                                >
-                                                    <div
-                                                        class="HomeVerticalCard_thumbnailBox"
-                                                        style="
-                                                            padding-top: 56.25%;
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_thumbnailWrap"
-                                                        >
-                                                            <div
-                                                                class="ThumbnailImage_container HomeVerticalCard_thumbnail"
-                                                            >
-                                                                <img
-                                                                    class="ThumbnailImage_img"
-                                                                    src="https://cdn2.wadiz.kr/2021/11/16/9316e0ac-0be7-467e-8bf4-816f5a81803c.jpg/wadiz/resize/300/format/jpg/quality/85/"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 이미지 아래 글씨쪽 -->
-                                                    <div
-                                                        class="HomeVerticalCard_infoBox HomeVerticalCard_isStore"
-                                                    >
-                                                        <div
-                                                            class="HomeVerticalCard_info"
-                                                        >
-                                                            <div
-                                                                class="PriceInfoWrapper_container"
-                                                            >
-                                                                <span
-                                                                    >14,600원</span
-                                                                >
-                                                            </div>
-                                                            <strong
-                                                                class="Title_title"
-                                                                >[누적 11,600%]
-                                                                진짜 그릭요거트,
-                                                                그릭오</strong
-                                                            >
-                                                            <p
-                                                                class="HomeVerticalCard_makerNameWrapper"
-                                                            >
-                                                                앤드식스주식회사
-                                                            </p>
-                                                        </div>
-                                                        <div
-                                                            class="HomeVerticalCard_badgeGroup"
-                                                        >
-                                                            <div
-                                                                class="StoreRatingWrapper_ratingWrapper"
-                                                            >
-                                                                <div
-                                                                    class="RatingScore_container"
-                                                                >
-                                                                    <div
-                                                                        class="RatingScore_icon"
-                                                                    ></div>
-                                                                    <span
-                                                                        class="RatingScore_score"
-                                                                        >4.5</span
-                                                                    >
-                                                                </div>
-                                                                <em
-                                                                    class="StoreRatingWrapper_count"
-                                                                    >(147)</em
-                                                                >
-                                                            </div>
-                                                            <div
-                                                                class="StoreBadgeGroup_container"
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="CardSpinner_container"
-                                                    >
-                                                        <div
-                                                            class="CardSpinner_loader"
-                                                            style="
-                                                                width: 32px;
-                                                                height: 32px;
-                                                            "
-                                                        >
-                                                            <svg
-                                                                viewBox="25 25 50 50"
-                                                                aria-label="Loading"
-                                                            >
-                                                                <g
-                                                                    class="Loader_circular"
-                                                                >
-                                                                    <circle
-                                                                        class="Loader_path"
-                                                                    ></circle>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <!-- 찜하기 버튼 쪽 -->
-                                                <button
-                                                    type="button"
-                                                    class="WishButton_button"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon_icon"
-                                                    >
-                                                        <path
-                                                            d="M22.16 4h-.007a8.142 8.142 0 0 0-6.145 2.79A8.198 8.198 0 0 0 9.76 3.998a7.36 7.36 0 0 0-7.359 7.446c0 5.116 4.64 9.276 11.6 15.596l2 1.76 2-1.76c6.96-6.32 11.6-10.48 11.6-15.6v-.08A7.36 7.36 0 0 0 22.241 4h-.085z"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                                    </a>
+                                                </div>
+                                           {% endfor %}
                                         </div>
                                     </div>
                                 </div>
+                                 <div class="pagination">
+                                  <span class="step-links">
+                                      {% if places.has_previous %}
+                                          <a href="?page=1">&laquo; 처음</a>
+                                          <a href="?page={{ places.previous_page_number }}">이전</a>
+                                      {% endif %}
+                                      {% for i in places.paginator.page_range %}
+                                          {% if places.number == i %}
+                                              <span class="current">{{ i }}</span>
+                                          {% else %}
+                                              <a href="?page={{ i }}">{{ i }}</a>
+                                          {% endif %}
+                                      {% endfor %}
+                                      {% if places.has_next %}
+                                          <a href="?page={{ places.next_page_number }}">다음</a>
+                                          <a href="?page={{ places.paginator.num_pages }}">마지막 &raquo;</a>
+                                      {% endif %}
+                                  </span>
+                              </div>
                                 <!--이쪽 부분 지우고 school-place-share-list의 search-result-card-container 부분을 복붙하면 됨-->
                             </div>
                             <!-- 공모전/대회 클릭했을 때 나타나는 페이지 -->
@@ -2554,11 +1060,11 @@
                                                 <em class="notice">제목</em>
                                                 <em class="notice">{{ community.community_status }}</em>
                                                 <div class="info">
-                                                
-{#                                                    {% for community_file in community.community_file_set.all %}#}
-{#                                                        <div class="thumb" style="background-image: url('/upload/{{ community_file.path }}');"></div>#}
-                                                        <div class="thumb" style="background-image: url('{% static 'community/images/realfavicon.png' %}');"></div>
-{#                                                    {% endfor %}#}
+
+                                                    {% for file in community.files.all %}
+                                                        <div class="thumb" style="background-image: url('/upload/{{ file.path }}');"></div>
+{#                                                        <div class="thumb" style="background-image: url('{% static 'community/images/realfavicon.png' %}');"></div>#}
+                                                    {% endfor %}
                                                     <h3 class="title">{{ community.community_title }}</h3>
                                                     <span class="author">{{ members.member_name }}</span>
                                                     <span class="created-at">{{ community.updated_date }}</span>
@@ -3653,9 +2159,9 @@
                 </div>
             </div>
         </div>
-    
+
         <!-- 프로필 설정 모달페이지 -->
-    <form action="{% url 'myPage:main' %}" method="POST" enctype="multipart/form-data" name="profile-form">  
+    <form action="{% url 'myPage:main' %}" method="POST" enctype="multipart/form-data" name="profile-form">
         {% csrf_token %}
         <div class="bottom-modal-profile-portal">
             <div
@@ -3782,7 +2288,7 @@
                 </div>
             </div>
         </div>
-    
+
     </body>
     <!-- 좋아요 눌렀을 떄 나오는 토스트창 -->
     <div id="like-clicked-toast-container">

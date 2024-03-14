@@ -1,5 +1,3 @@
-// 예시: fetch를 사용하여 서버에 POST 요청을 보내고 응답을 처리하는 코드
-
 let formData = new FormData()
 formData.append("point-number",price)
 const totalPrice = document.getElementById('totalPrice')
@@ -32,5 +30,3 @@ button.addEventListener('click',()=> {
 
 
 })
-
-

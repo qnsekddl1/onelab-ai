@@ -1,7 +1,7 @@
 from django.urls import path
 
-from point.views import PointView, PointListView, PointListDetailView, PointChargeView, PointUseListView, \
-    PointUseDetailView, PointDetailView
+from point.views import PointView, PointListView, PointListDetailView, PointUseListView, \
+    PointUseDetailView, PointDetailView, PointGetListView, PointGetDetailView
 
 app_name = 'point'
 
@@ -11,7 +11,8 @@ urlpatterns = [
     path('use/',PointUseListView.as_view(), name='use'),
     path('useDetail/',PointUseDetailView.as_view(), name='useDetail'),
     path('detail/<int:price>/', PointDetailView.as_view(), name='detail'),
-    # path('api/',PointApiView.as_view(), name='api'),
-    path('charge/',PointChargeView.as_view(), name='charge'),
+    path('get/',PointGetListView.as_view(), name='get'),
+    path('getDetail/',PointGetDetailView.as_view(), name='getDetail'),
     path('detail/', PointListDetailView.as_view(), name='detaillist')
+
 ]
