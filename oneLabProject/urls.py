@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from oneLabProject.views import MainView
 from share.views import ShareDownloadView
 
 urlpatterns = [
@@ -21,6 +22,7 @@ urlpatterns = [
     path('review/', include('review.urls')),
     path('share/', include('share.urls')),
     path('upload/<path:file_path>', ShareDownloadView.as_view(), name='download'),
+    path('', MainView.as_view(), name='main'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
