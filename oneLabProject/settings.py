@@ -147,7 +147,7 @@ DATABASES = {
         # 비밀번호
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
-        'HOST': '',
+        'HOST': '52.79.181.4',
         # DBMS의 포트번호
         'PORT': '3306'
     }
