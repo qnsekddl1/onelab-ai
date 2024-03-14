@@ -9,10 +9,10 @@
     <!--헤더-->
     {% if request.session.member %}
         {% include  "header/main-page-header-login.html"%}
-    
     {% else %}
         {% include "header/main-page-header-all.html" %}
     {% endif %}
+{#    {% include "header/main-page-header-final.html" %}#}
 {#        <div>#}
 {#            <div class="web-header">#}
 {#                <div class="web-header-large">#}
@@ -133,14 +133,14 @@
                                         <div>
                                             <a href="" class="visualslide-container">
                                                 <img
-                                                    src="/staticfiles/js/main-yujin/images/banner01.jpg"
+                                                    src="{% static 'public/images/bannerfirst.png' %}"
                                                     alt=""
                                                     class="main-banner-img"
                                                 />
                                                 <div class="visualslide-wrap">
                                                     <div class="visualslide-text">
                                                         <p class="visualslide-title">
-                                                            고든램지 픽! 천상의 체리청<br />이탈리아 119년 레시피
+                                                            원랩의 존재하는 이유 <br /> 자신의 경력을 쌓다!!!!
                                                         </p>
                                                     </div>
                                                 </div></a
@@ -153,14 +153,14 @@
                                         <div>
                                             <a href="" class="visualslide-container">
                                                 <img
-                                                    src="/staticfiles/js/main-yujin/images/banner02.jpg"
+                                                    src="{% static 'public/images/bannsersecond.png' %}"
                                                     alt=""
                                                     class="main-banner-img"
                                                 />
                                                 <div class="visualslide-wrap">
                                                     <div class="visualslide-text">
                                                         <p class="visualslide-title">
-                                                            매일 새로운 얼리버드<br />설날맞이 혜택런
+                                                            매일 새로운 공모전<br />많은 혜택런을 포함
                                                         </p>
                                                         <p class="visualslide-badge">이벤트</p>
                                                     </div>
@@ -174,14 +174,14 @@
                                         <div>
                                             <a href="" class="visualslide-container">
                                                 <img
-                                                    src="/staticfiles/js/main-yujin/images/banner03.jpg"
+                                                    src="{% static 'public/images/bannerthird.png' %}"
                                                     alt=""
                                                     class="main-banner-img"
                                                 />
-                                                <div class="visualslide-wrap">
+                                                <div class="visualslide-wrap"> 
                                                     <div class="visualslide-text">
                                                         <p class="visualslide-title">
-                                                            아이폰 스냅 하나로 월매출 <br />1000 검증 노하우
+                                                            모든 대학생 회원들은 오라~ <br />실전을 통해 경력을 쌓자!!!
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1115,163 +1115,117 @@
                         </div>
                     </div>
                     <ul class="earlybird-desktop-earlybird-list">
-                        <li class="earlybird-desktop-list-item">
-                            <a href=""
-                                ><div class="card-type-project-card">
-                                    <div class="commons-thumbnail-card">
-                                        <div
-                                            aria-hidden="true"
-                                            class="card-thumbnail-card"
-                                            style="background-image: url(/member/static/images/contest01.png);"
-                                        ></div>
-                                    </div>
-                                    <div class="card-type-card-content">
-                                        <div>
-                                            <p class="card-type-type">공모전</p>
-                                            <div class="card-type-content">
-                                                <em class="commons-title">2024 세종테크노파크 대학생 AI경진대회</em>
-                                                <p class="commons-summary">
-                                                    <span class="commons-rate">D-10</span>
-                                                </p>
+{#                        <li class="earlybird-desktop-list-item">#}
+{#                            <a href="">#}
+{#                                <div class="card-type-project-card">#}
+{#                                    <div class="commons-thumbnail-card">#}
+{#                                        <img src="" alt="" class="card-thumbnail-card">#}
+{#                                    </div>#}
+{#                                    <div class="card-type-card-content">#}
+{#                                        <div>#}
+{#                                            <p class="card-type-type">대회</p>#}
+{#                                            <div class="card-type-content">#}
+{#                                                <em class="commons-title"#}
+{#                                                    >지금 내 모습으로 남기는 영정사진 [조용재 작가의 젊은날의 초상]</em#}
+{#                                                >#}
+{#                                                <p class="commons-summary">#}
+{#                                                    <span class="commons-rate">1280%</span>#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="card-type-earlybird-content">#}
+{#                                            <dl>#}
+{#                                                <dt class="blind-text-text-hidden">옵션명</dt>#}
+{#                                                <dd class="card-type-title">#}
+{#                                                    [스페셜 리워드] 온 가족 추억사진 + 의미사진 4장#}
+{#                                                </dd>#}
+{#                                                <dt class="blind-text-text-hidden">옵션내용</dt>#}
+{#                                                <dd class="card-type-description">#}
+{#                                                    - 온 가족 함께 하는 촬영 보정본 2각 (각 컬러&amp;흑백) : 인원 제한#}
+{#                                                    없음 - 개인 의미사진 보정본 4장(각 흑백&amp;컬러) - 원본 사진 전체#}
+{#                                                    제공 - 촬영시간 : 최고의 표정과 자세로 표현 될 때까지 *수령하신#}
+{#                                                    촬영권은2024년 2월 15일부터 2024년 4월 31일까지 원하시는 날짜에 예약#}
+{#                                                    가능합니다 **결과물은 촬영 후 일주일 이내에 발송 됩니다.#}
+{#                                                </dd>#}
+{#                                                <dt class="blind-text-text-hidden">옵션금액</dt>#}
+{#                                                <dd class="card-type-subcontent">820,000원</dd>#}
+{#                                            </dl>#}
+{#                                        </div>#}
+{#                                        <div class="card-type-link-btn">#}
+{#                                            지금 참여하기<svg#}
+{#                                                viewBox="0 0 24 24"#}
+{#                                                fill="none"#}
+{#                                                focusable="false"#}
+{#                                                role="presentation"#}
+{#                                                class="withicon-icon withicon-inline"#}
+{#                                                aria-hidden="true"#}
+{#                                            >#}
+{#                                                <path#}
+{#                                                    fill-rule="evenodd"#}
+{#                                                    clip-rule="evenodd"#}
+{#                                                    d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"#}
+{#                                                ></path>#}
+{#                                            </svg>#}
+{#                                        </div>#}
+{#                                    </div></div#}
+{#                            ></a>#}
+{#                        </li>#}
+                        {% for exhibition in exhibitions|slice:":3" %}
+                            {% with first_exhibition_file=exhibition.exhibitionfile_set.first %}
+                                <li class="earlybird-desktop-list-item">
+                                    <a href="">
+                                        <div class="card-type-project-card">
+                                            <div class="commons-thumbnail-card">
+                                                {% if first_exhibition_file %}
+                                                    <img class="thumbnail-image" alt="" src="/upload/{{ first_exhibition_file.path }}" style="width: 100%; height: 100%"/>
+                                                {% endif %}
                                             </div>
-                                        </div>
-                                        <div class="card-type-earlybird-content">
-                                            <dl>
-                                                <dt class="blind-text-text-hidden">분야</dt>
-                                                <dd class="card-type-title-title">[웹/모바일/IT]</dd>
-                                                <dt class="blind-text-text-hidden">접수 기간</dt>
-                                                <dd class="card-type-description">
-                                                    접수 기간: 2024-02-05 ~ 2024-02-25
-                                                </dd>
-                                                <dt class="blind-text-text-hidden">총 상금</dt>
-                                                <dd class="card-type-subcontent">총 상금: 다양한 혜택</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="card-type-link-btn">
-                                            지금 참여하기<svg
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="withicon-icon withicon-inline"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    clip-rule="evenodd"
-                                                    d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div></div
-                            ></a>
-                        </li>
-                        <li class="earlybird-desktop-list-item">
-                            <a href="">
-                                <div class="card-type-project-card">
-                                    <div class="commons-thumbnail-card">
-                                        <div aria-hidden="true" class="card-thumbnail-card" ;></div>
-                                    </div>
-                                    <div class="card-type-card-content">
-                                        <div>
-                                            <p class="card-type-type">대회</p>
-                                            <div class="card-type-content">
-                                                <em class="commons-title"
-                                                    >지금 내 모습으로 남기는 영정사진 [조용재 작가의 젊은날의 초상]</em
-                                                >
-                                                <p class="commons-summary">
-                                                    <span class="commons-rate">1280%</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="card-type-earlybird-content">
-                                            <dl>
-                                                <dt class="blind-text-text-hidden">옵션명</dt>
-                                                <dd class="card-type-title">
-                                                    [스페셜 리워드] 온 가족 추억사진 + 의미사진 4장
-                                                </dd>
-                                                <dt class="blind-text-text-hidden">옵션내용</dt>
-                                                <dd class="card-type-description">
-                                                    - 온 가족 함께 하는 촬영 보정본 2각 (각 컬러&amp;흑백) : 인원 제한
-                                                    없음 - 개인 의미사진 보정본 4장(각 흑백&amp;컬러) - 원본 사진 전체
-                                                    제공 - 촬영시간 : 최고의 표정과 자세로 표현 될 때까지 *수령하신
-                                                    촬영권은2024년 2월 15일부터 2024년 4월 31일까지 원하시는 날짜에 예약
-                                                    가능합니다 **결과물은 촬영 후 일주일 이내에 발송 됩니다.
-                                                </dd>
-                                                <dt class="blind-text-text-hidden">옵션금액</dt>
-                                                <dd class="card-type-subcontent">820,000원</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="card-type-link-btn">
-                                            지금 참여하기<svg
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="withicon-icon withicon-inline"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    clip-rule="evenodd"
-                                                    d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div></div
-                            ></a>
-                        </li>
-                        <li class="earlybird-desktop-list-item">
-                            <a href="">
-                                <div class="card-type-project-card">
-                                    <div class="commons-thumbnail-card">
-                                        <div aria-hidden="true" class="card-thumbnail-card"></div>
-                                    </div>
-                                    <div class="card-type-card-content">
-                                        <div>
-                                            <p class="card-type-type">공모전</p>
-                                            <div class="card-type-content">
-                                                <em class="commons-title"
-                                                    >120시간 촉촉 | 상위0.6% 그리스 엑스트라버진 올리브가 몸에
-                                                    사르륵</em
-                                                >
-                                                <p class="commons-summary">
-                                                    <span class="commons-rate">359%</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="card-type-earlybird-content">
-                                            <dl>
-                                                <dt class="blind-text-text-hidden">옵션명</dt>
-                                                <dd class="card-type-title">[슈퍼 얼리버드] 바디무스 듀오 패키지</dd>
-                                                <dt class="blind-text-text-hidden">옵션내용</dt>
-                                                <dd class="card-type-description">
-                                                    [31.4%할인] 총 제품 정가 : 86,000원 미소스 바디 무스 - 자스민 200mL
-                                                    * 2EA
-                                                </dd>
-                                                <dt class="blind-text-text-hidden">옵션금액</dt>
-                                                <dd class="card-type-subcontent">59,000원</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="card-type-link-btn">
-                                            지금 참여하기<svg
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                focusable="false"
-                                                role="presentation"
-                                                class="withicon-icon withicon-inline"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    clip-rule="evenodd"
-                                                    d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div></div
-                            ></a>
-                        </li>
+                                            <div class="card-type-card-content">
+                                                <div>
+                                                    <p class="card-type-type">공모전</p>
+                                                    <div class="card-type-content">
+                                                        <em class="commons-title"
+                                                            >{{ exhibition.exhibition_title }}</em
+                                                        >
+                                                        <p class="commons-summary">
+                                                            <span class="commons-rate">{{ exhibition.exhibition_content}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+{#                                                <div class="card-type-earlybird-content">#}
+{#                                                    <dl>#}
+{#                                                        <dt class="blind-text-text-hidden">옵션명</dt>#}
+{#                                                        <dd class="card-type-title">[슈퍼 얼리버드] 바디무스 듀오 패키지</dd>#}
+{#                                                        <dt class="blind-text-text-hidden">옵션내용</dt>#}
+{#                                                        <dd class="card-type-description">#}
+{#                                                            [31.4%할인] 총 제품 정가 : 86,000원 미소스 바디 무스 - 자스민 200mL#}
+{#                                                            * 2EA#}
+{#                                                        </dd>#}
+{#                                                        <dt class="blind-text-text-hidden">옵션금액</dt>#}
+{#                                                        <dd class="card-type-subcontent">59,000원</dd>#}
+{#                                                    </dl>#}
+{#                                                </div>#}
+{#                                                <div class="card-type-link-btn">#}
+{#                                                    지금 참여하기<svg#}
+{#                                                        viewBox="0 0 24 24"#}
+{#                                                        fill="none"#}
+{#                                                        focusable="false"#}
+{#                                                        role="presentation"#}
+{#                                                        class="withicon-icon withicon-inline"#}
+{#                                                        aria-hidden="true"#}
+{#                                                    >#}
+{#                                                        <path#}
+{#                                                            fill-rule="evenodd"#}
+{#                                                            clip-rule="evenodd"#}
+{#                                                            d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"#}
+{#                                                        ></path>#}
+{#                                                    </svg>#}
+{#                                                </div>#}
+                                            </div></div
+                                    ></a>
+                                </li>
+                            {% endwith %}
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -1966,246 +1920,93 @@
                             </div>
                         </div>
                         <ul class="supported-funding-list-content">
-                            <li class="supported-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
+{#                            <li class="supported-funding-list-card">#}
+{#                                <div class="curation-vertical-card-container">#}
+{#                                    <a class="curation-vertical-card-content" href=""#}
+{#                                        ><div class="curation-vertical-card-thumbnail-box">#}
+{#                                            <div class="curation-vertical-card-thumbnail-wrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="" src="" />#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="curation-vertical-card-info-box">#}
+{#                                            <div class="curation-vertical-card-badge-wrapper">#}
+{#                                                <span class="label-badge">예약구매</span>#}
+{#                                            </div>#}
+{#                                            <div class="curation-vertical-card-info">#}
+{#                                                <p class="info-string-wrapper-info-string-wrapper">556% 달성</p>#}
+{#                                                <strong class="title-title"#}
+{#                                                    >[와디즈 Only] 원어민은 영어패턴을 이렇게 생각합니다!</strong#}
+{#                                                >#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="card-spinner-container">#}
+{#                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">#}
+{#                                                <svg viewBox="25 25 50 50" aria-label="Loading">#}
+{#                                                    <g class="loader-circular">#}
+{#                                                        <circle#}
+{#                                                            class="loader-path"#}
+{#                                                            cx="50"#}
+{#                                                            cy="50"#}
+{#                                                            r="20"#}
+{#                                                            fill="none"#}
+{#                                                            stroke-width="4"#}
+{#                                                            stroke-miterlimit="10"#}
+{#                                                        ></circle>#}
+{#                                                    </g>#}
+{#                                                </svg>#}
+{#                                            </div></div#}
+{#                                    ></a>#}
+{#                                </div>#}
+{#                            </li>#}
+
+                            {% for place in places|slice:":6" %}
+                                {% with first_place_file=place.placefile_set.first %}
+                                    <li class="supported-funding-list-card">
+                                        <div class="curation-vertical-card-container">
+                                            <a class="curation-vertical-card-content" href=""
+                                                ><div class="curation-vertical-card-thumbnail-box">
+                                                    <div class="curation-vertical-card-thumbnail-wrap">
+                                                        <div class="thumbnail-image-container">
+                                                            {% if first_place_file %}
+                                                                <img class="thumbnail-image" alt="" src="/upload/{{ first_place_file.path }}" />
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">556% 달성</p>
-                                                <strong class="title-title"
-                                                    >[와디즈 Only] 원어민은 영어패턴을 이렇게 생각합니다!</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="supported-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
+                                                <div class="curation-vertical-card-info-box">
+                                                    <div class="curation-vertical-card-badge-wrapper">
+                                                        <span class="label-badge">{{ place.school.school_name }}</span>
+                                                    </div>
+                                                    <div class="curation-vertical-card-info">
+                                                        <p class="info-string-wrapper-info-string-wrapper">{{ place.place_points}}</p>
+                                                        <strong class="title-title"
+                                                            >{{place.place_title}}</strong
+                                                        >
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <div class="card-spinner-container">
+                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
+                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                            <g class="loader-circular">
+                                                                <circle
+                                                                    class="loader-path"
+                                                                    cx="50"
+                                                                    cy="50"
+                                                                    r="20"
+                                                                    fill="none"
+                                                                    stroke-width="4"
+                                                                    stroke-miterlimit="10"
+                                                                ></circle>
+                                                            </g>
+                                                        </svg>
+                                                    </div></div
+                                            ></a>
                                         </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">펀딩</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">2,922% 달성</p>
-                                                <strong class="title-title"
-                                                    >향수 1등이 만든ㅣ향기로 극락가는 1초 컷 냄새 지우개</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="supported-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href="" data-ec-id="258210"
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">29,624% 달성</p>
-                                                <strong class="title-title"
-                                                    >[월 3천 인증] 노트북 하나로 자동사업, 디지털노마드 비밀무기</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="supported-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">887% 달성</p>
-                                                <strong class="title-title"
-                                                    >[MOZ Sweden] 모즈 316스텐 원터치 스트로우 보온보냉 텀블러</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="supported-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">1,022% 달성</p>
-                                                <strong class="title-title"
-                                                    >[3IN1] 애플 감성 가득 감성전자 시그니처 충전기!</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="supported-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">2,326% 달성</p>
-                                                <strong class="title-title"
-                                                    >[앵콜] 단 18g, 75일 지속 괴물 블루투스 녹음기 | 이지렉</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
                         </ul>
                     </section>
                 </div>
@@ -2679,6 +2480,7 @@
         </footer>
 {% endblock %}
 {% block js %}
+    <script src="{% static 'js/main/main-list.js' %}"></script>
     <script src="{% static 'js/main/main-page-banner.js' %}"></script>
     <script src="{% static 'js/main/main-page-ranking-tab.js' %}"></script>
     <script src="{% static 'js/main/main-page-AI.js' %}"></script>
