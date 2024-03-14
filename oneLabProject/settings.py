@@ -31,8 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'exhibitionMember',
+
     'shareMember',
+    'exhibitionMember',
     'placeMember',
     'myPage',
     'oauth',
@@ -148,8 +149,7 @@ DATABASES = {
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
 
-        'HOST': '',
-
+        'HOST': '54.180.25.248',
         # DBMS의 포트번호
         'PORT': '3306'
     }

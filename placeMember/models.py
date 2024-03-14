@@ -11,7 +11,6 @@ class PlaceMember(Period):
     ]
     place_member_status = models.SmallIntegerField(choices=PLACE_MEMBER_STATUS, default=0)
     university = models.ForeignKey(University, on_delete=models.PROTECT)
-    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False)
-
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=False, blank=False)
     class Meta:
         db_table = 'tbl_place_member'
