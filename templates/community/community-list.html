@@ -54,13 +54,13 @@
                     <li>
                         <a href="{{ community.get_absolute_url }}" class="article">
                             <div class="info">
-                                <div class="thumb">
-                                    {% for communityfile in community.communityfile_set.all %}
-                                        {% if communityfile.preview %}
-                                            <img src="/upload/{{ communityfile.path }}" class="preview">
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
+                                {% for community_file in community.files.all %}
+                                    {% if community_file.path %}
+                                        <div class="thumb">
+                                            <img src="{{ community_file.path.url }}" class="preview">
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                                 <h3 class="title">{{ community.community_title }}</h3>
                                 <span class="author">{{ community.member.member_name }}</span><br>
                                 <span
