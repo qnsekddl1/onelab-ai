@@ -101,7 +101,7 @@ emailSubmitBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (emailInput) {
     realEmailValue.value = emailInput.value
-    console.log(realEmailValue.value)
+    // console.log(realEmailValue.value)
   }
 
   modalContainer.classList.add("modal-open");
@@ -111,42 +111,64 @@ emailSubmitBtn.addEventListener("click", (e) => {
   certificationNumberForm.style.display = "block";
   retry.style.display = "block";
   timer();
-  console.log("들어옴3")
 });
 
 
 // 모달창 안에 버튼 클릭 시
-modalSubmitBtn.addEventListener("click", async (e)=>{
+modalSubmitBtn.addEventListener("click", async (e, school)=>{
   e.preventDefault();
-  if (response.ok)
-  window.history.back();
-  const data = {
-      member_school_email: realEmailValue.value
-  }
-  console.log("들어옴!!!!!!")
-  console.log(data)
+  // CSRF 토큰 가져오기
+  const csrftoken = getCookie('csrftoken');
 
-  await fetch(`/member/activate/`, {
-  method: 'POST',
-  headers: {
-    'X-CSRFToken': csrf_token,
-    'Content-Type': 'application/json',
-  },
-  //body에서는 JSON 형식으로 된 data 값을 문자열로 변환한다.
-    body: JSON.stringify(data)
-  }).then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error('Error', error);
-      })
+  // const data = {
+  //   'member-email': emailInput.value
+  // };
+
+  school = emailInput.value
+  console.log(school)
+
+  try {
+    const response = await fetch(`/member/activate/${school}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'X-CSRFToken': csrftoken // CSRF 토큰 포함
+      },
+      body: JSON.stringify(school)
+    });
+
+    const responseData = await response.json();
+
+    if (response.ok) {
+      console.log("요청이 성공적으로 처리되었습니다.", responseData);
+      window.location.href = '/member/login';
+    } else {
+      console.error('요청이 실패했습니다.', responseData);
+      window.location.href = '/';
+    }
+  } catch (error) {
+    console.error('오류 발생:', error);
+  }
 })
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
 // 이메일 수정하기 버튼 클릭 시
 emailEditBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("들어옴2")
   modalContainer.classList.remove("modal-open");
   emailSubmitBtn.style.display = "block";
   emailEditBtn.style.display = "none";
@@ -456,28 +478,34 @@ arrows.forEach((arrow) => {
 // });
 
 const radioInputs = document.querySelectorAll(".radio-label");
-const emailsInput = document.querySelector(".easy-join-email-container");
-const majorInput = document.querySelector(".easy-major");
+const emailsInput = document.querySelector(".email-work-input");
+const majorInput = document.querySelector(".major-input");
+const titleInput = document.querySelector(".easy-join-title");
+const schoolInput = document.querySelector(".school-input");
 
 radioInputs.forEach((item) => {
   console.log(radioInputs);
   item.addEventListener("click", (e) => {
     console.log(item)
     if(item.classList.contains("radio-high-school")) {
-      emailsInput.style.display = "none";
-      // majorInput.style.display ="none";
+      schoolInput.style.display = "none";
+      emailsInput.style.display = "block";
+      majorInput.style.display ="none";
       certificationInput.disabled = false;
       certificationNumberBtn.disabled = false;
+      titleInput.innerHTML = '고등학생 간편가입'
       passwordInputs.forEach((input) => {
         input.disabled = false;
       });
     }
     else {
+      schoolInput.style.display = "block";
       emailsInput.style.display = "block";
-      // majorInput.style.display = "block";
+      majorInput.style.display = "block";
       passwordInputs.forEach((input) => {
         input.disabled = false;
       });
+      titleInput.innerHTML = '대학생 간편가입'
     }
     radioInputs.forEach((radio) => {
       radio
