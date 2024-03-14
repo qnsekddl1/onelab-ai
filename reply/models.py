@@ -7,12 +7,9 @@ from reply.managers import ReplyManager
 
 
 class Reply(Period):
-
-    reply_content = models.CharField(null=False, blank=False, max_length=2000)
-    reply_depth = models.BigIntegerField(default=1, null=False)
-    reply_group_id = models.SmallIntegerField(null=False, blank=False)
-    member = models.ForeignKey(Member, on_delete=models.PROTECT, null=False)
-    community = models.ForeignKey(Community, on_delete=models.PROTECT, null=False)
+    community = models.ForeignKey(Community, null=False, on_delete=models.PROTECT)
+    member = models.ForeignKey(Member, null=False, on_delete=models.PROTECT)
+    reply_content = models.TextField(null=False, blank=False)
     # True=게시 중, False=게시 종료
     reply_post_status = models.BooleanField(null=False, default=True)
 
