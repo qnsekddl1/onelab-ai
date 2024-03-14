@@ -2302,3 +2302,8 @@ img#apple {
     flex-direction: row;
     align-items: center;
 }
+
+.main-banner-img {
+    height: 100%;
+    width: 95%;
+}
