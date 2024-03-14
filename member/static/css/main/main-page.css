@@ -1490,7 +1490,7 @@ button:not(:disabled) {
 }
 
 .commons-thumbnail-card:before {
-    display: block;
+    /*display: block;*/
     padding-top: 56%;
     width: 100%;
     content: "";

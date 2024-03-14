@@ -16,7 +16,7 @@
                                 <h1 class="wadiz-logo">
                                     <a href="/">
                                         <span class="label">OneLab</span>
-{#                                        <img src="../../oneLabProject/static/public/images/header-logo.png" alt="" />#}
+                                        <img src="{% static 'public/images/header-logo.png' %}" onclick="location.href='{% url 'main' %}'" alt="" />
                                     </a>
                                 </h1>
                                 <ul class="gnb-large">
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="SignInForm-kc" style="margin-top: 0%">
                                         <p class="SignInForm-e2">
-                                            <a href="비밀번호 찾기 화면 이동" data-test-id="findPasswordLink"> 로그인 정보를 잊으셨나요? </a>
+                                            <a href="{% url 'member:account-find' %}" data-test-id="findPasswordLink"> 로그인 정보를 잊으셨나요? </a>
                                         </p>
                                     </div>
                                     <button data-test-id="loginSubmitButton" class="Button-1G login" type="button">
@@ -151,7 +151,7 @@
                             <div class="SignInApp">
                                 <p>
                                     아직 원랩 계정이 없나요?
-                                    <a href="계정찾기화면이동" data-test-id="signupLink">회원가입</a>
+                                    <a href="#" onclick="location.href='{% url 'member:join-normal' %}'" data-test-id="signupLink">회원가입</a>
                                 </p>
                             </div>
                         </div>

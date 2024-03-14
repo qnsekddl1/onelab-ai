@@ -1,9 +1,10 @@
 {% extends 'login/base.html' %}
+{% load socialaccount %}
 {% load static %}
 {% block static %}
     <link rel="stylesheet" href="{% static 'css/login/college-student-join.css' %}">
 {% endblock %}
-{% block title %}대학교 로그인{% endblock %}
+{% block title %}일반 회원가입{% endblock %}
 {% block content %}
     <div class="page-container">
       <main class="main-app">
@@ -22,10 +23,10 @@
                 </h1>
                 <ul class="gnb-large">
                   <li class="login">
-                    <a href="#" class="item"><span>로그인</span></a>
+                    <a href="#" onclick="location.href='{% url 'member:login' %}'" class="item"><span>로그인</span></a>
                   </li>
                   <li class="signup">
-                    <a href="#" class="item"><span>회원가입</span></a>
+                    <a href="#" onclick="location.href='{% url 'member:join-normal' %}'" class="item"><span>회원가입</span></a>
                   </li>
                 </ul>
               </div>
@@ -45,42 +46,50 @@
                 </div>
               </div>
               <div>
-                <button class="login-btn kakao" type="button">
-                  <span>
-                    <span class="login-btn-text">
-                      <svg
-                        viewBox="0 0 32 32"
-                        focusable="false"
-                        role="presentation"
-                        class="login-btn-icon"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-.96 4.96 5.44-3.6 2.4.16c6.96 0 12.64-4.48 12.64-10.08S22.96 4.56 16 4.64z"
-                        ></path>
-                      </svg>
-                      카카오로 시작하기
-                    </span>
-                  </span>
+              <form action="{% provider_login_url 'kakao' %}" method="post">
+                {% csrf_token %}
+                <button class="login-btn kakao">
+              <span>
+                <span class="login-btn-text">
+                  <svg
+                    viewBox="0 0 32 32"
+                    focusable="false"
+                    role="presentation"
+                    class="login-btn-icon"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-.96 4.96 5.44-3.6 2.4.16c6.96 0 12.64-4.48 12.64-10.08S22.96 4.56 16 4.64z"
+                    ></path>
+                  </svg>
+                  카카오로 시작하기
+                </span>
+              </span>
+            </button>
+              </form>
+              <form action="{% provider_login_url 'naver' %}" method="post">
+                {% csrf_token %}
+                <button class="login-btn naver">
+                <span>
+                <span class="login-btn-text">
+                <svg
+                viewBox="0 0 32 32"
+                focusable="false"
+                role="presentation"
+                class="login-btn-icon"
+                aria-hidden="true"
+                >
+                <path
+                d="M19.52 5.76v10.32L12.48 5.76H4.8v20.48h7.68V15.92l7.12 10.32h7.6V5.76z"
+                ></path></svg
+                >네이버로 시작하기
+                </span>
+                </span>
                 </button>
-                <button class="login-btn naver" type="button">
-                  <span>
-                    <span class="login-btn-text">
-                      <svg
-                        viewBox="0 0 32 32"
-                        focusable="false"
-                        role="presentation"
-                        class="login-btn-icon"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M19.52 5.76v10.32L12.48 5.76H4.8v20.48h7.68V15.92l7.12 10.32h7.6V5.76z"
-                        ></path></svg
-                      >네이버로 시작하기
-                    </span>
-                  </span>
-                </button>
-                <button class="login-btn google" type="button">
+              </form>
+              <form action="{% provider_login_url 'google' %}" method="post">
+                  {% csrf_token %}
+                <button class="login-btn google">
                   <span>
                     <span class="login-btn-text">
                       <svg
@@ -125,6 +134,7 @@
                     >
                   </span>
                 </button>
+              </form>
               </div>
             </div>
             <div class="content-space-div"></div>
@@ -168,21 +178,22 @@
                  <form action="{% url 'member:join-normal' %}" method="post" enctype="multipart/form-data" name="join-normal">
                     {% csrf_token %}
                     <div class="easy-join-email-container">
-                        <div class="easy-join-email-inner">
+                        <div class="easy-join-email-inner email-work-input">
                             <label class="easy-join-email-label">이메일</label>
                             <div class="easy-join-email-box">
                                 <div class="easy-join-email-input-box">
-                                    <input name="member-email" placeholder="ex) abc123@smu.ac.kr" type="email" class="email-input" />
+                                    <input name="member-email" placeholder="" type="email" class="email-input" />
                                 </div>
                             </div>
-                            <p class="validate-msg email-validate">이메일 정보를 입력해 주세요</p>
                         </div>
-                        <div class="easy-join-email-inner">
+                        <p class="validate-msg email-validate">이메일 정보를 입력해 주세요</p>
+                        <div class="easy-join-email-inner school-input">
                             <label class="easy-join-email-label">학교 이메일</label>
                             <div class="easy-join-email-box">
                                 <div class="easy-join-email-input-box">
                                     <input name="member-school-email" placeholder="ex) abc123@smu.ac.kr" type="email" class="email-input ei-input" />
                                 </div>
+
                                 <button class="email-submit-btn" disabled="true">
                                     <span>
                                         <span> 인증하기 </span>
@@ -227,7 +238,7 @@
                         <p class="validate-msg name-validate">최소 2자 이상입니다.</p>
                         <p class="validate-msg name-validate">이름을 입력해 주세요</p>
                     </div>
-                    <div class="easy-join-department-input-box">
+                    <div class="easy-join-department-input-box major-input">
                         <label>학과명</label>
                         <div class="department-input-box">
                             <input name="university-member-major" placeholder="학과명 입력" type="text" class="department-input" />
@@ -318,10 +329,8 @@
         </div>
         <div class="modal-footer">
           <div class="modal-submit-btn-box">
-              <form action="{% url 'member:activate' %}" method="post" enctype="multipart/form-data" name="activate">
-                {% csrf_token %}
-                  <input type="hidden" name="member-school-email" value="" class="real-email"> 
-                <button class="modal-submit-btn">
+                  <input type="hidden" name="" value="" class="real-email">
+                <button class="modal-submit-btn" type="button">
                     <span><span class="modal-submit-btn-text">확인</span></span>
                 </button>
               </form>
