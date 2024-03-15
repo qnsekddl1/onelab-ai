@@ -71,17 +71,33 @@
                                         <dt class="how-to-purchase">
                                             <span>사용 항목</span>
                                         </dt>
+                                        {%  if place_true %}
                                         <dd class="value-text purchase-value">
                                             <span>장소대여</span>
                                         </dd>
+                                        {% elif share_true %}
+                                        <dd class="value-text purchase-value">
+                                            <span>자료 공유</span>
+                                        </dd>
+                                        {% endif %}
                                     </dl>
                                     <dl>
                                         <dt class="card-info">
                                             <span>사용 내역</span>
                                         </dt>
+                                        {%  if place_true %}
+                                            <dd class="value-text card-info-value">
+                                                <a href="/place/detail/{{ place_title.id }}">
+                                                <span>{{ place_title.place_title }}</span>
+                                                </a>
+                                            </dd>
+                                        {% elif share_true %}
                                         <dd class="value-text card-info-value">
-                                            <span>서울대학교 {{ member.member_email }}</span>
+                                                <a href="/share/detail/{{ share_title.id }}">
+                                                <span>{{ share_title.share_title }}</span>
+                                                </a>
                                         </dd>
+                                        {% endif %}
                                     </dl>
                                 </div>
                             </div>

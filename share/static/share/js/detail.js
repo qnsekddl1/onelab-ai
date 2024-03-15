@@ -39,10 +39,10 @@ tabs.forEach((tab) => {
     })
 })
 
-const likeBtnDown = document.querySelector('.sticky-btn')
-likeBtnDown.addEventListener('click', function(e) {
-    likeBtnDown.classList.toggle('active')
-})
+// const likeBtnDown = document.querySelector('.sticky-btn')
+// likeBtnDown.addEventListener('click', function(e) {
+//     likeBtnDown.classList.toggle('active')
+// })
 
 
 const goTopButton = document.querySelector('.float-top-btn')

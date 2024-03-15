@@ -295,8 +295,22 @@
                         </div>
                     </div>
                      <!-----버튼 클릭 시 나오는 모달 창--------------->
-                    <div class="modal">
-                        <div class="warn-modal">
+                      <div class="modal" style="    display: none;
+                       position: fixed;
+                       flex-direction: column;
+                       inset: 0px;
+                       z-index: 1000;
+                       align-items: center;
+                       justify-content: center;
+                       text-align: center;
+                       background-color: #8586898a;">
+                        <div class="warn-modal" style="padding: 24px; box-sizing: border-box;
+                        position: unset;
+                        width: 288px;
+                        margin: 20vh 0px;
+                        background: rgb(255, 255, 255);
+                        box-shadow: rgb(33 35 41 / 12%) 0px 2px 12px;
+                        border-radius: 8px">
                             <div id="content-wrap">
                                 
                             </div>
@@ -338,50 +352,5 @@
             
         });
     </script>
-{#    <script src="{% static 'payment/js/pay.js' %}"></script>#}
-   
-{#   <script>#}
-    {#const csrf_token = {{ csrf_token }}#}
-    {#const totalPrice = {{ point-number }}#}
-{#    const pay = async () => {#}
-{#        const userInput = {{ point }};#}
-{#        const dynamicPrice = isNaN(parseInt(userInput)) || userInput === '' ? 0 : parseInt(userInput);#}
-{##}
-{#        try {#}
-{#            // 서버에 POST 요청을 보내고 응답을 받음#}
-{#            const response = await fetch('new/', {#}
-{#                method: 'POST',#}
-{#                headers: {#}
-{#                    'Content-Type': 'application/json',#}
-{#                },#}
-{#                body: JSON.stringify({#}
-{#                    'point-number': userInput,#}
-{#                    'number': 'your-number-value', // 여기에 필요한 값 추가#}
-{#                }),#}
-{#            });#}
-{##}
-{#            // 응답을 JSON으로 변환#}
-{#            const responseData = await response.json();#}
-{##}
-{#            if (responseData.status === 'success') {#}
-{#                console.log('결제 성공:', responseData);#}
-{##}
-{#                // Bootpay API 호출 URL을 받아와서 페이지 이동#}
-{#                const bootpayApiUrl = responseData.bootpay_api_url;#}
-{#                window.location.href = bootpayApiUrl;#}
-{#            } else {#}
-{#                console.log('결제 실패:', responseData.message);#}
-{#            }#}
-{##}
-{#            // 동적으로 설정한 가격으로 버튼의 텍스트 업데이트#}
-{#            document.getElementById('pay-price').textContent = dynamicPrice + '원 결제하기';#}
-{#        } catch (error) {#}
-{#            console.error('Error:', error);#}
-{#        }#}
-{#    };#}
-{##}
-{#    pay();#}
-{#</script>#}
-
 
 {% endblock %}

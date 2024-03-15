@@ -6,6 +6,13 @@
 {% endblock %}
 {% block title %}자료공유 글쓰기{% endblock %}
 {% block content %}
+    <div class="modal2">
+                <div class="warn-modal">
+                    <div id="content-wrap">
+
+                    </div>
+                </div>
+            </div>
     <div id="root">
         <div id="layout-container">
             <div class="layout-main">
@@ -101,11 +108,14 @@
                         <!-- 헤더 쪽 navbar -->
                         <div class="page-content">
                             <nav class="project-navbar-container">
-                                <div>
-                                    <h1 class="nav-logo">
-                                        <span class="blind-text-hidden">프로젝트 정보</span>
-                                    </h1>
-                                </div>
+                                <div style="display: flex; align-items: center;">
+                                        <div style="overflow: hidden; border-radius: 999px;">
+                                            <h1 class="nav-logo">
+                                                <!-- <span class="blind-text-hidden">메이커 스튜디오</span> -->
+                                            </h1>
+                                        </div>
+                                        <span style="padding-left: 10px;color: #008243;font-weight: bold;">ONELAB</span>
+                                    </div>
                                 <div class="project-navbar-maker">
                                     <div class="profile-img">
                                         <span></span>
@@ -300,7 +310,7 @@
                                     </div>
                                     <div class="section-content">
                                         <div class="text-field">
-                                            <input type="text" maxlength="30" name="share-title" id="title-input" class="maker-input input-maker-name" placeholder="제목 입력" />
+                                            <input type="text" maxlength="30" name="share-title" id="title-input" class="maker-input input-maker-name must-input" placeholder="제목 입력" />
                                         </div>
                                         <em class="helper-msg">30자 남음</em>
                                     </div>
@@ -324,7 +334,7 @@
                                                 <p>공유하고자 하는 자료에 해당하는 학과를 선택해주세요.</p>
                                                 <input type="hidden" name="categories[0]">
                                                 <button class="category-select-btn btn" type="button">
-                                                    <input class="category-select-text major-grade" value="경영/경제 1학년" style="font-size: 16px">
+                                                    <input class="category-select-text major-grade must-input" value="" style="font-size: 16px" placeholder="경영/경제 1학년">
                                                     <input type="hidden" value="경영/경제" name="share-choice-major" class="share-choice-major">
                                                     <input type="hidden" value="1학년" name="share-choice-grade" class="share-choice-grade">
                                                     <svg viewBox="0 0 24 24" fill="none" focusable="false" role="presentation" class="down-select-icon-svg" aria-hidden="true">
@@ -381,7 +391,7 @@
                                                     <textarea placeholder="·OOO한 자료를 공유 하고자 합니다.
                                                     ·제가 ---한 부분에서 많은 도움을 받은 자료라 공유하게 되었습니다.
                                                     ·이전 해의 자료들과는 ---한 부분에서 차이가 있습니다."
-                                                        maxlength="500" rows="4" class="input-text introduction-text" name="share-content"></textarea>
+                                                        maxlength="500" rows="4" class="input-text introduction-text must-input" name="share-content"></textarea>
                                                     <textarea aria-hidden="true" readonly="" tabindex="-1" class="input-text-hidden" style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0px); pointer-events: none;"></textarea>
                                                 </div>
                                             </div>
@@ -411,7 +421,7 @@
                                                             <span class="maker-type-select-btn-text">시험</span>
                                                         </span>
                                                     </button>
-                                                    <input type="hidden" name="share-type" class="share-type" value="">
+                                                    <input type="hidden" name="share-type" class="share-type must-input" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -425,7 +435,7 @@
                                                 <div class="text-field recipient-field">
                                                     <label for=""></label>
                                                     <div class="text-field">
-                                                        <input type="text" class="input-email" placeholder="학과명" name="share-text-major">
+                                                        <input type="text" class="input-email must-input" placeholder="학과명" name="share-text-major">
                                                     </div>
                                                 </div>
                                             </div>
@@ -438,7 +448,7 @@
                                                 <div class="text-field recipient-field">
                                                     <label for=""></label>
                                                     <div class="text-field">
-                                                        <input type="text" class="input-email" placeholder="과제명/시험명" name="share-text-name">
+                                                        <input type="text" class="input-email must-input" placeholder="과제명/시험명" name="share-text-name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -458,7 +468,7 @@
                                             <p class="reward-items-field">요청하는 자료의 예시 또는 공유하고자 하는 자료를 첨부해주세요.</p>
                                             <button class="reward-item-add-btn-box" type="button">
                                                 <div>
-                                                    <input type="file" accept="" name="upload-file" id="" style="display: none">
+                                                    <input type="file" class="must-input" accept="" name="upload-file" id="" style="display: none">
                                                     <svg viewBox="0 0 32 32" focusable="false" role="presentation" class="reward-item-add-btn-icon" aria-hidden="true" style="width: 40px; height: 40px;">
                                                         <path d="M16 1.6C8.047 1.6 1.6 8.047 1.6 16S8.047 30.4 16 30.4 30.4 23.953 30.4 16 23.953 1.6 16 1.6zm8 15.2h-7.2V24h-1.6v-7.2H8v-1.6h7.2V8h1.6v7.2H24z"></path>
                                                     </svg>
@@ -485,7 +495,7 @@
                                             <div class="text-field">
                                                 <label for=""></label>
                                                 <div class="text-field">
-                                                    <input type="text" id="" class="maker-input input-price" placeholder="원하는 포인트를 입력해 주세요" name="share-points" value="">
+                                                    <input type="text" id="" class="maker-input input-price must-input" placeholder="원하는 포인트를 입력해 주세요" name="share-points" value="">
                                                     <span class="text-field-fixed-text">포인트</span>
                                                 </div>
                                             </div>
@@ -1268,4 +1278,5 @@
 {% block js %}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="{% static 'share/js/write.js' %}"></script>
+    <script src="{% static 'public/js/modal.js' %}"></script>
 {% endblock %}

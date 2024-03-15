@@ -7,7 +7,11 @@ from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.views import APIView
 import math
+
+from place.models import PlacePoints, Place
 from point.models import Point
+from school.models import School
+from share.models import Share, SharePoints
 from university.models import University
 
 
@@ -15,61 +19,47 @@ class PointView(View):
     def get(self, request):
         member = request.session['member']
         member_id = request.session['member']['id']
+        point_total = Point.objects.filter(member_id=member_id, point_status=1).aggregate(Sum('point'))['point__sum']
+        use_total = Point.objects.filter(member_id=member_id , point_status=2).aggregate(Sum('point'))['point__sum']
+        # total = point_total - use_total
+        # if use_total is None :
+        #     university = University.objects.filter(member_id=member_id).update(university_member_points=point_total)
+        # elif total < 0 :
+        #     university = University.objects.filter(member_id=member_id).update(university_member_points=0)
+        # else :
+        #     university = University.objects.filter(member_id=member_id).update(university_member_points=total)
+
+        # print(university)
+
         print(member_id)
         context = {
             'member': member
         }
-        university = University.objects.get(member_id=member_id)
-        print(university.university_member_points)
         print('GET 들어옴')
         return render(request, 'point/point-charge.html', context)
 
     def post(self, request):
-        # fetch 의 json 형태의 body 정보를 문자열로 디코딩함 (utf-8)
+        # fetch의 json 형태의 body 정보를 문자열로 디코딩함 (utf-8)
         data = json.loads(request.body.decode('utf-8'))
         point = data.get('point')
         member_id = request.session['member']['id']
-        # number = data.get('number')
         datas = {
             'point': point,
             'member_id': member_id,
-            'point_status': 2
+            'point_status': 1  # 충전 상태
         }
-        member = request.session['member']
-        member_id = request.session['member']['id']
-        university = University.objects.get(member_id=member_id)
-        if university :
-            Point.objects.create(**datas)
+        university = University.objects.filter(member_id=member_id).first()
+        if university:
+            point_obj = Point.objects.create(**datas)
             print(f'충전된 금액 -> {point}point')
-            # point 테이블 내의 point 정보들을 모두 합산한다. 특정 member_id에 해당하는 .. --> filter (충전포인트만)
-            point_total = Point.objects.filter(member_id=member_id, point_status=2).aggregate(Sum('point'))['point__sum']
-            # 사용 포인트 총합
-            use_total = Point.objects.filter(member_id=member_id, point_status=1).aggregate(Sum('point'))['point__sum']
 
-            # 잔액 포인트
-            if use_total is None :
-                result = point_total
-            else :
-                result = point_total - use_total
-
-            if result <= 0   :
-                result = 0
-            print('충전 합계',point_total)
-            print('잔액',result)
-            print('사용',use_total)
-
-            # 해당 member_id의 대학생 회원들의 포인트에 추가시켜준다.
-            university = University.objects.filter(member_id=member_id).update(university_member_points=result)
-
+            # 대학생 포인트에 추가
+            university.university_member_points += point_obj.point
+            university.save()
 
             return JsonResponse({'success': True, 'message': '성공!!'})
-        else :
-            error = '대학생만 충전이 가능합니다.'
-            print(error)
-
-            return JsonResponse({'success': False, 'message': '대학생만 충전이 가능합니다.'})
-
-
+        else:
+            return JsonResponse({'success': False, 'message': '대학생만 충전이 가능합니다'})
 
 class PointChargeView(View):
     def post(self, request):
@@ -146,7 +136,7 @@ class PointListView(View):
         page = request.GET.get('page', 1)
 
         # 포인트 리스트 가져오기
-        point_list = Point.objects.filter(member_id=member_id, point_status=2).order_by('-id')
+        point_list = Point.objects.filter(member_id=member_id, point_status=1).order_by('-id')
 
         # Paginator를 사용하여 페이지당 원하는 개수로 나누기
         paginator = Paginator(point_list, 8)  # 8개씩 보여주기로 설정 (원하는 개수로 변경 가능)
@@ -245,7 +235,7 @@ class PointUseListView(View):
         page = request.GET.get('page', 1)
 
         # 포인트 리스트 가져오기
-        point_list = Point.objects.filter(member_id=member_id, point_status=1).order_by('-id')
+        point_list = Point.objects.filter(member_id=member_id, point_status=2).order_by('-id')
 
         # Paginator를 사용하여 페이지당 원하는 개수로 나누기
         paginator = Paginator(point_list, 8)  # 8개씩 보여주기로 설정 (원하는 개수로 변경 가능)
@@ -267,8 +257,11 @@ class PointUseDetailView(View):
     def get(self, request):
         member = request.session['member']
         member_id = request.session['member']['id']
-
         point_id = request.GET.get('id')
+
+        place_true = PlacePoints.objects.filter(points_id=point_id).first()
+        share_true = SharePoints.objects.filter(points_id=point_id).first()
+
         point = Point.objects.get(id=point_id, member_id=member_id)
 
         context = {
@@ -277,12 +270,95 @@ class PointUseDetailView(View):
             'member_id': member_id,
             'point': point,
         }
+        if place_true :
+            place_point = PlacePoints.objects.get(points_id=point_id)
+            place_id = place_point.place_id
+            place_title = Place.objects.get(id=place_id)
+            context['place_true'] = place_true
+            context['place_title'] = place_title
+            context['place'] = place_id
+
+        if share_true :
+            share_point = SharePoints.objects.get(points_id=point_id)
+            share_id = share_point.share_id
+            share_title = Share.objects.get(id=share_id)
+            context['share_true'] = share_true
+            context['share_title'] = share_title
+            context['share'] = share_id
+
         return render(request, 'point/use-list-detail.html', context)
 
 
+#------------적립 내역 view-------------------------
+class PointGetListView(View):
+    def get(self, request):
+        member_id = request.session['member']['id']
 
+        # 페이지 번호 가져오기
+        page = request.GET.get('page', 1)
 
+        # 포인트 리스트 가져오기
+        point_list = Point.objects.filter(member_id=member_id, point_status=3).order_by('-id')
 
+        # Paginator를 사용하여 페이지당 원하는 개수로 나누기
+        paginator = Paginator(point_list, 8)  # 8개씩 보여주기로 설정 (원하는 개수로 변경 가능)
+
+        try:
+            points = paginator.page(page)
+        except EmptyPage:
+            points = paginator.page(paginator.num_pages)
+
+        context = {
+            'member': request.session['member'],
+            'member_id': member_id,
+            'points': points,
+        }
+
+        return render(request, 'point/get-list.html', context)
+
+class PointGetDetailView(View):
+    def get(self, request):
+        member = request.session['member']
+        member_id = request.session['member']['id']
+        point_id = request.GET.get('id')
+        point = Point.objects.get(id=point_id, member_id=member_id)
+
+        place_true = Place.objects.filter(school=member_id).first()
+        share_true = Share.objects.filter(university=member_id).first()
+
+        context = {
+            'date': Point.objects.filter(member_id=member_id).values('updated_date').first(),
+            'member': member,
+            'member_id': member_id,
+            'point': point,
+            'school': School.objects.filter(member_id=member_id).values('school_name').first()
+        }
+
+        if place_true :
+            place_id = Place.objects.filter(school=member_id).first()
+            place_point = Point.objects.get(id=point_id)
+            place_title = place_true.place_title
+            place_points = place_true.place_points
+
+            context['place'] = place_id
+            context['place_true'] = place_true
+            context['place_point'] = place_point
+            context['place_points'] = place_points
+            context['place_title'] = place_title
+
+        if share_true :
+            share_id = Share.objects.filter(university=member_id).first()
+            share_point = Point.objects.get(id=point_id)
+            share_title = share_true.share_title
+            share_points = share_true.share_points
+
+            context['share'] = share_id
+            context['share_true'] = share_true
+            context['share_points'] = share_point
+            context['share_points'] = share_points
+            context['share_title'] = share_title
+
+        return render(request, 'point/get-list-detail.html', context)
 
 
     # def public(self,request):

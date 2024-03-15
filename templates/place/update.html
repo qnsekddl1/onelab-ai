@@ -292,7 +292,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" value="{{ place.place_title }}" maxlength="30" name="place-title" id="title-input" class="maker-input input-maker-name" placeholder="제목 입력" />
+                                                <input type="text" value="{{ place.place_title }}" maxlength="30" name="place-title" id="title-input" class="maker-input input-maker-name must-input" placeholder="제목 입력" />
                                             </div>
                                             <em class="helper-msg">30자 남음</em>
                                         </div>
@@ -346,7 +346,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" value="{{ place.place_points }}" name="place-points" id="title-input" class="maker-input input-maker-name" placeholder="포인트 입력" />
+                                                <input type="text" value="{{ place.place_points }}" name="place-points" id="title-input" class="maker-input input-maker-name must-input" placeholder="포인트 입력" />
                                                 <span class="text-field-fixed-text">포인트</span>
                                             </div>
                                         </div>
@@ -367,7 +367,7 @@
                                                 <div class="date-field-container">
                                                     <div class="ant-picker date-picker" style="width: 100%">
                                                         <div class="ant-picker-input">
-                                                            <input name="place-date" value="{{ place.place_date|date:'Y-m-d' }}" autocomplete="off" id="change-input" type="date" />
+                                                            <input class="must-input" name="place-date" value="{{ place.place_date|date:'Y-m-d' }}" autocomplete="off" id="change-input" type="date" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -390,9 +390,7 @@
                                                         <div class="wide column-2"></div>
                                                         <div class="wide column-4">
                                                             <div class="wz input">
-                                                                <textarea class="content-textarea" placeholder="내용 입력" name="place-content" maxlength="2000" rows="10" style="resize: none;">
-                                                                    {{ place.place_content|striptags|default:''|striptags }}
-                                                                </textarea>
+                                                                <textarea class="content-textarea must-input" placeholder="내용 입력" name="place-content" maxlength="2000" rows="10" style="resize: none;">{{ place_content }}</textarea>
                                                             </div>
                                                             <em class="helper form-field-textarea-helper">2000자 남음</em>
                                                         </div>
@@ -411,7 +409,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" name="place-ask-email" class="maker-input input-email" placeholder="이메일 입력" value="{{ place.place_ask_email }}">
+                                                <input type="text" name="place-ask-email" class="maker-input input-email must-input" placeholder="이메일 입력" value="{{ place.place_ask_email }}">
                                             </div>
                                         </div>
                                     </section>
@@ -422,7 +420,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" name="place-url" id="" class="maker-input input-id" placeholder="홈페이지 URL 입력" value="{{ place.place_url }}" />
+                                                <input type="text" name="place-url" id="" class="maker-input input-id must-input" placeholder="홈페이지 URL 입력" value="{{ place.place_url }}" />
                                             </div>
                                         </div>
                                     </section>

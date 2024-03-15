@@ -10,7 +10,7 @@
     to {scale: 0;}
 }
 
-div.modal {
+div.modal, div.modal2 {
     display: none;
     position: fixed;
     flex-direction: column;
