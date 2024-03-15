@@ -34,7 +34,7 @@ class MyPageMainView(View):
 
         point = request.GET.get('point')
         # 커뮤니티 목록 가져오기
-        community = Community.objects.filter(member_id=member_id, community_status=0).order_by('-id')
+        community = Community.objects.filter(member_id=member_id, status=0).order_by('-id')
 
         # 세션 정보 최신화
         request.session['member'] = MemberSerializer(Member.objects.get(id=request.session['member']['id'])).data
