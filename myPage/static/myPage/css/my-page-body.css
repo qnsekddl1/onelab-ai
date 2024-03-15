@@ -226,7 +226,7 @@ h4{
     position: relative;
     margin: 0 auto;
     border-radius: 8px;
-    background-color: #e9ecef;
+    /*background-color: #e9ecef;*/
     width: 61px;
     height: 28px;
 }
