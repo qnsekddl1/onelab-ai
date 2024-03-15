@@ -9,7 +9,8 @@ class Alarm(Period):
     ALARM_STATUS = [
         (0, '승인'),
         (1, '거절'),
-        (-1, '탈퇴')
+        (-1, '탈퇴'),
+        (2, '대기')
     ]
 
     alarm_status = models.SmallIntegerField(choices=ALARM_STATUS, default=0)
