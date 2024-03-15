@@ -424,7 +424,8 @@ div.home-vertical-card-thumbnail-wrap {
 
 div.thumbnail-img-container {
     border-radius: 8px;
-    display: block;
+    display: flex;
+    justify-content: center;
     overflow: hidden;
     position: absolute;
     inset: 0;
@@ -433,7 +434,7 @@ div.thumbnail-img-container {
 }
 
 img.thumbnail-img {
-    width: 100%;
+    width: 56%;
     height: 100%;
     object-fit: cover;
     vertical-align: top;
@@ -689,3 +690,19 @@ option {
     font-size: 16px;
 }
 
+.like-img-box {
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+.like-count-wrap {
+    font-size: 13px;
+    font-weight: 400;
+    color: #868e96;
+    line-height: 1.5;
+}
+.like-wrapper {
+    display: flex;
+    justify-content: space-between;
+}

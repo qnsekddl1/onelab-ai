@@ -16,7 +16,7 @@ from rest_framework.views import APIView
 from community.models import Community
 from file.models import File
 from like.models import Like
-from member.models import Member
+from member.models import Member, MemberFile
 from onelab.models import OneLab
 from place.models import PlaceReview, PlaceLike, PlacePoints
 from place.models import Place, PlaceFile
@@ -133,17 +133,29 @@ class PlaceDetailView(View):
             'points_id': point.id
         }
         PlacePoints.objects.get_or_create(**place_data)
+<<<<<<< HEAD
     # ------------------------------결제 부분 완료---------------------------------#
     # --------------------------------멤버 참여 기능 시작---------------------------#
+=======
+        # ------------------------------결제 부분 완료---------------------------------#
+        # --------------------------------멤버 참여 기능 시작---------------------------#
+>>>>>>> d1bde3fe9bb50131baf8fd696731410e94b3e5b6
         join_data = {
             'place_member_status': 0,
             'university_id': request.session['member']['id'],
             'place_id': post.id
         }
         PlaceMember.objects.get_or_create(**join_data)
+<<<<<<< HEAD
     # --------------------------------멤버 참여 기능 완료---------------------------#
         return redirect('/myPage/main/')
 
+=======
+        # --------------------------------멤버 참여 기능 완료---------------------------#
+        return redirect('/myPage/main/')
+
+
+>>>>>>> d1bde3fe9bb50131baf8fd696731410e94b3e5b6
 # 좋아요
 class PlaceLikeView(View):
     def post(self, request):
@@ -253,8 +265,10 @@ class PlaceUpdateView(View):
         post = Place.objects.get(id=id)
         # update_url 생성
         update_url = reverse('place:update', args=[id])
+        place_content = post.place_content.strip()
         context = {
             'place': post,
+            'place_content': place_content,
             'place_files': list(post.placefile_set.all()),
             'update_url': update_url,
             'point': point,
@@ -341,6 +355,7 @@ class PlaceReviewListAPIView(APIView):
             'review__review_content',
             'review__review_rating',
             'member_name',
+            'review__member',
             'review__member__member_school_email',
             'review__created_date',
         ]
@@ -386,6 +401,8 @@ class PlaceReviewListAPIView(APIView):
             review_one_id = review['review__id']
             review_one = Review.objects.get(id=review_one_id)
             review_files = review_one.reviewfile_set.all()
+            member_one_id = review['review__member']
+            member_profiles = MemberFile.objects.filter(member_id=member_one_id)
 
             # 리뷰 파일 데이터를 리스트에 추가
             review_file_info = []
@@ -398,6 +415,16 @@ class PlaceReviewListAPIView(APIView):
 
             # 리뷰 정보에 파일 정보를 추가
             review['review_files'] = review_file_info
+
+            # 멤버 프로필 이미지 리스트에 추가
+            profile_file_info = []
+            for profile in member_profiles:
+                profile_info = {
+                    'path': profile.path.url
+                }
+                profile_file_info.append(profile_info)
+
+            review['profile_files'] = profile_file_info
 
             # 리뷰 정보를 review_info에 추가
             review_info['reviews'].append(review)
@@ -434,7 +461,7 @@ class PlaceListAPIView(APIView):
         else:
             # 해당 지역에 속한 학교 가져오기
             # strip = 공백 제거
-            places = Place.objects.filter(school__school_member_address__contains=area_sort.strip())
+            places = Place.enabled_objects.filter(school__school_member_address__contains=area_sort.strip())
 
         # 선택된 지역에 따라 필터링된 장소 목록 가져오기
         places = places.annotate(place_address=F('school__school_member_address'),\

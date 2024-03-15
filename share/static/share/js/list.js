@@ -86,6 +86,7 @@ const getList = (callback) => {
     })
 }
 const shareWrapper = document.querySelector(".table-layout-container");
+const likeImgUrl = 'share/images/like.png'
 const showList = (share_info) => {
     if (!share_info.hasNext) {
         moreButton.style.display = 'none';
@@ -151,9 +152,14 @@ const showList = (share_info) => {
                             </div>
                             <p class="info-string-wrapper">${share.share_points} 포인트</p>
                             <strong class="title">${share.share_title}</strong>
-                            <p>${share.share_like_count}</p>
                             <p class="home-vertical-card-maker-name-wrapper" style="font-size: 15px;">${timeForToday(share.created_date)}</p>
-                            <p class="home-vertical-card-maker-name-wrapper" style="font-size: 15px;">${share.member_name} ${share.share_choice_major} ${share.share_choice_grade}</p>
+                            <div class="like-wrapper">
+                                <p class="home-vertical-card-maker-name-wrapper" style="font-size: 15px;">${share.member_name} ${share.share_choice_major} ${share.share_choice_grade}</p>
+                                <div style="display: flex;">
+                                    <img src="https://freesvg.org/img/1433686694.png" class="like-img-box" alt="">
+                                    <p class="like-count-wrap">${share.share_like_count}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 

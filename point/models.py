@@ -25,4 +25,4 @@ class Point(Period):
         ordering = ['-id']
 
     def get_absolute_url(self):
-        return f'/point/detail/?id={self.id}'
+        return f'/point/detail?id={self.id}'

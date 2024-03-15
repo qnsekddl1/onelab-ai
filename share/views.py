@@ -12,7 +12,6 @@ from django.http import JsonResponse, FileResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.urls import reverse
-from relation.post import Post
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 import json
@@ -21,8 +20,9 @@ from rest_framework.views import APIView
 from community.models import Community
 from file.models import File
 from like.models import Like
-from member.models import Member
+from member.models import Member, MemberFile
 from onelab.models import OneLab
+from onelabMember.models import OneLabMember
 from point.models import Point
 from review.models import Review
 from share.models import Share, ShareFile, ShareReview, ShareLike, SharePoints
@@ -30,13 +30,13 @@ from oneLabProject.settings import MEDIA_URL
 from shareMember.models import ShareMember
 from university.models import University
 
-#---------------수정 부분 존재 ------------------
+
 class ShareDetailView(View):
     def get(self, request, id):
         post = Share.objects.get(id=id)
-        member = request.session['member']['id'] # 수정 부분
-        university_member = University.objects.get(member_id=member) # 수정 부분
-        post_list = Share.enabled_objects.filter(university_id=university_member.member_id).order_by('-id')
+
+        university_member = University.objects.get(member=post.university)
+        post_list = Share.enabled_objects.filter(university=university_member).order_by('-id')
         page = request.GET.get('page', 1)
         paginator = Paginator(post_list, 4)
         posts = paginator.page(page)
@@ -84,6 +84,11 @@ class ShareDetailView(View):
                 # 해당 Like 객체가 존재하지 않습니다.
                 member_like = False
 
+        profile = MemberFile.objects.filter(member=university_member.member)
+        if profile:
+            profile = profile[0]
+        # print(profile.path)
+
         context = {
             'share': post,
             'share_files': list(post.sharefile_set.all()),
@@ -94,50 +99,52 @@ class ShareDetailView(View):
             'onelab_count': onelab_count,
             'university_member': university_member,
             'member_like': member_like,
+            'profile': profile.path,
         }
 
         return render(request, 'share/detail.html', context)
 
-#------------------------------------------------------------------------------
-    def post(self,request,id):
-        post = Share.objects.get(id=id) # 자료공유 상세보기 아이디를 가져옴
-        member= request.session['member']['id']
+    # ------------------------------------------------------------------------------
+    def post(self, request, id):
+        post = Share.objects.get(id=id)  # 자료공유 상세보기 아이디를 가져옴
+        member = request.session['member']['id']
         university = post.university_id
         price = post.share_points
-        share_member = University.objects.get(member=university) # 판매자
-        pay_member = University.objects.get(member=member) # 구매자
+        share_member = University.objects.get(member=university)  # 판매자
+        pay_member = University.objects.get(member=member)  # 구매자
         # 결제 버튼 클릭 시 기능
-        share_member_id = share_member.member_id # 판매자 실제 아이디
+        share_member_id = share_member.member_id  # 판매자 실제 아이디
         Point.objects.create(member_id=share_member_id, point_status=3, point=price)
-        pay_member_id = pay_member.member_id # 구매자 실제 아이디
+        pay_member_id = pay_member.member_id  # 구매자 실제 아이디
         point = Point.objects.create(member_id=pay_member_id, point_status=2, point=price)
 
         share_data = {
-            'points_id': point.id
+            'points_id': point.id,
+            'share_id': post.id
         }
         SharePoints.objects.get_or_create(**share_data)
 
-        if pay_member.university_member_points < price :
-            return render(request,'share/list.html')
-        else :
+        if pay_member.university_member_points < price:
+            return render(request, 'share/list.html')
+        else:
             # ------ 적립, 사용 잔액 기능 구현 --------------- #
             share_member.university_member_points += price
             before = share_member.save()
             print(before)
-            #----- 판매자는 적립금액 들어옴 --------------#
+            # ----- 판매자는 적립금액 들어옴 --------------#
             pay_member.university_member_points -= price
             after = pay_member.save()
             print(after)
-            #----- 구매자는 사용금액 차감됨 -------------- #
+            # ----- 구매자는 사용금액 차감됨 -------------- #
 
-        #----멤버 결제 내역 기능 시작 --------------#
+        # ----멤버 결제 내역 기능 시작 --------------#
         join_data = {
-            'share_member_status' : 0,
-            'university_id' : request.session['member']['id'],
-            'share_id' : post.id
+            'share_member_status': 0,
+            'university_id': request.session['member']['id'],
+            'share_id': post.id
         }
         ShareMember.objects.get_or_create(**join_data)
-        #------- 멤버 결제 내역 기능 완료 --------- #
+        # ------- 멤버 결제 내역 기능 완료 --------- #
         return redirect('/myPage/main/')
 
 
@@ -150,7 +157,6 @@ class ShareLikeView(View):
             share_id = data.get('share_id')
             # 해당 share_id 가진 게시글 가져오기
             share = Share.objects.get(id=share_id)
-            print(share_id)
             # 세션에 들어있는 회원
             member = Member.objects.get(id=request.session['member']['id'])
 
@@ -180,6 +186,7 @@ class ShareLikeView(View):
         # AJAX 요청이 아닌 경우
         return render(request, 'share/detail.html')
 
+
 class ShareWriteView(View):
     def get(self, request):
         member = Member.objects.get(id=request.session['member']['id'])
@@ -202,12 +209,15 @@ class ShareWriteView(View):
         university_member.save()
 
         # 마이 포인트
-        point_member = Point.objects.get_or_create(member=member, point_status=1)
-        point = point_member[0].point
+        if len(list(Point.objects.filter(member=member, point_status=3))) > 0:
+            point = Point.objects.filter(member=member, point_status=3).aggregate(Sum('point'))['point__sum']
+        else:
+            point = Point.objects.create(member=member, point_status=3).point
 
         # 마이 포스트 수
         share_post_count = Share.enabled_objects.filter(university=university_member).count()
-        community_post_count = Community.objects.filter(member=member).count()  # community, onelab도 enabled_objects로 바꾸기
+        community_post_count = Community.objects.filter(
+            member=member).count()  # community, onelab도 enabled_objects로 바꾸기
         onelab_post_count = OneLab.objects.filter(university=university_member).count()
         total_post_count = share_post_count + community_post_count + onelab_post_count
 
@@ -256,6 +266,7 @@ class ShareWriteView(View):
 
         return redirect(reverse('share:detail', kwargs={'id': share.id}))
 
+
 class ShareDownloadView(View):
     def get(self, request, file_path, *args, **kwargs):
         file_name = file_path.split('/')[-1]
@@ -266,11 +277,12 @@ class ShareDownloadView(View):
         fs = FileSystemStorage()
         # fs.open("파일 이름", 'rb')
         content_type, _ = mimetypes.guess_type(file_name)
-        response = FileResponse(fs.open( file_path,'rb'),
+        response = FileResponse(fs.open(file_path, 'rb'),
                                 content_type=content_type)
         response['Content-Disposition'] = f'attachment; filename="{file_name}"'
 
         return response
+
 
 class ShareUpdateView(View):
     def get(self, request, id):
@@ -278,11 +290,15 @@ class ShareUpdateView(View):
         university_member = University.objects.get(member=member)
 
         # 마이 포인트
-        point = Point.objects.get(member=member).point
+        if len(list(Point.objects.filter(member=member, point_status=3))) > 0:
+            point = Point.objects.filter(member=member, point_status=3).aggregate(Sum('point'))['point__sum']
+        else:
+            point = Point.objects.create(member=member, point_status=3)
 
         # 마이 포스트 수
         share_post_count = Share.enabled_objects.filter(university=university_member).count()
-        community_post_count = Community.objects.filter(member=member).count()  # community, onelab도 enabled_objects로 바꾸기
+        community_post_count = Community.objects.filter(
+            member=member).count()  # community, onelab도 enabled_objects로 바꾸기
         onelab_post_count = OneLab.objects.filter(university=university_member).count()
         total_post_count = share_post_count + community_post_count + onelab_post_count
 
@@ -317,8 +333,9 @@ class ShareUpdateView(View):
         share.share_points = data['share-points']
         share.share_text_name = data['share-text-name']
         share.share_text_major = data['share-text-major']
-        share.save(update_fields=['share_title', 'share_content', 'share_choice_major', 'share_choice_grade', 'share_type',
-                                  'share_points', 'share_text_name', 'share_text_major'])
+        share.save(
+            update_fields=['share_title', 'share_content', 'share_choice_major', 'share_choice_grade', 'share_type',
+                           'share_points', 'share_text_name', 'share_text_major'])
 
         # 새로운 파일들이 있는지 확인
         files = request.FILES.getlist('upload-file')
@@ -339,15 +356,18 @@ class ShareUpdateView(View):
 
         return redirect(share.get_absolute_url())
 
+
 class ShareDeleteView(View):
     def get(self, request):
         share_id = request.GET['id']
         Share.objects.filter(id=share_id).update(share_post_status=False)  # 수정
         return redirect('/share/list')
 
+
 class ShareListView(View):
     def get(self, request):
         return render(request, 'share/list.html')
+
 
 class ShareListAPIView(APIView):
     @transaction.atomic
@@ -446,7 +466,41 @@ class ShareReviewListView(View):
         # 좋아요 수
         share_like_count = ShareLike.objects.filter(share=post).count()
 
-        postData = {
+        # 파일
+        share = Share.objects.get(id=share_id)
+        share_file = ShareFile.objects.filter(share=share).first()
+        share_file_extension = share_file.file_extension
+
+        # 원랩 수
+        share_member = University.objects.get(member=share.university)
+        onelab_manager_count = OneLab.objects.filter(university=share_member).count()
+        onelab_member_count = OneLabMember.objects.filter(university=share_member).count()
+        total_onelab_count = onelab_manager_count + onelab_member_count
+
+        post_list = Share.enabled_objects.filter(university=share_member).order_by('-id')
+        page = request.GET.get('page', 1)
+        paginator = Paginator(post_list, 4)
+        posts = paginator.page(page)
+
+        # 회원이 좋아요를 한 상태인지
+        member = Member.objects.get(id=request.session['member']['id'])
+        share_likes = ShareLike.objects.filter(share=share)
+        member_like = False
+        for share_like in share_likes:
+            try:
+                # 해당 Like 객체를 가져옵니다.
+                like_object = Like.objects.get(member=member, like_status=True, id=share_like.like_id)
+                # 예외가 발생하지 않았으므로, 해당 Like 객체가 존재합니다.
+                member_like = True
+            except Like.DoesNotExist:
+                # 해당 Like 객체가 존재하지 않습니다.
+                member_like = False
+
+        profile = MemberFile.objects.filter(member=share_member.member)
+        if profile:
+            profile = profile[0]
+
+        post_data = {
             'share_id': post.id,
             'share_title': post.share_title,
             'share_points': post.share_points,
@@ -460,9 +514,15 @@ class ShareReviewListView(View):
             'share_choice_grade': post.share_choice_grade,
             'file_path': post.sharefile_set.all().values('path'),
             'share_like_count': share_like_count,
+            'share_file_extension': share_file_extension,
+            'total_onelab_count': total_onelab_count,
+            'member_like': member_like,
+            'posts': posts,
+            'profile': profile.path,
         }
 
-        return render(request, 'share/review.html', postData)
+        return render(request, 'share/review.html', post_data)
+
 
 class ShareReviewListAPIView(APIView):
     @transaction.atomic
@@ -477,6 +537,7 @@ class ShareReviewListAPIView(APIView):
             'review__review_content',
             'review__review_rating',
             'member_name',
+            'review__member',
             'review__member__member_school_email',
             'review__created_date',
         ]
@@ -484,15 +545,19 @@ class ShareReviewListAPIView(APIView):
         # 정렬 방식에 따라 쿼리셋을 정렬
         sort = request.GET.get('sort', 'latest')
         if sort == 'highest_rating':
-            reviews = ShareReview.enabled_objects.filter(share_id=share_id).annotate(member_name=F('review__member__member_name'))\
-                      .values(*datas).order_by('-review__review_rating', '-review__created_date')[offset:limit]
+            reviews = ShareReview.enabled_objects.filter(share_id=share_id).annotate(
+                member_name=F('review__member__member_name')) \
+                .values(*datas).order_by('-review__review_rating', '-review__created_date')
         elif sort == 'lowest_rating':
-            reviews = ShareReview.enabled_objects.filter(share_id=share_id).annotate(member_name=F('review__member__member_name'))\
-                      .values(*datas).order_by('review__review_rating', '-review__created_date')[offset:limit]
+            reviews = ShareReview.enabled_objects.filter(share_id=share_id).annotate(
+                member_name=F('review__member__member_name')) \
+                .values(*datas).order_by('review__review_rating', '-review__created_date')
         else:  # default to latest
-            reviews = ShareReview.enabled_objects.filter(share_id=share_id).annotate(member_name=F('review__member__member_name'))\
-                      .values(*datas).order_by('-review__created_date')[offset:limit]
+            reviews = ShareReview.enabled_objects.filter(share_id=share_id).annotate(
+                member_name=F('review__member__member_name')) \
+                .values(*datas).order_by('-review__created_date')
 
+        reviews = reviews[offset:limit]
         # 리뷰 개수 가져오기
         total_review_count = ShareReview.enabled_objects.filter(share_id=share_id).count()
 
@@ -504,7 +569,8 @@ class ShareReviewListAPIView(APIView):
 
         # 리뷰 평균
         review_avg_decimal = \
-        ShareReview.enabled_objects.filter(share_id=share_id).aggregate(avg_rating=Avg('review__review_rating'))['avg_rating']
+            ShareReview.enabled_objects.filter(share_id=share_id).aggregate(avg_rating=Avg('review__review_rating'))[
+                'avg_rating']
         review_avg_rounded = Decimal(review_avg_decimal).quantize(Decimal('0.1'))  # 수정
 
         # 다음 페이지가 있는지 계산할 때도 전체 리뷰 개수를 사용하여 계산
@@ -522,6 +588,8 @@ class ShareReviewListAPIView(APIView):
             review_one_id = review['review__id']
             review_one = Review.objects.get(id=review_one_id)
             review_files = review_one.reviewfile_set.all()
+            member_one_id = review['review__member']
+            member_profiles = MemberFile.objects.filter(member_id=member_one_id)
 
             # 리뷰 파일 데이터를 리스트에 추가
             review_file_info = []
@@ -535,9 +603,17 @@ class ShareReviewListAPIView(APIView):
             # 리뷰 정보에 파일 정보를 추가
             review['review_files'] = review_file_info
 
+            # 멤버 프로필 이미지 리스트에 추가
+            profile_file_info = []
+            for profile in member_profiles:
+                profile_info = {
+                    'path': profile.path.url
+                }
+                profile_file_info.append(profile_info)
+
+            review['profile_files'] = profile_file_info
+
             # 리뷰 정보를 review_info에 추가
             review_info['reviews'].append(review)
 
         return Response(review_info)
-
-

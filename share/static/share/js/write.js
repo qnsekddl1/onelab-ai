@@ -182,3 +182,58 @@ fileTypeBtns.forEach((btn) => {
     })
 })
 
+// 나가기 버튼 클릭시 모달창
+let modalCheck;
+const showWarnModal2 = (modalMessage) => {
+    modalCheck = false;
+    document.getElementById("content-wrap").innerHTML = modalMessage;
+    document.querySelector("div.warn-modal").style.animation = "popUp 0.5s";
+    document.querySelector("div.modal2").style.display = "flex";
+    setTimeout(()=>{
+        modalCheck = true;
+    }, 500)
+}
+
+document.querySelector("div.modal2").addEventListener("click", (e) => {
+    if(modalCheck) {
+        document.querySelector("div.warn-modal").style.animation = "popDown 0.5s";
+        setTimeout(()=>{
+            document.querySelector("div.modal2").style.display = "none";
+        }, 450)
+    }
+});
+
+const exitBtn = document.querySelector('.exit-button-text')
+exitBtn.addEventListener('click', (e) => {
+    let modalMessage = "<span>저장하기 전에 나가시면, 작성하신 모든 정보를 잃게 됩니다.</span>" +
+        "<span>정말 나가시겠습니까?</span>" +
+        "<div class='exit-modal-btns'><button type='submit' class='real-exit-btn exit-modal-btn'>나가기</button>" +
+        "<button type='submit' class='not-exit-btn exit-modal-btn'>취소</button></div>"
+    showWarnModal2(modalMessage);
+
+    const realExitBtn = document.querySelector('.real-exit-btn')
+    realExitBtn.addEventListener('click', (e) => {
+        window.location.href = '/share/list/'
+    })
+})
+
+const okBtn = document.querySelector('.save-btn')
+// 필수 입력칸들 입력 안되어있을 때
+const mustInputs = document.querySelectorAll('.must-input')
+
+okBtn.addEventListener('click', function (e){
+    let formValid = true;
+    let count = 0;
+    mustInputs.forEach((mustInput) => {
+        if (!mustInput.value) {
+            count += 1
+            formValid = false;
+            let modalMessage = "<span>필수 입력란을 모두 작성해주세요.</span>"
+            showWarnModal2(modalMessage);
+            e.preventDefault();
+        }
+    })
+    if(count === 0) {
+        document.forms['write-form'].submit();
+    }
+})

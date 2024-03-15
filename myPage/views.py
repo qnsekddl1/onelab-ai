@@ -43,6 +43,7 @@ class MyPageMainView(View):
         school = School.objects.filter(member_id=member_id).first()
         profile = MemberFile.objects.filter(member_id=member_id).first()
 
+
         # 공모전 목록 가져오기
         # exhibitions = None  # 공모전 목록 초기화
         # if university:
@@ -51,6 +52,11 @@ class MyPageMainView(View):
         #
         # elif school:
         #     exhibitions = Exhibition.objects.filter(school=school).order_by('-id')
+
+        point = request.GET.get('point')
+        # 커뮤니티 목록 가져오기
+        community = Community.objects.filter(member_id=member_id, status=0).order_by('-id')
+
 
         # 세션 정보 최신화
         request.session['member'] = MemberSerializer(Member.objects.get(id=request.session['member']['id'])).data

@@ -71,9 +71,8 @@
     {% block title %}마이페이지 메인화면{% endblock %}
 
 {% block content %}
-  {% include 'mypage/header.html' %}
+  
     {% csrf_token %}
-    
     <!-- 마이페이지 -->
         <div id="page-container">
             <main id="main-app">
@@ -883,21 +882,21 @@
                                     {% endfor %}
                                     <div class="pagination">
                                   <span class="step-links">
-{#                                      {% if places.has_previous %}#}
-{#                                          <a href="?share=1">&laquo; 처음</a>#}
-{#                                          <a href="?share={{ shares.previous_page_number }}">이전</a>#}
-{#                                      {% endif %}#}
-{#                                      {% for i in shares.paginator.page_range %}#}
-{#                                          {% if places.number == i %}#}
-{#                                              <span class="current">{{ i }}</span>#}
-{#                                          {% else %}#}
-{#                                              <a href="?share={{ i }}">{{ i }}</a>#}
-{#                                          {% endif %}#}
-{#                                      {% endfor %}#}
-{#                                      {% if places.has_next %}#}
-{#                                          <a href="?share={{ shares.next_page_number }}">다음</a>#}
-{#                                          <a href="?share={{ shares.paginator.num_pages }}">마지막 &raquo;</a>#}
-{#                                      {% endif %}#}
+                                      {% if places.has_previous %}
+                                          <a href="?share=1">&laquo; 처음</a>
+                                          <a href="?share={{ shares.previous_page_number }}">이전</a>
+                                      {% endif %}
+                                      {% for i in shares.paginator.page_range %}
+                                          {% if places.number == i %}
+                                              <span class="current">{{ i }}</span>
+                                          {% else %}
+                                              <a href="?share={{ i }}">{{ i }}</a>
+                                          {% endif %}
+                                      {% endfor %}
+                                      {% if places.has_next %}
+                                          <a href="?share={{ shares.next_page_number }}">다음</a>
+                                          <a href="?share={{ shares.paginator.num_pages }}">마지막 &raquo;</a>
+                                      {% endif %}
                                   </span>
                               </div>
                                 </div>
