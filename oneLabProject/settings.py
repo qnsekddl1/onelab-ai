@@ -31,10 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
-    'shareMember',
     'exhibitionMember',
     'placeMember',
+    'shareMember',
     'myPage',
     'oauth',
     'onelabMember',
