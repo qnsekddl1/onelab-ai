@@ -8,6 +8,7 @@ class School(Period):
     member = models.ForeignKey(Member, primary_key=True, on_delete=models.PROTECT, null=False)
     # 신청 후 대기중 상태(0) / 관리자 승인 완료(1)
     school_member_status = models.BooleanField(null=False, blank=False, default=False)
+
     class Meta:
         db_table = 'tbl_school'
         ordering = ['-created_date']
