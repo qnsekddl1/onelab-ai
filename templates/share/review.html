@@ -125,14 +125,58 @@
                                                                         <div
                                                                             class="recommendation-related-title"
                                                                         >
-                                                                            작성자의 다른 자료
+                                                                            작성자의 자료
                                                                         </div>
                                                                         
                                                                     </div>
                                                                     <div
-                                                                    class="recommendation-best-list-container"
-                                                                >
+                                                                    class="recommendation-best-list-container">
+{#                                                                        여기에 for문#}
+                                                                    {% for post in posts %}
+                                                                            <div class="RecommendationCardWrap_container">
+                                                                                <div class="HomeVerticalCard_container">
+                                                                                    <a class="HomeVerticalCard_content" href="{% url 'share:detail' id=post.id %}">
+                                                                                        <div class="HomeVerticalCard_thumbnailBox" style="padding-top: 56.25%">
+                                                                                            <div class="HomeVerticalCard_thumbnailWrap">
+                                                                                                <div class="ThumbnailImage_container">
+                                                                                                    {% if university_member_school == '서울대학교' %}
+                                                                                                        <img class="ThumbnailImage_img" src="{% static 'share/images/snu-logo.svg' %}" alt="" />
+                                                                                                    {% elif university_member_school == '카이스트' %}
+                                                                                                        <img class="ThumbnailImage_img" src="{% static 'share/images/kaist-logo.svg' %}" alt="" />
+                                                                                                    {% elif university_member_school == '연세대학교' %}
+                                                                                                        <img class="ThumbnailImage_img" src="{% static 'share/images/yns-logo.svg' %}" alt="" />
+                                                                                                    {% elif university_member_school == '고려대학교' %}
+                                                                                                        <img class="ThumbnailImage_img" src="{% static 'share/images/korea-logo.svg' %}" alt="" />
+                                                                                                    {% else %}
+                                                                                                        <img class="ThumbnailImage_img" src="{% static 'public/images/realfavicon.png' %}" alt="" />
+                                                                                                    {% endif %}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="HomeVerticalCard_infoBox">
+                                                                                            <div class="HomeVerticalCard_info">
+                                                                                                <div class="PriceInfoWrapper_container">
+                                                                                                    <span>{{ post.share_points }}포인트</span>
+                                                                                                </div>
+                                                                                                <strong class="Title_title__3kHxQ" style="display: flex">{{ post.share_title }}</strong>
+                                                                                                <p class="HomeVerticalCard_makerNameWrapper" style="width: 36px">{{ post.university.member.member_name }}</p>
+                                                                                            </div>
 
+                                                                                        </div>
+                                                                                        <div class="CardSpinner_container">
+                                                                                            <div class="CardSpinner_loader" style="width: 32px; height: 32px">
+                                                                                                <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                                                                    <g class="Loader_circular">
+                                                                                                        <circle class="Loader_path"></circle>
+                                                                                                    </g>
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </a>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            {% endfor %}
                                                                     <div></div>
                                                                     <div></div>
                                                                     <div></div>
@@ -266,19 +310,15 @@
                                             </div>
                                             <div class="store-badge-group-container" style="margin-top: 16px;">
                                                 <div class="store-badges" style="display: flex; margin-right: 5px;">
-                                                    {% with first_file=sharefile_set.first %}
-                                                        {% if first_file %}
-                                                            {% if first_file.file_extension == 'pdf' %}
-                                                                <span class="label-badge pdf">PDF</span>
-                                                            {% elif first_file.file_extension == 'hwp' %}
-                                                                <span class="label-badge hwp">HWP</span>
-                                                            {% elif first_file.file_extension == 'xlsx' %}
-                                                                <span class="label-badge xls">XLS</span>
-                                                            {% elif first_file.file_extension == 'docx' %}
-                                                                <span class="label-badge docx">DOCX</span>
-                                                            {% endif %}
-                                                        {% endif %}
-                                                    {% endwith %}
+                                                    {% if share_file_extension == 'pdf' %}
+                                                        <span class="label-badge pdf">PDF</span>
+                                                    {% elif share_file_extension == 'hwp' %}
+                                                        <span class="label-badge hwp">HWP</span>
+                                                    {% elif share_file_extension == 'xlsx' %}
+                                                        <span class="label-badge xls">XLS</span>
+                                                    {% elif share_file_extension == 'docx' %}
+                                                        <span class="label-badge docx">DOCX</span>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <div
@@ -324,7 +364,7 @@
                                                                 <span class="writer-info-icon one-lab" style="margin-right: 5px;"></span>
                                                                 <span>참여하는 원랩 수</span>
                                                             </div>
-                                                            <span>{{ onelab_count }}개</span>
+                                                            <span>{{ total_onelab_count }}개</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -365,19 +405,15 @@
                                                                     <div class="product-select-menu-item-description">
                                                                         <div class="store-badge-group-container">
                                                                             <div class="store-badges" style="display: flex; margin-right: 5px;">
-                                                                                {% with first_file=sharefile_set.first %}
-                                                                                    {% if first_file %}
-                                                                                        {% if first_file.file_extension == 'pdf' %}
-                                                                                            <span class="label-badge pdf">PDF</span>
-                                                                                        {% elif first_file.file_extension == 'hwp' %}
-                                                                                            <span class="label-badge hwp">HWP</span>
-                                                                                        {% elif first_file.file_extension == 'xlsx' %}
-                                                                                            <span class="label-badge xls">XLS</span>
-                                                                                        {% elif first_file.file_extension == 'docx' %}
-                                                                                            <span class="label-badge docx">DOCX</span>
-                                                                                        {% endif %}
-                                                                                    {% endif %}
-                                                                                {% endwith %}
+                                                                                {% if share_file_extension == 'pdf' %}
+                                                                                    <span class="label-badge pdf">PDF</span>
+                                                                                {% elif share_file_extension == 'hwp' %}
+                                                                                    <span class="label-badge hwp">HWP</span>
+                                                                                {% elif share_file_extension == 'xlsx' %}
+                                                                                    <span class="label-badge xls">XLS</span>
+                                                                                {% elif share_file_extension == 'docx' %}
+                                                                                    <span class="label-badge docx">DOCX</span>
+                                                                                {% endif %}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -559,7 +595,7 @@
                                                 <a href="{% url 'share:review_list' %}" id="review-link">
                                                     <span>
                                                         후기
-                                                        <span class="detail-tab-badge">215</span>
+                                                        <span class="detail-tab-badge"></span>
                                                     </span>
                                                 </a>
                                             </li>
@@ -615,7 +651,25 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="recommendation-best-container" style="width: 600px; margin-top: 30px;">
+                                                                <!-- 맨밑 버튼 쪽 -->
+                                                                <div class="recommendation-best-link-button">
+                                                                    <div class="recommendation-best-button-wrapper">
+                                                                        <a href="/share/list/" class="button-lg l">
+                                                                            <span>
+                                                                                <span class="button-children">
+                                                                                    전체보기
+                                                                                    <svg viewBox="0 0 24 24" fill="none" focusable="false" role="presentation" class="with-icon-icon ic">
+                                                                                        <path fill-rule="evenodd" d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"></path>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
                                                         <div></div>
                                                     </div>
                                         </div>
@@ -650,7 +704,7 @@
                                                                 <span class="writer-info-icon one-lab" style="margin-right: 5px;"></span>
                                                                 <span>참여하는 원랩 수</span>
                                                             </div>
-                                                            <span>{{ onelab_count }}개</span>
+                                                            <span>{{ total_onelab_count }}개</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -679,19 +733,15 @@
                                                                         <div class="product-select-menu-item-description">
                                                                             <div class="store-badge-group-container">
                                                                                 <div class="store-badges" style="display: flex; margin-right: 5px;">
-                                                                                    {% with first_file=sharefile_set.first %}
-                                                                                        {% if first_file %}
-                                                                                            {% if first_file.file_extension == 'pdf' %}
-                                                                                                <span class="label-badge pdf">PDF</span>
-                                                                                            {% elif first_file.file_extension == 'hwp' %}
-                                                                                                <span class="label-badge hwp">HWP</span>
-                                                                                            {% elif first_file.file_extension == 'xlsx' %}
-                                                                                                <span class="label-badge xls">XLS</span>
-                                                                                            {% elif first_file.file_extension == 'docx' %}
-                                                                                                <span class="label-badge docx">DOCX</span>
-                                                                                            {% endif %}
-                                                                                        {% endif %}
-                                                                                    {% endwith %}
+                                                                                    {% if share_file_extension == 'pdf' %}
+                                                                                        <span class="label-badge pdf">PDF</span>
+                                                                                    {% elif share_file_extension == 'hwp' %}
+                                                                                        <span class="label-badge hwp">HWP</span>
+                                                                                    {% elif share_file_extension == 'xlsx' %}
+                                                                                        <span class="label-badge xls">XLS</span>
+                                                                                    {% elif share_file_extension == 'docx' %}
+                                                                                        <span class="label-badge docx">DOCX</span>
+                                                                                    {% endif %}
                                                                                 </div>
                                                                             </div>
                                                                         </div>

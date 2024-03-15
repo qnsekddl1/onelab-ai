@@ -2694,3 +2694,171 @@ div.store-badges.small span {
     display: flex;
     align-items: center;
 }
+
+#more {
+    left: 93%;
+    position: relative;
+    border-radius: 5px;
+    color: white;
+    background: #008243;
+    padding: 5px;
+    border: 1px solid #008243;
+    margin-top: 25px;
+}
+
+.RecommendationCardWrap_container {
+    display: block;
+    width: calc(25% - 6px);
+}
+
+.HomeVerticalCard_container {
+    position: relative;
+    border-radius: 8px 0 0;
+    overflow: hidden;
+}
+
+.HomeVerticalCard_content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.HomeVerticalCard_thumbnailBox {
+    position: relative;
+}
+
+.HomeVerticalCard_thumbnailWrap {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.ThumbnailImage_container {
+    border-radius: 8px;
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    inset: 0;
+    background-color: #f2f4f6;
+    color: #cdd3d8;
+}
+
+.ThumbnailImage_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ReversalLabelBadge_badge {
+    right: 8px;
+    bottom: 8px;
+    border: solid 1px #fff;
+    background-color: rgba(0,0,0,0);
+    color: #fff;
+    border-radius: 16px;
+    line-height: 14px;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 0 4px;
+    height: 18px;
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-clip: padding-box;
+}
+
+.HomeVerticalCard_infoBox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+}
+
+.HomeVerticalCard_info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.HomeVerticalCard_isSmall {
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #008243;
+}
+
+.Title_title__3kHxQ {
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #212529;
+    height: 40px;
+}
+
+.HomeVerticalCard_makerNameWrapper {
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #868e96;
+    height: 18px;
+    margin: 0;
+}
+
+.HomeVerticalCard_badgeGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.RewardBadgeGroup_container {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.LabelBadge_tint {
+    border: solid 1px #f2f4f6;
+    background-color: #f2f4f6;
+    color: #495057;
+    line-height: 14px;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 0 4px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.CardSpinner_container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 8px;
+    z-index: 5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.Loader_circular {
+    transform-origin: 100% 100%;
+    animation: Loader_waffle-loader-rotate__1gYP7 1.5s linear infinite;
+}

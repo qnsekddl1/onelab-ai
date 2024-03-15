@@ -51,7 +51,7 @@
                                                             aria-hidden="true"
                                                             style="width: 626px"
                                                         >
-{#                                                            
+{#
                                                         </div>
                                                         <div
                                                             class="slick-slide slick-active slick-current"
@@ -96,7 +96,7 @@
                                                                         {% else %}
                                                                         <div
                                                                             class="store-slider-slick-background-image onelab-logo"
-                                                                            style=" background-size: contain;
+                                                                            style=" background-size: contain; width: 536px;
                                                                             "
                                                                         ></div>
                                                                     {% endif %}
@@ -127,7 +127,7 @@
                                                                         >
                                                                             작성자의 다른 자료
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     <div
                                                                     class="recommendation-best-list-container"
@@ -207,7 +207,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </a>
-                                                                            
+
                                                                         </div>
                                                                     </div>
                                                                     {% endfor %}
@@ -234,7 +234,7 @@
                                                 class="category-and-hash-tags-info_search-info-wrapper" style="display: flex; justify-content: space-between;"
                                             >
                                                 <div
-                                                    class="category-and-hash-tags-info-header" 
+                                                    class="category-and-hash-tags-info-header"
                                                 >
                                                     <div
                                                         class="project-search-tags-container"
@@ -303,7 +303,7 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                            
+
                                             <div>
                                                 <div id="move_button">
                                                     <div
@@ -338,11 +338,11 @@
                                                                 class="rating-score-icon"
                                                             ></div>
                                                             <span
-                                                                class="rating-score-score"
+                                                                class="rating-score-score"style="font-size: 16px; line-height: 2.5"
                                                                 >{{ review_avg_rounded }}</span
                                                             >
                                                         </div>
-                                                        
+
                                                     </a>
                                                 </div>
                                                 <div
@@ -382,12 +382,12 @@
                                                         class="detail-info-header-price-area"
                                                     >
                                                         <span>{{ share.share_points }} 포인트</span>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 작성자 정보 -->
                                         <div class="writer-info-container">
                                             <div class="writer-info-contents">
@@ -433,7 +433,7 @@
                                                     id="check-btn"
                                                     class="product-select-title menu"
                                                 >
-                                                    
+
                                                     <div class="product-select-more-button"></div>
                                                     <div
                                                         class="product-select-more-buttons"
@@ -448,7 +448,7 @@
                                                     >
                                                     <ul class="menubars up">
                                                         <li>
-                                                            
+
                                                         <div class="product-select-menu-item-container" style="border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
                                                             <div class="product-select-menu-item-title-wrapper product-select-menu-item-blured-p">
                                                                 <div class="product-select-menu-item-title">
@@ -479,15 +479,18 @@
                                                                 <div class="product-select-menu-item-left">
                                                                     <p class="product-select-menu-item-blured">{{ share.share_points }} 포인트</p>
                                                                 </div>
-                                                                <button class="button-button product-select-menu-item-out-of-stock purchase-btn">
-                                                                    <span>
-                                                                        <span class="button-children">구매하기</span>
-                                                                    </span>
-                                                                </button>
+                                                                <form action="{% url 'share:detail' id=share.id %}" method="POST" enctype="multipart/form-data" name="share-pay">
+                                                                    {% csrf_token %}
+                                                                    <button class="button-button product-select-menu-item-out-of-stock purchase-btn">
+                                                                        <span>
+                                                                            <span class="button-children">구매하기</span>
+                                                                        </span>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                         </li>
-                                                    
+
                                                     </ul>
                                                 </input>
                                             </div>
@@ -630,10 +633,10 @@
                                                                     이 자료는 작성자 개개인이 직접 올린 자료입니다.
                                                                 </li>
                                                                 <li>
-                                                                    구매하기를 누르면 즉시 포인트가 차감되며 파일이 다운로드 됩니다. 
+                                                                    구매하기를 누르면 즉시 포인트가 차감되며 파일이 다운로드 됩니다.
                                                                 </li>
                                                                 <li>
-                                                                    파일이 다운로드 되고 난 후, 환불은 불가합니다. 
+                                                                    파일이 다운로드 되고 난 후, 환불은 불가합니다.
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -658,7 +661,7 @@
                                                 <a href="{% url 'share:review_list' %}?share_id={{ share.id }}" id="review-link">
                                                     <span>
                                                         후기
-                                                        <span class="detail-tab-badge">215</span>
+                                                        <span class="detail-tab-badge"></span>
                                                     </span>
                                                 </a>
                                             </li>

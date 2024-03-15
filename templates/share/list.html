@@ -9,7 +9,7 @@
 {% block title %}자료공유 목록{% endblock %}
 {% block content %}
     {% if request.session.member %}
-        {% include  "header/main-page-header-login-one.html"%}
+        {% include  "header/main-page-header-login.html"%}
     {% else %}
         {% include "header/main-page-header-all.html" %}
     {% endif %}

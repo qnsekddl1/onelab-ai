@@ -165,6 +165,7 @@ document.querySelectorAll('.order-select-desktop-sort-item').forEach(item => {
         fetch(`http://127.0.0.1:10000/place/review/list/${place_id}/1/?sort=${sortOrder}`)
             .then(response => response.json())
             .then(reviews => {
+                // 리뷰를 처리하는 코드
                 showList(reviews);
             })
     });

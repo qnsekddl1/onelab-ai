@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Avg, F, Q
+from django.db.models import Avg, F, Q, Sum
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -18,8 +18,9 @@ from file.models import File
 from like.models import Like
 from member.models import Member
 from onelab.models import OneLab
-from place.models import PlaceReview, PlaceLike
+from place.models import PlaceReview, PlaceLike, PlacePoints
 from place.models import Place, PlaceFile
+from placeMember.models import PlaceMember
 from point.models import Point
 from review.models import Review
 from school.models import School
@@ -32,8 +33,8 @@ class PlaceDetailView(View):
     def get(self, request, id):
         post = Place.objects.get(id=id)
 
-        school_member = School.objects.get(id=post.school_id)
-        post_list = Place.enabled_objects.filter(school_id=school_member.id).order_by('-id')
+        school_member = School.objects.get(member=post.school)
+        post_list = Place.enabled_objects.filter(school=school_member).order_by('-id')
         page = request.GET.get('page', 1)
         paginator = Paginator(post_list, 4)
         posts = paginator.page(page)
@@ -85,6 +86,65 @@ class PlaceDetailView(View):
         }
         return render(request, 'place/detail.html', context)
 
+    # -------------결제 부분 주석 포함 87번째 줄부터 추가하시면 됩니다!!!--------------------------------------------------#
+    def post(self, request, id):
+        # post = 해당 장소 공유 아이디
+        post = Place.objects.get(id=id)
+        # price = 장소의 포인트 가격
+        school = post.school_id
+        price = post.place_points
+        # place_member = 해당 장소를 공유한 학교 회원 아이디
+        place_member = post.school_id
+        # 이게 필요한가? 이미 위에서 장소의 학교회원 아이디를 받았는데
+        place_member_id = School.objects.get(member_id=school)
+        # 그냥 디버깅 용으로 선언한 거임
+        print(place_member_id)  # --> 1번 아이디의 학교멤버
+        # 학교 회원에서 실제 멤버 아이디를 가져옴
+        member = place_member_id.member_id  # --> 3번 아이디의 멤버
+        # point 모델에 적립(status=3), 가격 , 멤버를 추가함
+        Point.objects.create(member_id=member, point_status=3, point=price)
+        # 학교회원의 적립 포인트를 출력한다.
+        print(Point.objects.filter(member_id=member, point_status=3).aggregate(Sum('point'))['point__sum'])
+        # 구매하려는 대학생 회원 아이디를 가져온다.
+        member_id = request.session['member']['id']
+        print(member_id)
+        university = University.objects.get(member_id=member_id)
+        print(university)
+        # 장소대여 포인트 모델 을 불러온다.
+        place_price = PlacePoints.objects.filter(place_id=post.id)
+        # 실제 대학생의 포인트에서 장소대여 포인트 값이 빠져야함
+        university.university_member_points -= price
+        # 적용된 값 저장
+        university.save()
+
+        # 장소대여의 결제 status가 1로 바뀐다.
+        place = Place.objects.update(place_order_status=1)
+
+        # point 모델에 사용된 포인트 정보를 추가한다.
+        datas = {
+            'point': price,
+            'point_status': 2,
+            'member_id': member_id
+        }
+        point = Point.objects.create(**datas)
+        # place point 모델에 정보를 추가한다. (이미 구매한 사용자면 조회)
+        place_data = {
+            'place_id': id,
+            'points_id': point.id
+        }
+        PlacePoints.objects.get_or_create(**place_data)
+        # ------------------------------결제 부분 완료---------------------------------#
+        # --------------------------------멤버 참여 기능 시작---------------------------#
+        join_data = {
+            'place_member_status': 0,
+            'university_id': request.session['member']['id'],
+            'place_id': post.id
+        }
+        PlaceMember.objects.get_or_create(**join_data)
+        # --------------------------------멤버 참여 기능 완료---------------------------#
+        return redirect('/myPage/main/')
+
+
 # 좋아요
 class PlaceLikeView(View):
     def post(self, request):
@@ -129,7 +189,10 @@ class PlaceWriteView(View):
         school_member = School.objects.get(member=member)
 
         # 마이 포인트
-        point = Point.objects.get(member=member).point
+        if len(list(Point.objects.filter(member=member, point_status=3))) > 0:
+            point = Point.objects.filter(member=member, point_status=3).aggregate(Sum('point'))['point__sum']
+        else:
+            point = Point.objects.create(member=member, point_status=3)
 
         # 마이 포스트 수
         places = Place.enabled_objects.filter(school=school_member).values('place_title', 'id')
@@ -179,7 +242,10 @@ class PlaceUpdateView(View):
         school_member = School.objects.get(member=member)
 
         # 마이 포인트
-        point = Point.objects.get(member=member).point
+        if len(list(Point.objects.filter(member=member, point_status=3))) > 0:
+            point = Point.objects.filter(member=member, point_status=3).aggregate(Sum('point'))['point__sum']
+        else:
+            point = Point.objects.create(member=member, point_status=3)
 
         # 마이 포스트 수
         places = Place.enabled_objects.filter(school=school_member).values('place_title', 'id')
@@ -188,8 +254,10 @@ class PlaceUpdateView(View):
         post = Place.objects.get(id=id)
         # update_url 생성
         update_url = reverse('place:update', args=[id])
+        place_content = post.place_content.strip()
         context = {
             'place': post,
+            'place_content': place_content,
             'place_files': list(post.placefile_set.all()),
             'update_url': update_url,
             'point': point,
@@ -369,7 +437,7 @@ class PlaceListAPIView(APIView):
         else:
             # 해당 지역에 속한 학교 가져오기
             # strip = 공백 제거
-            places = Place.objects.filter(school__school_member_address__contains=area_sort.strip())
+            places = Place.enabled_objects.filter(school__school_member_address__contains=area_sort.strip())
 
         # 선택된 지역에 따라 필터링된 장소 목록 가져오기
         places = places.annotate(place_address=F('school__school_member_address'),\
@@ -415,4 +483,5 @@ class PlaceListAPIView(APIView):
             place_info['places'].append(place)
 
         return Response(place_info)
+
 

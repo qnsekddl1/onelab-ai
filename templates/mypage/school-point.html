@@ -21,7 +21,7 @@
                                 포인트 충전, 적립, 사용 내역입니다.
                             </p>
                             <div class="usable-point">
-                                <p>현재 사용가능 포인트 <em>{{ current_point }} 포인트 </em></p>
+                                <p>현재 사용가능 포인트 <em>{{ current_point1 }} 포인트 </em></p>
                             </div>
                             <div class="point-tab-container">
                                 <p class="point-keywords">
@@ -29,7 +29,7 @@
                                         <span>
                                             <span
                                                 class="point-keywords-children"
-                                                >충전</span
+                                                ></span
                                             >
                                         </span>
                                     </button>
@@ -45,55 +45,23 @@
                                         <span>
                                             <span
                                                 class="point-keywords-children"
-                                                >사용</span
+                                                ></span
                                             >
                                         </span>
                                     </button>
                                 </p>
                             </div>
                             <!-- 포인트 충전 내역 -->
-                            <div class="point-list show">
-                                <ul>
-                                    <li>
-                                        <div class="point-card">
-                                            <dl>
-                                                <dt>
-                                                    <p class="title">
-{#                                                        결제 충전된 포인트#}
-                                                        통합 충전 포인트
-                                                    </p>
-                                                    <a class="sub-title" href="{% url 'point:list' %}">
-{#                                                        유효기간 2024.04.14 23시#}
-{#                                                        59분 까지#}
-                                                        충전내역 바로가기 >
-                                                    </a>
-                                                </dt>
-                                                <dd>
-                                                    <p class="point plus">
-                                                        {{ point }} p 충전
-                                                    </p>
-                                                    <p class="date">
-                                                        최근 충전 {{ charge_time }}
-                                                    </p>
-                                                </dd>
-                                            </dl>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                          
                             <!-- 포인트 적립 내역 -->
-                            <div class="point-list">
+                            <div class="point-list" style="display: block">
                                 <ul>
                                     <li>
                                         <div class="point-card">
                                             <dl>
                                                 <dt>
                                                     <p class="title">
-                                                        자료 공유 적립 포인트
-                                                    </p>
-                                                    <p class="sub-title" href="{% url 'point:get' %}">
-{#                                                        유효기간 2024.04.14 23시#}
-{#                                                        59분 까지#}
+                                                        장소 공유 적립 포인트
                                                     </p>
                                                     <a class="sub-title" href="{% url 'point:get' %}">
 {#                                                        유효기간 2024.04.14 23시#}
@@ -102,38 +70,11 @@
                                                     </a>
                                                 </dt>
                                                 <dd>
-                                                    <p class="point plus">
-                                                        {{ point1 }} p 적립
+                                                    <p class="point plus" >
+                                                        {{ current_point1 }} p 적립
                                                     </p>
                                                     <p class="date">
-                                                        최근 적립 {{ get_time }}
-                                                    </p>
-                                                </dd>
-                                            </dl>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- 포인트 사용 내역 -->
-                            <div class="point-list">
-                                <ul>
-                                    <li>
-                                        <div class="point-card">
-                                            <dl>
-                                                <dt>
-                                                    <p class="title">
-                                                        이용한 포인트 내역
-                                                    </p>
-                                                    <a class="sub-title" href="{% url 'point:use' %}">
-                                                        포인트 사용내역 바로가기 >
-                                                    </a>
-                                                </dt>
-                                                <dd>
-                                                    <p class="point plus">
-                                                        {{ use_point }} p 사용
-                                                    </p>
-                                                    <p class="date">
-                                                        최근 사용 {{ use_time }}
+                                                        {{ use_time }}
                                                     </p>
                                                 </dd>
                                             </dl>

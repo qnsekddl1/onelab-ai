@@ -11,12 +11,12 @@ const getList = (callback) => {
 }
 
 const showList = (review_info) => {
-    console.log(review_info.hasNext);
     if (!review_info.hasNext) {
         moreButton.style.display = 'none';
+    } else {
+        moreButton.style.display = 'block';
     }
     let reviews = review_info.reviews;
-    console.log(reviews)
     const reviewWrapper = document.querySelector(".comment-container-comment-wrapper");
     const reviewAvrWrapper = document.querySelector('.rating-score-lg-full');
     const reviewCountWrapper = document.querySelector('.detail-info-header-participation-info')
@@ -145,27 +145,38 @@ function timeForToday(datetime) {
     return `${gap}년 전`;
 }
 
+function getNewList() {
+    const sort = document.querySelector('.order-select-desktop-active').textContent
 
-// 정렬해서 리뷰 다시 로드
-document.querySelectorAll('.order-select-desktop-sort-item').forEach(item => {
-    item.addEventListener('click', () => {
-        // 클릭된 항목에 따라 정렬 방식 설정
+    // 클릭된 항목에 따라 정렬 방식 설정
         let sortOrder = 'latest'; // 기본값은 최신순
-        if (item.textContent === '높은평점순') {
+        if (sort === '높은평점순') {
             sortOrder = 'highest_rating';
-        } else if (item.textContent === '낮은평점순') {
+        } else if (sort ==='낮은평점순') {
             sortOrder = 'lowest_rating';
-        } else if (item.textContent === '최신순') {
+        } else if (sort === '최신순') {
             sortOrder = 'latest';
         }
 
+        page = 1
         // 서버에 정렬 방식을 전달하고 리뷰 다시 로드
-        fetch(`http://127.0.0.1:10000/place/review/list/${place_id}/1/?sort=${sortOrder}`)
+        fetch(`http://127.0.0.1:10000/share/review/list/${share_id}/${page}/?sort=${sortOrder}`)
             .then(response => response.json())
             .then(reviews => {
                 // 리뷰를 처리하는 코드
                 showList(reviews);
             })
+}
+
+// 정렬해서 리뷰 다시 로드
+const sortTabs = document.querySelectorAll('.order-select-desktop-sort-item')
+    sortTabs.forEach(item => {
+    item.addEventListener('click', () => {
+        sortTabs.forEach((item) => {
+            item.classList.remove('order-select-desktop-active')
+        })
+        item.classList.add('order-select-desktop-active')
+        getNewList();
     });
 });
 
