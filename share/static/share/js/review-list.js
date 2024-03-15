@@ -41,6 +41,9 @@ const showList = (review_info) => {
         </div>`
     // 리뷰 하나씩 추가
     reviews.forEach((review) => {
+        console.log(review.profile_files)
+        memberProfile = review.profile_files[0].path
+        console.log(memberProfile)
             const hasImage = review.review_files.length > 0;
             let schoolName = '';
             if (review.review__member__member_school_email.includes('snu')) {
@@ -52,13 +55,14 @@ const showList = (review_info) => {
             }else if (review.review__member__member_school_email.includes('yonsei')) {
                 schoolName = '연세대학교';
             }
+            const profile =
             reviewWrapper.innerHTML += `
                 <div>
                     <!-- 만족도 이름 쪽 -->
                     <div class="comment-profile-profile-container">
                         <a class="comment-profile-profile" href="">
-                            <div class="avatar-avatar" style="width: 36px; height: 36px">
-                                <span></span>
+                            <div class="avatar-avatar" style="width: 36px; height: 36px; background-image: url('${memberProfile}')">
+                                <span style="background-image: url('${memberProfile}')"></span>
                             </div>
                             <div class="comment-profile-writer-area">
                                 <div class="comment-profile-nick-name">${review.member_name}</div>

@@ -1931,7 +1931,7 @@ span.text-field-fixed-text {
 }
 
 .hidden {
-    transform: translateY(-200%);
+    transform: translateY(-300%);
 }
 
 .exit-modal-btns {

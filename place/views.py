@@ -16,7 +16,7 @@ from rest_framework.views import APIView
 from community.models import Community
 from file.models import File
 from like.models import Like
-from member.models import Member
+from member.models import Member, MemberFile
 from onelab.models import OneLab
 from place.models import PlaceReview, PlaceLike, PlacePoints
 from place.models import Place, PlaceFile
@@ -344,6 +344,7 @@ class PlaceReviewListAPIView(APIView):
             'review__review_content',
             'review__review_rating',
             'member_name',
+            'review__member',
             'review__member__member_school_email',
             'review__created_date',
         ]
@@ -389,6 +390,8 @@ class PlaceReviewListAPIView(APIView):
             review_one_id = review['review__id']
             review_one = Review.objects.get(id=review_one_id)
             review_files = review_one.reviewfile_set.all()
+            member_one_id = review['review__member']
+            member_profiles = MemberFile.objects.filter(member_id=member_one_id)
 
             # 리뷰 파일 데이터를 리스트에 추가
             review_file_info = []
@@ -401,6 +404,16 @@ class PlaceReviewListAPIView(APIView):
 
             # 리뷰 정보에 파일 정보를 추가
             review['review_files'] = review_file_info
+
+            # 멤버 프로필 이미지 리스트에 추가
+            profile_file_info = []
+            for profile in member_profiles:
+                profile_info = {
+                    'path': profile.path.url
+                }
+                profile_file_info.append(profile_info)
+
+            review['profile_files'] = profile_file_info
 
             # 리뷰 정보를 review_info에 추가
             review_info['reviews'].append(review)

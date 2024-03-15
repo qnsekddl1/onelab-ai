@@ -41,6 +41,8 @@ const showList = (review_info) => {
             <span class="DetailInfoHeader_text">${review_info.review_count}</span>명 참여`
     // 리뷰 하나씩 추가
     reviews.forEach((review) => {
+        console.log(review.profile_files)
+        memberProfile = review.profile_files[0].path
             const hasImage = review.review_files.length > 0;
             let schoolName = '';
             if (review.review__member__member_school_email.includes('snu')) {
@@ -60,7 +62,7 @@ const showList = (review_info) => {
                     <div class="comment-profile-profile-container">
                         <a class="comment-profile-profile" href="">
                             <div class="avatar-avatar" style="width: 36px; height: 36px">
-                                <span></span>
+                                <span style="background-image: url('${memberProfile}')"></span>
                             </div>
                             <div class="comment-profile-writer-area">
                                 <div class="comment-profile-nick-name">${review.member_name}</div>

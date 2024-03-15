@@ -314,7 +314,7 @@
                                             <div class="DetailInfoHeader_badgeContainer"></div>
                                             <div class="DetailInfoHeader_titleInfo">
                                                 <h3 class="DetailInfoHeader_title">{{ place.place_title }}</h3>
-                                                    {% if request.session.member.id == place.school.member.id %}
+                                                    {% if request.session.member == place.school.member %}
                                                         <div>
                                                             <a href="{% url 'place:update' id=place.id %}">
                                                                 <button type="button" class="update-btn">수정하기</button>

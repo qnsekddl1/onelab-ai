@@ -84,7 +84,10 @@ class ShareDetailView(View):
                 # 해당 Like 객체가 존재하지 않습니다.
                 member_like = False
 
-        profile = MemberFile.objects.filter(member=university_member)
+        profile = MemberFile.objects.filter(member=university_member.member)
+        if profile:
+            profile = profile[0]
+        # print(profile.path)
 
         context = {
             'share': post,
@@ -96,6 +99,7 @@ class ShareDetailView(View):
             'onelab_count': onelab_count,
             'university_member': university_member,
             'member_like': member_like,
+            'profile': profile.path,
         }
 
         return render(request, 'share/detail.html', context)
@@ -115,7 +119,8 @@ class ShareDetailView(View):
         point = Point.objects.create(member_id=pay_member_id, point_status=2, point=price)
 
         share_data = {
-            'points_id': point.id
+            'points_id': point.id,
+            'share_id': post.id
         }
         SharePoints.objects.get_or_create(**share_data)
 
@@ -491,6 +496,10 @@ class ShareReviewListView(View):
                 # 해당 Like 객체가 존재하지 않습니다.
                 member_like = False
 
+        profile = MemberFile.objects.filter(member=share_member.member)
+        if profile:
+            profile = profile[0]
+
         post_data = {
             'share_id': post.id,
             'share_title': post.share_title,
@@ -509,6 +518,7 @@ class ShareReviewListView(View):
             'total_onelab_count': total_onelab_count,
             'member_like': member_like,
             'posts': posts,
+            'profile': profile.path,
         }
 
         return render(request, 'share/review.html', post_data)
@@ -527,6 +537,7 @@ class ShareReviewListAPIView(APIView):
             'review__review_content',
             'review__review_rating',
             'member_name',
+            'review__member',
             'review__member__member_school_email',
             'review__created_date',
         ]
@@ -577,6 +588,8 @@ class ShareReviewListAPIView(APIView):
             review_one_id = review['review__id']
             review_one = Review.objects.get(id=review_one_id)
             review_files = review_one.reviewfile_set.all()
+            member_one_id = review['review__member']
+            member_profiles = MemberFile.objects.filter(member_id=member_one_id)
 
             # 리뷰 파일 데이터를 리스트에 추가
             review_file_info = []
@@ -589,6 +602,16 @@ class ShareReviewListAPIView(APIView):
 
             # 리뷰 정보에 파일 정보를 추가
             review['review_files'] = review_file_info
+
+            # 멤버 프로필 이미지 리스트에 추가
+            profile_file_info = []
+            for profile in member_profiles:
+                profile_info = {
+                    'path': profile.path.url
+                }
+                profile_file_info.append(profile_info)
+
+            review['profile_files'] = profile_file_info
 
             # 리뷰 정보를 review_info에 추가
             review_info['reviews'].append(review)
