@@ -13,7 +13,7 @@ class Alarm(Period):
         (2, '대기')
     ]
 
-    alarm_status = models.SmallIntegerField(choices=ALARM_STATUS, default=0)
+    alarm_status = models.SmallIntegerField(choices=ALARM_STATUS, default=2)
     alarm_message = models.CharField(null=False, blank=False, max_length=100)
     alarm_receiver = models.CharField(null=False, blank=False, max_length=100)
     alarm_sender = models.CharField(null=False, blank=False, max_length=100)

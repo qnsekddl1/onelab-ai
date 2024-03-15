@@ -22,17 +22,21 @@ class Share(Period):
     university = models.ForeignKey(University, on_delete=models.PROTECT, null=False)
     share_post_status = models.BooleanField(default=True, null=False)
 
+    objects = models.Manager()
+    enabled_objects = ShareManager()
+
     class Meta:
         db_table = 'tbl_share'
         ordering = ['id']
 
-    objects = models.Manager()
-    enabled_objects = ShareManager()
+    def get_absolute_url(self):
+        return reverse('share:detail', args=[self.id])
+
 
     def get_absolute_url(self):
         return reverse('share:detail', args=[self.id])
 class ShareFile(Period):
-    file = models.ForeignKey(File, primary_key=True,  on_delete=models.PROTECT, null=False)
+    file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='share/%Y/%m/%d')
     share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
     name = models.CharField(max_length=255)  # 이름 필드 추가
