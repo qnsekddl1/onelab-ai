@@ -61,7 +61,7 @@ class ShareLike(Period):
 
 class SharePoints(Period):
     points = models.ForeignKey(Point, primary_key=True, on_delete=models.PROTECT, null=False)
-
+    share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
     class Meta:
         db_table = 'tbl_share_points'
 
