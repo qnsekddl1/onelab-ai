@@ -71,9 +71,9 @@
     {% block title %}마이페이지 메인화면{% endblock %}
 
 {% block content %}
-  
+  {% include 'mypage/header.html' %}
     {% csrf_token %}
-    {% include 'mypage/header.html' %}
+    
     <!-- 마이페이지 -->
         <div id="page-container">
             <main id="main-app">

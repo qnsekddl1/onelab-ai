@@ -253,6 +253,7 @@ class PointUseListView(View):
 
         return render(request, 'point/use-list.html', context)
 
+
 class PointUseDetailView(View):
     def get(self, request):
         member = request.session['member']
