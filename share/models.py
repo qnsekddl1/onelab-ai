@@ -6,7 +6,7 @@ from like.models import Like
 from oneLabProject.models import Period
 from point.models import Point
 from review.models import Review
-from share.managers import ShareReviewManager, ShareManager
+from share.managers import ShareManager, ShareReviewManager
 from university.models import University
 
 
@@ -32,12 +32,15 @@ class Share(Period):
     def get_absolute_url(self):
         return reverse('share:detail', args=[self.id])
 
+
+    def get_absolute_url(self):
+        return reverse('share:detail', args=[self.id])
 class ShareFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     path = models.ImageField(null=False, blank=False, upload_to='share/%Y/%m/%d')
     share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
     name = models.CharField(max_length=255)  # 이름 필드 추가
-    file_extension = models.CharField(max_length=10)  # 확장자 필드 추가
+    file_extension = models.CharField(max_length=10)    # 확장자 필드 추가
 
     class Meta:
         db_table = 'tbl_share_file'
@@ -49,7 +52,6 @@ class ShareFile(Period):
             self.file_extension = file_extension
         super(ShareFile, self).save(*args, **kwargs)
 
-
 class ShareLike(Period):
     like = models.ForeignKey(Like, primary_key=True, on_delete=models.PROTECT, null=False)
     share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False, default=1)
@@ -59,7 +61,7 @@ class ShareLike(Period):
 
 class SharePoints(Period):
     points = models.ForeignKey(Point, primary_key=True, on_delete=models.PROTECT, null=False)
-
+    share = models.ForeignKey(Share, on_delete=models.PROTECT, null=False)
     class Meta:
         db_table = 'tbl_share_points'
 

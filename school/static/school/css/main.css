@@ -145,6 +145,7 @@ body li, body ol, body ul {
 }
 
 a.SpaceHeader_link, a:active.SpaceHeader_link, a:visited.SpaceHeader_link {
+    font-family: GabiaHeuldot;
     display: block;
     transition-property: color,box-shadow;
     padding: 22px 18px;
@@ -286,6 +287,7 @@ a.SpaceHeader_link, a:active.SpaceHeader_link, a:visited.SpaceHeader_link {
 }
 
 .SpaceSection_main {
+    font-family: GabiaHeuldot;
     -ms-flex: 1 1;
     flex: 1 1;
     padding-right: 20px;
@@ -486,8 +488,11 @@ a.SpaceHeader_link, a:active.SpaceHeader_link, a:visited.SpaceHeader_link {
 }
 
 .spaceSection_titles {
-    background-image: url(https://spacewadiz.com/_next/static/media/title-store.3f8f39371a64a4a6c46118e9e20a8fcb.svg);
+    /*background-image: url(https://spacewadiz.com/_next/static/media/title-store.3f8f39371a64a4a6c46118e9e20a8fcb.svg);*/
     height: 35px;
+    font-family: GabiaHeuldot;
+    font-size: 38px;
+    font-weight: 500;
 }
 
 .spaceSection_main {
@@ -530,6 +535,7 @@ a.SpaceHeader_link, a:active.SpaceHeader_link, a:visited.SpaceHeader_link {
 }
 
 .SpaceStoreBox_subtitle {
+    font-family: GabiaHeuldot;
     line-height: 24px;
     letter-spacing: -.2px;
     font-size: 14px;
@@ -543,6 +549,7 @@ a.SpaceHeader_link, a:active.SpaceHeader_link, a:visited.SpaceHeader_link {
 }
 
 .SpaceStoreBox_description {
+    font-family: GabiaHeuldot;
     position: relative;
     margin-top: 17px;
     letter-spacing: -.4px;
@@ -595,13 +602,19 @@ a.SpaceHeader_link, a:active.SpaceHeader_link, a:visited.SpaceHeader_link {
 }
 
 .SpaceStoreBox_guide {
-    background-image: url(https://spacewadiz.com/_next/static/media/store-guide.4371192a0c9c80a1f3292e3f82c94e65.svg);
+    /*background-image: url(https://spacewadiz.com/_next/static/media/store-guide.4371192a0c9c80a1f3292e3f82c94e65.svg);*/
+    font-family: GabiaHeuldot;
     width: 84px;
+    font-weight: 700;
+    font-size: 18px;
 }
 
 .SpaceStoreBox_request {
-    background-image: url(https://spacewadiz.com/_next/static/media/store-request.ef6021555f47e149978d2b73c61c64e3.svg);
-    width: 104px;
+    /*background-image: url(https://spacewadiz.com/_next/static/media/store-request.ef6021555f47e149978d2b73c61c64e3.svg);*/
+    font-family: GabiaHeuldot;
+    width: 116px;
+    font-weight: 700;
+    font-size: 18px;
 }
 
 /* 오시는 길 쪽 css */

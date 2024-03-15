@@ -1,14 +1,32 @@
-{#헤더 경로#}
-{#{% extends 'member/header.html' %}#}
+{% extends 'school/base.html' %}
 {% load static %}
+{% block static %}
 <link rel="stylesheet" href="{% static 'school/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/school-modal.css' %}">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+{% endblock %}
 {% block title %}학교 메인{% endblock %}
 {% block content %}
 <div id="__next">
             <div class="SpaceBackground_bg"></div>
             <div class="SpaceHeader_observer"></div>
+            <div class="modal">
+                <div class="warn-modal">
+                    <div id="content-wrap">
+                        <form action="{% url 'school:member' %}" method="POST" enctype="multipart/form-data" name="school-member-form">
+                            {% csrf_token %}
+                            <div class="content-wrap"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal2">
+                <div class="warn-modal2">
+                    <div id="content-wrap2">
 
+                    </div>
+                </div>
+            </div>
             <!-- 헤더 -->
             <header class="SpaceHeader_header">
                 <div class="SpaceHeader_wrapper">
@@ -28,10 +46,14 @@
                         <ul style="margin-left: -167px">
                             <li aria-hidden="true" class="SpaceHeader_current"></li>
                             <li>
-                                <a class="SpaceHeader_link" href="">학교</a>
+                                {% if request.session.school_member_check == True %}
+                                    <a class="SpaceHeader_link place" href="{% url 'place:write' %}" style="cursor: pointer">장소</a>
+                                {% else %}
+                                    <a class="SpaceHeader_link place" style="cursor: pointer" >장소</a>
+                                {% endif %}
                             </li>
                             <li>
-                                <a class="SpaceHeader_link" href="">장소</a>
+                                <a class="SpaceHeader_link" href="">대회</a>
                             </li>
                         </ul>
                     </nav>
@@ -42,7 +64,9 @@
                                     d="M51.259 2.803h1.855v18.78h-1.407c-.642-.004-1.212-.414-1.424-1.023-2.892 2.103-6.83 2.002-9.61-.247-1.655-1.347-2.557-3.415-2.419-5.548C38.448 12.19 40.09 9.95 42.483 9c2.393-.952 5.117-.45 7.017 1.292V4.567c0-.974.788-1.764 1.759-1.764zm-5.54 16.425c2.104-.095 3.738-1.875 3.658-3.987.118-1.39-.555-2.728-1.74-3.46-1.184-.731-2.678-.731-3.862 0-1.185.732-1.858 2.07-1.74 3.46-.08 2.121 1.57 3.906 3.684 3.987zm-8.96 2.356h-1.336c-.65.002-1.229-.409-1.442-1.024-2.892 2.103-6.83 2.002-9.611-.247-1.655-1.347-2.556-3.415-2.418-5.548.18-2.594 1.83-4.852 4.24-5.807 2.41-.955 5.152-.436 7.05 1.334.09-.868.8-1.54 1.67-1.579h1.847v12.87zm-7.395-2.356h.018c2.103-.095 3.733-1.877 3.649-3.987.08-2.113-1.56-3.892-3.667-3.978-2.106.086-3.746 1.865-3.666 3.978-.08 2.115 1.559 3.897 3.666 3.987zm43.86-10.506v1.861l-6.217 7.993h6.208v3.06h-11.43v-1.852l6.225-8h-5.821v-1.298c0-.974.787-1.764 1.758-1.764h9.277zM57.739 7.275c-1.204 0-2.18-.98-2.18-2.187 0-1.209.976-2.188 2.18-2.188 1.205 0 2.181.98 2.181 2.188 0 1.208-.976 2.187-2.18 2.187zM18.48 8.722h3.64l-4.274 12.87h-3.649l-2.822-8.256-2.823 8.257H4.902L.637 8.723H4.27l2.594 7.991L9.06 9.887c.244-.7.897-1.172 1.636-1.183h2.55l2.638 8.01 2.594-7.992zm37.502 12.87l-.035-11.106c0-.974.787-1.764 1.758-1.764h1.855v12.87h-3.578z"
                                 ></path>
                             </svg> -->
-                            <img src="{% static 'school/images/one-lab-whtite.svg' %}" alt="" style="height: 18px" />
+                            <a href="{% url 'main' %}">
+                                <img src="{% static 'school/images/one-lab-whtite.svg' %}" alt="" style="height: 18px" />
+                            </a>
                         </a>
                     </div>
                 </div>
@@ -87,7 +111,7 @@
                                 <br />
                                 이미 존재하는 공간을 활용함으로써 새로운 건축이나 자원 소비를 줄일 수 있습니다. 이는 환경에도 도움이 되는 긍정적인 영향을 미칩니다.
                                 <br />
-                                우리는 공유의 가치를 믿습니다. 함께 모여 새로운 아이디어를 형성하고, 지식을 공유하며, 서로에게 영감을 주는 것이 우리의 목표입니다. 우리의 장소를 여러분과 함께 나누어 새로운 경험을 만들어보시기를 기대합니다. 감사합니다. 함께 나누는 공간, 장소 공유.
+                                우리는 공유의 가치를 믿습니다. 함께 모여 새로운 아이디어를 형성하고, 지식을 공유하며, 서로에게 영감을 주는 것이 우리의 목표입니다. 우리의 장소를 여러분과 함께 나누어 새로운 경험을 만들어보시기를 기대합니다. 원랩과 함께 나누는 공간, 공간 스쿨랩.
                             </p>
                         </div>
                     </div>
@@ -180,33 +204,33 @@
                 <div class="SpaceSection_container SpaceStoreSection_store">
                     <div class="SpaceSection_wrappers">
                         <h2 class="SpaceSection_title space_title">
-                            <div class="spaceSection_titles spaceSectionTitle_titles"></div>
+                            <div class="spaceSection_titles spaceSectionTitle_titles">학교 회원</div>
                         </h2>
                         <div class="spaceSection_main">
                             <div class="SpaceStoreSection_box">
                                 <div class="SpaceStoreBox_box">
                                     <div class="SpaceStoreBox_main">
                                         <div class="SpaceStoreBox_content">
-                                            <p class="SpaceStoreBox_subtitle">펀딩 성공 후에 이어지는 도전</p>
+                                            <p class="SpaceStoreBox_subtitle">학교 회원이 되어 바꾸는 미래</p>
                                             <p class="SpaceStoreBox_title">공간 스쿨랩</p>
                                             <div class="SpaceStoreBox_description">
                                                 <p>
-                                                    펀딩을 성공적으로 마친 메이커님,
+                                                    학교 회원 신청을 고민하는 지금,
                                                     <br />
-                                                    이제 오프라인에서 당신의 도전을 이어가세요.
+                                                    주저하지 말고 도전해 보시기를 권합니다.
                                                     <br />
-                                                    펀딩이 끝나도 소중한 인연은 지속됩니다.
+                                                    원랩과 소중한 인연은 맺어보세요.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="SpaceStoreBox_buttons">
                                         <a href="" target="_blank" rel="noopener nofollow noreferrer" class="SpaceStoreBox_button">
-                                            <span class="SpaceStoreBox_buttonText SpaceStoreBox_guide"></span>
+                                            <span class="SpaceStoreBox_buttonText SpaceStoreBox_guide">공간 안내</span>
                                             &nbsp;
                                         </a>
-                                        <a href="" target="_blank" rel="noopener nofollow noreferrer" class="SpaceStoreBox_button" style="padding: 28px 0px;">
-                                            <span class="SpaceStoreBox_buttonText SpaceStoreBox_request"></span>
+                                        <a href="" target="_blank" rel="noopener nofollow noreferrer" class="SpaceStoreBox_button go-school-member">
+                                            <span class="SpaceStoreBox_buttonText SpaceStoreBox_request">학교회원 전환</span>
                                         </a>
                                     </div>
                                 </div>
@@ -257,4 +281,65 @@
         </div>
 {% endblock %}
 {% block js %}
+    <script src="{% static 'school/js/school-modal.js' %}"></script>
+    <script>
+        const csrfToken = '{{ csrf_token }}';
+        {#학교 횐원 전환 신청시 모달#}
+        schoolMemberBtn = document.querySelector('.go-school-member')
+        schoolMemberBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            let modalMessage = "<span style='display: flex'>학교회원 전환 추가정보 입력 <p class='close-btn'>X</p></span>" +
+                "<input type='text' placeholder='학교명' class='school-name' name='school-name'>" +
+                '<input type="text" class="school-address" id="sample6_address" name="school-input-address" onclick="sample6_execDaumPostcode()" placeholder="주소"><br>' +
+                '<input type="button" class="school-address" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>' +
+                "<button type='submit' class='school-submit-btn' name='school-member-form'>신청하기</button>"
+            showWarnModal(modalMessage);
+        })
+        {#학교 회원 아닐경우 모달#}
+        const placeWrite = document.querySelector(('.place'))
+        var school_member_check = "{{ request.session.school_member_check }}"
+        placeWrite.addEventListener('click', (e) => {
+            if(school_member_check === 'False'){
+                e.preventDefault()
+                let modalMessage = "<span>학교회원 전환 후, 작성 가능합니다.</span>"
+                showWarnModal2(modalMessage);
+            }
+        })
+        
+    </script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var addr = ''; // 주소 변수
+                    var extraAddr = ''; // 참고항목 변수
+
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+
+                    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                    if(data.userSelectedType === 'R'){
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    {#document.getElementById('sample6_postcode').value = data.zonecode;#}
+                    document.getElementById("sample6_address").value = addr;
+                }
+            }).open();
+        }
+    </script>
 {% endblock %}

@@ -167,50 +167,52 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// const dateChoice = document.getElementById('change-input')
-// const dateField = document.querySelector('.ant-picker.date-picker')
-// dateChoice.addEventListener('focus', function (e){
-//     dateField.style.borderColor =  '#008243'
-// })
-//
-// // 오늘 날짜부터 선택가능
-// // 시작날짜(min 속성)
-// let sDate = new Date();
-// sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일
-// let minStr = sDate.toISOString().split('T')[0];
-// dateChoice.setAttribute("min", minStr)
-//
-// // 날짜 선택 후, 저장하기 버튼 클릭 시, date타입 유효성 검사
-// function validateDateInput() {
-//             // 입력된 날짜 값을 가져옵니다.
-//             var inputDate = document.getElementById('change-input').value;
-//
-//             // 정규 표현식을 사용하여 날짜 형식이 올바른지 검사합니다.
-//             var regex = /^\d{4}-\d{2}-\d{2}$/;
-//             if (!regex.test(inputDate)) {
-//                 alert('날짜 형식이 올바르지 않습니다. YYYY-MM-DD 형식으로 입력하세요.');
-//                 return false;
-//             }
-//
-//             // 입력된 날짜를 변환하여 올바른 형식으로 출력합니다.
-//             var formattedDate = inputDate;
-//             // 기타 작업을 수행할 수 있습니다.
-//
-//             // 변환된 날짜를 다시 입력 필드에 설정합니다.
-//             document.getElementById('change-input').value = formattedDate;
-//
-//             return true;
-//         }
+const mainMenu = document.querySelector('.sidebar-menu-list-container>ul')
+const subMenu = document.querySelector('.sidebar-sub-menus')
 
+document.querySelector('.sidebar-menu-item-nav-link').addEventListener('click', (e) => {
+    e.preventDefault();
+})
 
+mainMenu.addEventListener('click', (e) => {
+    subMenu.classList.toggle('hidden');
+});
 
+// 나가기 버튼 클릭시 모달창
+const exitBtn = document.querySelector('.exit-button-text')
+exitBtn.addEventListener('click', (e) => {
+    let modalMessage = "<span>저장하기 전에 나가시면, 작성하신 모든 정보를 잃게 됩니다.</span>" +
+        "<span>정말 나가시겠습니까?</span>" +
+        "<div class='exit-modal-btns'><button type='submit' class='real-exit-btn exit-modal-btn'>나가기</button>" +
+        "<button type='submit' class='not-exit-btn exit-modal-btn'>취소</button></div>"
+    showWarnModal(modalMessage);
 
+    const realExitBtn = document.querySelector('.real-exit-btn')
+    realExitBtn.addEventListener('click', (e) => {
+        window.location.href = '/place/list/'
+    })
+})
 
+const okBtn = document.querySelector('.save-btn')
+// 필수 입력칸들 입력 안되어있을 때
+const mustInputs = document.querySelectorAll('.must-input')
 
-
-
-
-
+okBtn.addEventListener('click', function (e){
+    let formValid = true;
+    let count = 0;
+    mustInputs.forEach((mustInput) => {
+        if (!mustInput.value) {
+            count += 1
+            formValid = false;
+            let modalMessage = "<span>필수 입력란을 모두 작성해주세요.</span>"
+            showWarnModal(modalMessage);
+            e.preventDefault();
+        }
+    })
+    if(count === 0) {
+        document.forms['write-form'].submit();
+    }
+})
 
 
 

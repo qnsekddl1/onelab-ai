@@ -73,7 +73,7 @@
                                                         {{ point }} p 충전
                                                     </p>
                                                     <p class="date">
-                                                        최근 충전 {{ time }}
+                                                        최근 충전 {{ charge_time }}
                                                     </p>
                                                 </dd>
                                             </dl>
@@ -91,17 +91,22 @@
                                                     <p class="title">
                                                         자료 공유 적립 포인트
                                                     </p>
-                                                    <p class="sub-title">
-                                                        유효기간 2024.04.14 23시
-                                                        59분 까지
+                                                    <p class="sub-title" href="{% url 'point:get' %}">
+{#                                                        유효기간 2024.04.14 23시#}
+{#                                                        59분 까지#}
                                                     </p>
+                                                    <a class="sub-title" href="{% url 'point:get' %}">
+{#                                                        유효기간 2024.04.14 23시#}
+{#                                                        59분 까지#}
+                                                        적립내역 바로가기 >
+                                                    </a>
                                                 </dt>
                                                 <dd>
                                                     <p class="point plus">
-                                                        0 p 적립
+                                                        {{ point1 }} p 적립
                                                     </p>
                                                     <p class="date">
-                                                        최근 적립 2024.02.14
+                                                        최근 적립 {{ get_time }}
                                                     </p>
                                                 </dd>
                                             </dl>
