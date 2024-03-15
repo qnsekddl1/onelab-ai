@@ -1,6 +1,7 @@
 from django.db import models
 
 from file.models import File
+from notification.managers import NotificationManager
 from oneLabProject.models import Period
 
 
@@ -18,10 +19,15 @@ class Notification(Period):
     # True=게시 중, False=게시 종료
     notification_post_status = models.BooleanField(null=False, default=True)
 
+    objects = models.Manager()
+    enabled_objects = NotificationManager()
 
     class Meta:
         db_table = 'tbl_notification'
         ordering = ['-id']
+
+    def get_absolute_url(self):
+        return f'/notification/detail/?id={self.id}'
 
 class NotificationFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
