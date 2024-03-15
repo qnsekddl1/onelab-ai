@@ -30,6 +30,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
 
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from django.views import View
+from django.http import JsonResponse
+
 class MyPageMainView(View):
     def get(self, request):
         member_id = request.session['member']['id']
@@ -37,14 +42,6 @@ class MyPageMainView(View):
         highschool = HighSchool.objects.filter(member_id=member_id).first()
         school = School.objects.filter(member_id=member_id).first()
         profile = MemberFile.objects.filter(member_id=member_id).first()
-
-        point = request.GET.get('point')
-
-        point_member = Point.objects.filter(member_id=member_id).values('placepoints__place_id').order_by('-id')
-
-        print(point_member)
-
-        print(point_member)
 
         # 공모전 목록 가져오기
         # exhibitions = None  # 공모전 목록 초기화
@@ -60,7 +57,6 @@ class MyPageMainView(View):
         check = request.GET.get('check')
 
         # 자료 공유 목록을 가져오는 로직
-        member_id = request.session['member']['id']
         share_university = University.objects.filter(member_id=member_id).first()
 
         # 작성자가 공유한 목록
@@ -70,16 +66,16 @@ class MyPageMainView(View):
         share_pay = ShareMember.objects.filter(university=share_university).order_by('-id')
 
         # 페이지 번호
-        share = request.GET.get('page', 1)
+        page = request.GET.get('page', 1)
 
         # 페이지당 행 수
-        share_row_count = 3
+        share_row_count = 80
 
         # 필터링된 자료 공유 목록을 페이지별로 나눔
         share_paginator = Paginator(share_write if share_write else share_pay, share_row_count)
 
         try:
-            shares = share_paginator.page(share)
+            shares = share_paginator.page(page)
         except PageNotAnInteger:
             # 페이지 번호가 정수가 아닌 경우, 첫 페이지를 반환
             shares = share_paginator.page(1)
@@ -101,22 +97,20 @@ class MyPageMainView(View):
                     p.image_url = None
 
         # 장소 공유 목록을 가져오는 로직
-        member = request.session['member']['id']
-        school = School.objects.filter(member_id=member).first()
-        university = University.objects.filter(member_id=member_id).first()
+        school = School.objects.filter(member_id=member_id).first()
         place = Place.objects.filter(school=school, place_post_status=1).order_by('-id')
         page = request.GET.get('page', 1)
 
         places = None
-        if university :
+        if university:
             places = Place.objects.filter(placemember__university=request.session['member']['id'], place_order_status=1).order_by('-id')
-        elif school :
+        elif school:
             places = Place.objects.filter(school=school, place_post_status=1).order_by('-id')
 
         place_row_count = 9
         place_paginator = Paginator(place, place_row_count)
 
-        if places :
+        if places:
             try:
                 places = place_paginator.page(page)
             except PageNotAnInteger:
@@ -126,8 +120,6 @@ class MyPageMainView(View):
         else:
             places = None
 
-        # places = PlaceListAPIView.as_view()(request)._container[0]
-
         # 장소공유 목록 가져오기
         place1 = PlaceMember.objects.filter(place_member_status=0, university=university).order_by('-id')
 
@@ -136,7 +128,7 @@ class MyPageMainView(View):
 
         # 커뮤니티 페이징 처리
         page = request.GET.get('page', 1)
-        community_row_count = 5
+        community_row_count = 3
         community_paginator = Paginator(community, community_row_count)
         try:
             communities = community_paginator.page(page)
@@ -144,20 +136,6 @@ class MyPageMainView(View):
             communities = community_paginator.page(1)
         except EmptyPage:
             communities = community_paginator.page(community_paginator.num_pages)
-
-        # 공모전 페이징 처리
-        # exhibitions_row_count = 3
-        # exhibitions_paginator = Paginator(exhibitions, exhibitions_row_count)
-
-        # if exhibitions :
-        #     try:
-        #         exhibitions = exhibitions_paginator.page(page)
-        #     except PageNotAnInteger:
-        #         exhibitions = exhibitions_paginator.page(1)
-        #     except EmptyPage:
-        #         exhibitions = exhibitions_paginator.page(exhibitions_paginator.num_pages)
-        # else :
-        #     exhibitions = None
 
         default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
 
@@ -180,18 +158,19 @@ class MyPageMainView(View):
             places = Place.objects.filter(placemember__university=university, placemember__place_member_status=0)
             context['community_file'] = CommunityFile.objects.filter(community_id=community.first()).first()
             context['current_point'] = university.university_member_points
-            context['university'] = university,
+            context['member_major'] = university.university_member_major
+            context['member_school'] = university.university_member_school
             context['places'] = places
             context['place_file'] = PlaceFile.objects.filter(place_id=places.first()).first()
             context['shares'] = shares
             # context['share_file'] = list(shares.sharefile_set.all()),
 
 
-        else :
+        else:
             member = request.session['member']['id']
             context['place_file'] = PlaceFile.objects.filter(place_id=place.first()).first()
             context['current_point'] = Point.objects.filter(member_id=member, point_status=3).aggregate(Sum('point'))['point__sum']
-            context['places']  = places
+            context['places'] = places
             # context['places'] = places_page
             # context['exhibitions'] = exhibitions
         # else :
@@ -200,6 +179,7 @@ class MyPageMainView(View):
         return render(request,
                       'mypage/main-high.html' if highschool else 'mypage/main-university.html' if university else 'mypage/main.html',
                       context)
+
 
 
     def post(self, request):
@@ -240,41 +220,22 @@ class MyPagePlaceAPIView(APIView):
         school = School.objects.filter(member=member).first()
 
         # 한 페이지에 보여줄 장소의 개수와 페이지당 표시할 최대 페이지 수 설정
-        row_count = 9
+        row_count = 4
 
         offset = (page - 1) * row_count
         limit = page * row_count
 
         datas = [
                 'id',
-                'place_title',
-                'place_points',
-                'place_address',
-                'university_name',
-                'place_date',
+                'place_title'
         ]
 
-        # 지역 필터
-        area_sort = request.GET.get('areaSort', 'all')
-        if area_sort == 'all':
-
-            places = Place.enabled_objects.all()
-        else:
-            # 해당 지역에 속한 학교 가져오기
-            # strip = 공백 제거
-            places = Place.objects.filter(school__school_member_address__contains=area_sort.strip())
-
-        # 선택된 지역에 따라 필터링된 장소 목록 가져오기
-        places = places.annotate(place_address=F('school__school_member_address'), \
-                                    university_name=F('school__school_name')) \
-            .values(*datas).order_by('-id')
+        # 필터링된 장소 목록 가져오기
+        places = Place.enabled_objects.filter(member=member).values(*datas).order_by('-id')
         place_count = places.count()
         places = places[offset:limit]
         # 다음 페이지가 있는지 계산
         has_next = place_count > offset + limit
-
-        # 회원이 좋아요를 한 상태인지
-        member = Member.objects.get(id=request.session['member']['id'])
 
         place_info = {
             'places': [],

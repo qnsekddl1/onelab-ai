@@ -8,9 +8,10 @@ from rest_framework.utils import json
 from rest_framework.views import APIView
 import math
 
-from place.models import PlacePoints
+from place.models import PlacePoints, Place
 from point.models import Point
 from school.models import School
+from share.models import Share, SharePoints
 from university.models import University
 
 
@@ -256,8 +257,11 @@ class PointUseDetailView(View):
     def get(self, request):
         member = request.session['member']
         member_id = request.session['member']['id']
-
         point_id = request.GET.get('id')
+
+        place_true = PlacePoints.objects.filter(points_id=point_id).first()
+        share_true = SharePoints.objects.filter(points_id=point_id).first()
+
         point = Point.objects.get(id=point_id, member_id=member_id)
 
         context = {
@@ -266,6 +270,22 @@ class PointUseDetailView(View):
             'member_id': member_id,
             'point': point,
         }
+        if place_true :
+            place_point = PlacePoints.objects.get(points_id=point_id)
+            place_id = place_point.place_id
+            place_title = Place.objects.get(id=place_id)
+            context['place_true'] = place_true
+            context['place_title'] = place_title
+            context['place'] = place_id
+
+        if share_true :
+            share_point = SharePoints.objects.get(points_id=point_id)
+            share_id = share_point.share_id
+            share_title = Share.objects.get(id=share_id)
+            context['share_true'] = share_true
+            context['share_title'] = share_title
+            context['share'] = share_id
+
         return render(request, 'point/use-list-detail.html', context)
 
 
@@ -300,9 +320,11 @@ class PointGetDetailView(View):
     def get(self, request):
         member = request.session['member']
         member_id = request.session['member']['id']
-
         point_id = request.GET.get('id')
         point = Point.objects.get(id=point_id, member_id=member_id)
+
+        place_true = Place.objects.filter(school=member_id).first()
+        share_true = Share.objects.filter(university=member_id).first()
 
         context = {
             'date': Point.objects.filter(member_id=member_id).values('updated_date').first(),
@@ -311,6 +333,31 @@ class PointGetDetailView(View):
             'point': point,
             'school': School.objects.filter(member_id=member_id).values('school_name').first()
         }
+
+        if place_true :
+            place_id = Place.objects.filter(school=member_id).first()
+            place_point = Point.objects.get(id=point_id)
+            place_title = place_true.place_title
+            place_points = place_true.place_points
+
+            context['place'] = place_id
+            context['place_true'] = place_true
+            context['place_point'] = place_point
+            context['place_points'] = place_points
+            context['place_title'] = place_title
+
+        if share_true :
+            share_id = Share.objects.filter(university=member_id).first()
+            share_point = Point.objects.get(id=point_id)
+            share_title = share_true.share_title
+            share_points = share_true.share_points
+
+            context['share'] = share_id
+            context['share_true'] = share_true
+            context['share_points'] = share_point
+            context['share_points'] = share_points
+            context['share_title'] = share_title
+
         return render(request, 'point/get-list-detail.html', context)
 
 

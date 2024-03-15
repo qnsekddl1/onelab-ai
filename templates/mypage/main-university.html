@@ -41,6 +41,31 @@
         .step-links a:hover {
             background-color:  #E8F5E9;
         }
+        .search-result-inner-inner {
+        width: 70%;
+        height: 70%;
+        background-color: #ffffffea;
+        border-radius: 10px;
+        margin: 15px auto 10px;
+        border: 0px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .search-result-inner-inner span {
+        height: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: inherit;
+        background-color: #008243;
+        border-radius: 10px;
+        color: #fff;
+    }
+    
+    .search-result-inner-inner span:hover {
+        background-color: #00592e
+    }
     </style>
 {% endblock %}
     {% block title %}마이페이지 메인화면{% endblock %}
@@ -52,7 +77,8 @@
         <div id="page-container">
             <main id="main-app">
                 <!-- web-header -->
-                <div class="web-header"></div>
+                <div class="web-header">
+                </div>
                 <!-- web-body -->
                 <div class="web-body">
                     <section class="my-page-main-layout">
@@ -790,78 +816,92 @@
                             </div>
 
                        <!-- 자료 공유 클릭했을 때 나타나는 페이지 -->
-<div class="main-container">
-    <div class="table-layout-container" style="grid-template-columns: repeat(4, calc(25% - 18px)); gap: 24px;">
-        {% for share in shares %}
-            <div class="HomeVerticalCard_container">
-                <a href="{% url 'share:detail' id=share.id %}">
-                    <div class="HomeVerticalCard_content">
-                        <div class="HomeVerticalCard_thumbnailBox" style="padding-top: 56.25%;">
-                            <div class="HomeVerticalCard_thumbnailWrap">
-                                <div class="thumbnail-img-container">
-                                    {% with university=share.university.university_member_school %}
-                                        {% if university == '연세대학교' %}
-                                            <div class="thumbnail-image-container">
-                                                <img class="thumbnail-image-img" src="{% static 'share/images/yns-logo.png' %}" alt="">
-                                            </div>
-                                        {% elif university == '카이스트' %}
-                                            <div class="thumbnail-image-container">
-                                                <img class="thumbnail-image-img" src="{% static 'share/images/kaist-logo.svg' %}" alt="">
-                                            </div>
-                                        {% elif university == '서울대학교' %}
-                                            <div class="thumbnail-image-container">
-                                                <img class="thumbnail-image-img" src="{% static 'share/images/snu-logo.svg' %}" alt="">
-                                            </div>
-                                        {% elif university == '고려대학교' %}
-                                            <div class="thumbnail-image-container">
-                                                <img class="thumbnail-image-img" src="{% static 'share/images/korea-logo.svg' %}" alt="">
-                                            </div>
-                                        {% else %}
-                                            <div class="thumbnail-image-container">
-                                                <img class="thumbnail-image-img" src="{% static 'public/images/realfavicon.png' %}" alt="">
-                                            </div>
-                                        {% endif %}
-                                    {% endwith %}
+                            <div id="share-list" class="main-container">
+                                <div class="table-layout-container" style="grid-template-columns: repeat(4, calc(25% - 18px)); gap: 24px;">
+                                    {% for share in shares %}
+                                        <div id="share-view" class="HomeVerticalCard_container">
+                                            <a href="{% url 'share:detail' id=share.id %}">
+                                                <div class="HomeVerticalCard_content">
+                                                    <div class="HomeVerticalCard_thumbnailBox" style="padding-top: 56.25%;">
+                                                        <div class="HomeVerticalCard_thumbnailWrap">
+                                                            <div class="thumbnail-img-container">
+                                                                {% with university=share.university.university_member_school %}
+                                                                    {% if university == '연세대학교' %}
+                                                                        <div class="thumbnail-image-container">
+                                                                            <img class="thumbnail-image-img" src="{% static 'share/images/yns-logo.png' %}" alt="">
+                                                                        </div>
+                                                                    {% elif university == '카이스트' %}
+                                                                        <div class="thumbnail-image-container">
+                                                                            <img class="thumbnail-image-img" src="{% static 'share/images/kaist-logo.svg' %}" alt="">
+                                                                        </div>
+                                                                    {% elif university == '서울대학교' %}
+                                                                        <div class="thumbnail-image-container">
+                                                                            <img class="thumbnail-image-img" src="{% static 'share/images/snu-logo.svg' %}" alt="">
+                                                                        </div>
+                                                                    {% elif university == '고려대학교' %}
+                                                                        <div class="thumbnail-image-container">
+                                                                            <img class="thumbnail-image-img" src="{% static 'share/images/korea-logo.svg' %}" alt="">
+                                                                        </div>
+                                                                    {% else %}
+                                                                        <div class="thumbnail-image-container">
+                                                                            <img class="thumbnail-image-img" src="{% static 'public/images/realfavicon.png' %}" alt="">
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endwith %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="HomeVerticalCard_infoBox HomeVerticalCard_isStore">
+                                                        <div class="HomeVerticalCard_info">
+                                                            <div class="store-badge-group-container">
+                                                                <div class="store-badges">
+                                                                    <!-- 자료의 확장자가 들어가는 뱃지 -->
+                                                                    {% with first_file=shares.sharefile_set.first %}
+                                                                        {% if first_file %}
+                                                                            {% if first_file.file_extension == 'pdf' %}
+                                                                                <span class="label-badge pdf">PDF</span>
+                                                                            {% elif first_file.file_extension == 'hwp' %}
+                                                                                <span class="label-badge hwp">HWP</span>
+                                                                            {% elif first_file.file_extension == 'xlsx' %}
+                                                                                <span class="label-badge xls">XLS</span>
+                                                                            {% elif first_file.file_extension == 'docx' %}
+                                                                                <span class="label-badge docx">DOCX</span>
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    {% endwith %}
+                                                                </div>
+                                                            </div>
+                                                            <p class="info-string-wrapper">{{ share.share_points }}포인트</p>
+                                                            <strong class="title">{{ share.share_title }}</strong>
+                                                            <p class="home-vertical-card-maker-name-wrapper" style="font-size: 15px">{{ share.share_author }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="pagination">
+                                  <span class="step-links">
+                                      {% if places.has_previous %}
+                                          <a href="?share=1">&laquo; 처음</a>
+                                          <a href="?share={{ shares.previous_page_number }}">이전</a>
+                                      {% endif %}
+                                      {% for i in shares.paginator.page_range %}
+                                          {% if places.number == i %}
+                                              <span class="current">{{ i }}</span>
+                                          {% else %}
+                                              <a href="?share={{ i }}">{{ i }}</a>
+                                          {% endif %}
+                                      {% endfor %}
+                                      {% if places.has_next %}
+                                          <a href="?share={{ shares.next_page_number }}">다음</a>
+                                          <a href="?share={{ shares.paginator.num_pages }}">마지막 &raquo;</a>
+                                      {% endif %}
+                                  </span>
+                              </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="HomeVerticalCard_infoBox HomeVerticalCard_isStore">
-                            <div class="HomeVerticalCard_info">
-                                <div class="store-badge-group-container">
-                                    <div class="store-badges">
-                                        <!-- 자료의 확장자가 들어가는 뱃지 -->
-                                        {% with first_file=shares.sharefile_set.first %}
-                                            {% if first_file %}
-                                                {% if first_file.file_extension == 'pdf' %}
-                                                    <span class="label-badge pdf">PDF</span>
-                                                {% elif first_file.file_extension == 'hwp' %}
-                                                    <span class="label-badge hwp">HWP</span>
-                                                {% elif first_file.file_extension == 'xlsx' %}
-                                                    <span class="label-badge xls">XLS</span>
-                                                {% elif first_file.file_extension == 'docx' %}
-                                                    <span class="label-badge docx">DOCX</span>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endwith %}
-                                    </div>
+                                    <div class="main-intersection"></div>
                                 </div>
-                                <p class="info-string-wrapper">{{ share.share_points }}포인트</p>
-                                <strong class="title">{{ share.share_title }}</strong>
-                                <p class="home-vertical-card-maker-name-wrapper" style="font-size: 15px">{{ share.share_author }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
-     {% if shares.has_next %}
-    <button class="load-more-btn">더보기</button>
-    {% endif %}
-    </div>
-        <div class="main-intersection"></div>
-    </div>
-
-
                             <!-- 장소 공유 클릭했을 때 나타나는 페이지  -->
                             <div class="main-container">
                                 <div class="SearchResult_container">
@@ -1293,35 +1333,35 @@
                                             </button>
                                         </li>
                                         <li class="my-page-menu-menu">
-                                            <a
-                                                href=""
-                                                ><span
-                                                    class="my-page-menu-icon"
-                                                    aria-hidden="true"
-                                                    ><i
-                                                        class="main-page-service-center-guideicon"
-                                                    ></i></span
-                                                ><span class="my-page-menu-text"
-                                                    >도움말 센터</span
-                                                ><span
-                                                    class="my-page-menu-arrowicon"
-                                                    aria-hidden="true"
-                                                    ><svg
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon-icon"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <path
-                                                            fill-rule="evenodd"
-                                                            clip-rule="evenodd"
-                                                            d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"
-                                                        ></path>
-                                                    </svg>
-                                                </span>
-                                            </a>
+{#                                            <a#}
+{#                                                href=""#}
+{#                                                ><span#}
+{#                                                    class="my-page-menu-icon"#}
+{#                                                    aria-hidden="true"#}
+{#                                                    ><i#}
+{#                                                        class="main-page-service-center-guideicon"#}
+{#                                                    ></i></span#}
+{#                                                ><span class="my-page-menu-text"#}
+{#                                                    >도움말 센터</span#}
+{#                                                ><span#}
+{#                                                    class="my-page-menu-arrowicon"#}
+{#                                                    aria-hidden="true"#}
+{#                                                    ><svg#}
+{#                                                        viewBox="0 0 24 24"#}
+{#                                                        fill="none"#}
+{#                                                        focusable="false"#}
+{#                                                        role="presentation"#}
+{#                                                        class="withIcon-icon"#}
+{#                                                        aria-hidden="true"#}
+{#                                                    >#}
+{#                                                        <path#}
+{#                                                            fill-rule="evenodd"#}
+{#                                                            clip-rule="evenodd"#}
+{#                                                            d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"#}
+{#                                                        ></path>#}
+{#                                                    </svg>#}
+{#                                                </span>#}
+{#                                            </a>#}
                                         </li>
                                     </ul>
                                 </div>
@@ -1411,8 +1451,7 @@
                                 <div class="my-page-adbanner-wrapper">
                                     <a href="" class="my-page-advertisement">
                                         <p class="my-page-advertisement-title">
-                                            탄력도 관리하세요. 피부가 쏙 먹는
-                                            바디오일
+                                           상향 평준화 교육의 핵심 원랩
                                         </p>
                                         <div
                                             class="my-page-advertisement-thumbnailwrap"
@@ -1421,7 +1460,7 @@
                                                 aria-hidden="true"
                                                 class="card-thumbnail"
                                                 style="
-                                                    background-image: url('https://cdn1.wadiz.kr/images/20240214/1707886044224.png/wadiz/optimize');
+                                                    background-image: url({% static 'myPage/images/gongmo5.jpg' %});
                                                 "
                                             ></div>
                                             <div
@@ -1458,8 +1497,7 @@
                                 <div class="my-page-adbanner-wrapper">
                                     <a href="" class="my-page-advertisement">
                                         <p class="my-page-advertisement-title">
-                                            탄력도 관리하세요. 피부가 쏙 먹는
-                                            바디오일
+                                            상향 평준화 교육의 핵심 원랩
                                         </p>
                                         <div
                                             class="my-page-advertisement-thumbnailwrap"
@@ -1468,7 +1506,7 @@
                                                 aria-hidden="true"
                                                 class="card-thumbnail"
                                                 style="
-                                                    background-image: url('https://cdn1.wadiz.kr/images/20240214/1707886044224.png/wadiz/optimize');
+                                                    background-image: url({% static 'myPage/images/gongmo2.jpg'%});
                                                 "
                                             ></div>
                                             <div
@@ -2233,33 +2271,25 @@
                                         class="input-text"
                                         maxlength="20"
                                         id="school"
-                                        placeholder="{{ university.university_member_school }}"
+                                        placeholder="{{ member_school }}"
                                         value=""
                                         disabled
                                     />
                                 </li>
+                                
                                 <li>
                                     <input
                                         type="text"
                                         class="input-text"
                                         maxlength="20"
                                         id="major"
-                                        placeholder="{{ university.university_member_major }}"
+                                        placeholder="{{ member_major }}"
                                         value=""
                                         disabled
                                     />
                                 </li>
                             </ul>
-                            <h5>간단한 한 마디로 나를 소개해주세요</h5>
-                            <div class="textarea-wrap">
-                                <input
-                                    type="text"
-                                    class="input-text input-text-large"
-                                    maxlength="50"
-                                    placeholder=""
-                                    value=""
-                                />
-                            </div>
+                           
                             <div class="btn-bottom">
                                 <ul class="btn-div2">
                                     <li>
@@ -2360,6 +2390,87 @@
         window.location.href='{% url 'myPage:main' %}'
     })
     </script>
+{#    <script>#}
+{#document.getElementById('more-view-btn').addEventListener('click', function() {#}
+{#    var currentPage = parseInt(this.getAttribute('data-page'));#}
+{#    var nextPage = currentPage + 1;#}
+{#    var universityId = 2; // 여기에 대학 회원의 ID를 설정하세요#}
+{#    #}
+{#    fetch('?page=' + nextPage + '&university_id=' + universityId)#}
+{#    .then(response => response.text())#}
+{#    .then(data => {#}
+{#        var parser = new DOMParser();#}
+{#        var htmlDoc = parser.parseFromString(data, 'text/html');#}
+{#        var newShares = htmlDoc.querySelectorAll('#share-view');#}
+{#        var shareContainer = document.querySelector('.table-layout-container');#}
+{#        #}
+{#        newShares.forEach(function(share) {#}
+{#            shareContainer.appendChild(share);#}
+{#        });#}
+{#        #}
+{#        // Update data-page attribute#}
+{#        document.getElementById('more-view-btn').setAttribute('data-page', nextPage);#}
+{#        #}
+{#        // Hide more button if no more pages#}
+{#        var hasMorePages = htmlDoc.querySelector('.search-result-inner-inner').getAttribute('data-has-more-pages');#}
+{#        if (hasMorePages === 'false') {#}
+{#            document.getElementById('more-view-btn').style.display = 'none';#}
+{#        }#}
+{#    });#}
+{#});#}
+{#    </script>#}
+    
+    <script>
+     // 더보기 버튼 요소를 선택.
+        const moreViewBtn = document.querySelector("#more-view-btn");
+        
+        // 더보기 버튼 클릭 이벤트에 대한 리스너를 추가.
+        moreViewBtn.addEventListener("click", () => {
+            // 현재 페이지에서 1을 더한 페이지를 계산.
+            const page = parseInt(moreViewBtn.dataset.page) + 1; 
+        
+            // 현재 페이지 URL에서 쿼리스트링을 제거한 URL을 가져옴
+            const url = window.location.href.split('?')[0]; 
+        
+            // fetch & AJAX를 사용하여 서버에 새로운 페이지의 공모전 목록을 요청.
+            fetch(`${url}?page=${page}`)
+                // 서버로부터 받은 응답을 텍스트 형식으로 변환.
+                .then(response => response.text())
+                // 텍스트 형식으로 변환된 응답을 처리.
+                .then(html => {
+                    // 받은 HTML 텍스트를 파싱하여 새로운 문서로 만든다.
+                    const parser = new DOMParser();
+                    const newDocument = parser.parseFromString(html, "text/html");
+        
+                    // 새로운 문서에서 공모전 목록 항목들을 선택.
+                    const newExhibitionItems = newDocument.querySelectorAll(".exhibition-item");
+        
+                    // 새로운 공모전 목록 항목들을 현재 페이지에 추가.
+                    const showList = document.getElementById("show-list");
+                    let count = 0;
+                    newExhibitionItems.forEach(item => {
+                        // exhibitions의 개수만큼만 추가될 수 있도록 제한.
+                        if (count < 4) { 
+                            showList.appendChild(item);
+                            count++;
+                        }
+                    });
+        
+                    // 더보기 버튼의 페이지 데이터를 업데이트.
+                    moreViewBtn.dataset.page = page;
+        
+                    // 만약 더 이상 추가할 공모전이 없다면 더보기 버튼을 숨김.
+                    if (count === 3) {
+                        moreViewBtn.style.display = "none";
+                    }
+                })
+                // 에러가 발생한 경우 콘솔에 에러 메시지를 출력.
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+ 
     
 {% endblock %}
     

@@ -71,17 +71,33 @@
                                         <dt class="how-to-purchase">
                                             <span>적립 항목</span>
                                         </dt>
+                                        {%  if place_true %}
                                         <dd class="value-text purchase-value">
                                             <span>장소대여</span>
                                         </dd>
+                                        {% elif share_true %}    
+                                            <dd class="value-text purchase-value">
+                                            <span>자료 공유</span>
+                                        </dd>
+                                        {% endif %}
                                     </dl>
                                     <dl>
-                                        <dt class="card-info">
+                                    <dt class="card-info">
                                             <span>적립 내역</span>
                                         </dt>
+                                    {%  if place_true %}
                                         <dd class="value-text card-info-value">
-                                            <span>{{ school.school_name }} {{ member.member_email }}</span>
+                                            <a href="/place/detail/{{ place.id }}">
+                                                <span>{{ place_title }}</span>
+                                            </a>
                                         </dd>
+                                    {% elif share_true %}
+                                        <dd class="value-text card-info-value">
+                                                <a href="/share/detail/{{ share.id }}">
+                                                <span>{{ share_title }}</span>
+                                                </a>
+                                        </dd>
+                                        {% endif %}
                                     </dl>
                                 </div>
                             </div>
