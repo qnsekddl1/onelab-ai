@@ -8,7 +8,7 @@
 {% block title %}장소공유 목록{% endblock %}
 {% block content %}
     {% if request.session.member %}
-        {% include  "header/main-page-header-login-one.html"%}
+        {% include  "header/main-page-header-login.html"%}
     {% else %}
         {% include "header/main-page-header-all.html" %}
     {% endif %}
@@ -60,11 +60,11 @@
                                 <button type="button" class="Tab_tab Tab_first Tab_rectangle Tab_sm">
                                     <span>제주</span>
                                 </button>
-                                <a href="{% url 'place:write' %}">
-                                    <button type="button" class="Tab_tab Tab_rectangle Tab_sm tab_end">
-                                        <span>글 쓰기</span>
-                                    </button>
-                                </a>
+{#                                <a href="{% url 'place:write' %}">#}
+{#                                    <button type="button" class="Tab_tab Tab_rectangle Tab_sm tab_end">#}
+{#                                        <span>글 쓰기</span>#}
+{#                                    </button>#}
+{#                                </a>#}
                             </ul>
                         </div>
 
