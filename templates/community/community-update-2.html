@@ -38,8 +38,8 @@
                         <ul>
                             <li>
                                 <a href="" class="sidebar-menu-item-nav-link">
-                                    나의 포인트</a>
-                                <a href="" class="sidebar-menu-item-nav-link result">{{ university.university_member_points }}</a>
+                                    마이 포인트</a>
+                                <a href="" class="sidebar-menu-item-nav-link result">100</a>
                             </li>
                             <li>
                                 <a href="" class="sidebar-menu-item-nav-link">
@@ -58,6 +58,11 @@
                 </div>
                 <div id="layout-contents" class="layout-contents">
                     <section class="page-container">
+                        <span class="blind-text-hidden">사이트 이동 경로</span>
+                        <ol class="current-page-position-list">
+                            <!-- <li class="page-position-item">프로젝트 관리</li> -->
+                            <li class="page-position-item">커뮤니티 글작성</li>
+                        </ol>
                         <div style="display: flex; justify-content: space-between; width: 628px;">
                             <h2 class="page-title">커뮤니티 글작성</h2>
                             <!-- 저장 버튼 -->
@@ -93,10 +98,10 @@
 
                         <div class="page-content">
                             <nav class="project-navbar-container">
-                                <div class="nav-logo">
-{#                                    <h1 class="nav-logo">#}
-                                    <img src="{% static 'community/images/header-logo.png'%}" class="header-logo">
-{#                                    </h1>#}
+                                <div>
+                                    <h1 class="nav-logo">
+                                        <span class="blind-text-hidden">프로젝트 정보</span>
+                                    </h1>
                                 </div>
                                 <div class="project-navbar-maker">
                                     <div class="profile-img">
@@ -106,6 +111,11 @@
                                     <div>{{ request.session.member.member_name }}</div>
                                 </div>
                                 <div class="project-navbar-btn-group">
+                                    <button type="button" class="pre-save-btn">
+                                        <span>
+                                            <span class="pre-save-btn-text">저장 하기</span>
+                                        </span>
+                                    </button>
                                     <!-- 알림 아이콘 -->
                                     <div class="announce-button-container">
                                         <img src="https://static.wadiz.kr/studio/funding/static/media/announcement.56f4b8e3.svg" alt="" class="announce-button-icon">
@@ -269,17 +279,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="/community/list/" class="exit-button" type="button">
+                                    <button class="exit-button" type="button">
                                         <span>
                                             <span class="exit-button-text">나가기</span>
                                         </span>
-                                    </a>
+                                    </button>
                                 </div>
                             </nav>
                             <form action="{% url 'community:write' %}" method="post" name="write-form" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <section class="section-container" style="max-width: 630px;">
-                                    <div class="section-header" style="width: 400px">
+                                    <div class="section-header">
                                         <h3 class="section-title">게시글 제목
                                             <span class="blind-text-hidden">필수</span>
                                         </h3>
@@ -404,10 +414,10 @@
                                     </div>
                                 </section>
                                 <button class="save-btn">
-                                    <span>
-                                        <span class="save-btn-text">저장하기</span>
-                                    </span>
-                                </button>
+                                <span>
+                                    <span class="save-btn-text">저장하기</span>
+                                </span>
+                            </button>
                             </form>
                         </div>
                     </section>

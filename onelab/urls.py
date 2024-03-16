@@ -1,11 +1,11 @@
 from django.urls import path
 
-from onelab.views import OneLabWriteView, OneLabListView, OneLabDetailView
+from onelab.views import OnelabWriteView, OnelabDetailView, OnelabListView
 
 app_name = 'onelab'
 
 urlpatterns = [
-    path('write/', OneLabWriteView.as_view(), name='one-lab-write'),
-    path('list/', OneLabListView.as_view(), name='one-lab-list'),
-    path('detail/', OneLabDetailView.as_view(), name='one-lab-detail')
+    path('write/', OnelabWriteView.as_view(), name='write'),
+    path('detail/', OnelabDetailView.as_view(), name='detail'),
+    path('list/', OnelabListView.as_view(), name='list'),
 ]

@@ -15,9 +15,12 @@
             <div class="main-wrapper-content">
                 <div class="main-wrapper-container">
                     <div class="banner-container">
-                        <div class="banner-img" style="background-image: url('{% static "onelab/images/onelab4.png"%}');"></div>
+                    {% for file in onelab_banner_file.all %}
+{#                        <div class="banner-img" style="background-image: url('{{ file.path }}');"></div>#}
+                        <img class="banner-img" src="/upload/{{ file.path }}" style="width: 100%">
+                    {% endfor %}
                             <!-- 공유하기 버튼 -->
-                        <button type="button" class="wish-btn" style="right: 370px;">
+                        <button type="button" class="wish-btn" style="right: 480px;">
                             <img src="{% static '/onelab/images/share.png' %}" style="width: 35px; height: 35px;" alt="">
                         </button>
                         <!-- 좋아요 버튼 -->
@@ -29,16 +32,16 @@
                         <div class="banner-text">
                             <div class="banner-title-box">
                                 <div class="banner-title-wrapper">
-                                    <p class="banner-title">원랩 이름</p>
+                                    <p class="banner-title">{{ onelab.onelab_title }}</p>
                                 </div>
                             </div>
                             <!-- 인원 섹션 -->
                             <div class="count-person-area" style="min-width: 140px;">
                                 <div class="count-person-icon" style="background-image: url('{% static "onelab/images/person-count.png"%}')"></div>
-                                <p class="count-person">07명 / 10명</p>
+                                <p class="count-person">{{ onelab.onelabmember_set.all|length }}명 / {{ onelab.onelab_max_count }}명</p>
                             </div>
 
-                            <div style="display: flex;">
+                            <div class="member-box-container-lab">
                                 <!-- 랩장 -->
                                 <div class="lab-member-box-container" style="margin: 0 auto;">
                                     <div class="lab-member-box" style="margin-right: 30px;">
@@ -49,10 +52,10 @@
                                             </dd>
                                             <dd class="member-name">
                                                 <img src="{% static '/onelab/images/crown-yellow.png' %}" alt="">
-                                                <strong>장 이름</strong>
+                                                <strong>{{ onelab.university.member.member_name}}</strong>
                                             </dd>
                                             <dd class="member-info">
-                                                랩장의 정보는 00이며, ㅁㅁ에요.
+                                                랩장은 {{ onelab.university.university_member_school }}이며, <br> {{ onelab.university.university_member_major }}에요.
                                             </dd>
                                             <dd class="member-labs">
                                                 <!-- <a href="" class="go-other-lab">다른 랩 보기</a> -->
@@ -93,119 +96,15 @@
                                     <div class="lab-member-box-column">
 
                                         <!-- +버튼을 눌렀을 때 활성화 될 이전 버튼 -->
-                                        <div class="lab-member-back-container">
-                                            <div class="lab-member-back-box member-list">
-                                                <dl class="lab-member-back-detail">
-                                                    <dd class="lab-member-back-icon member">
-                                                        <i class="back-icon member"></i>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div> -->
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-
-                                        <div class="lab-member-box-container">
-                                            <div class="lab-member-box member-list">
-                                                <dl class="lab-member-detail">
-                                                    <dd class="lab-member-university-icon member">
-                                                        <i class="university-icon member"></i>
-                                                    </dd>
-                                                    <dd class="member-name member">
-                                                        <strong>랩원 이름</strong>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                        </div>
+{#                                        <div class="lab-member-back-container">#}
+{#                                            <div class="lab-member-back-box member-list">#}
+{#                                                <dl class="lab-member-back-detail">#}
+{#                                                    <dd class="lab-member-back-icon member">#}
+{#                                                        <i class="back-icon member"></i>#}
+{#                                                    </dd>#}
+{#                                                </dl>#}
+{#                                            </div>#}
+{#                                        </div>#}
 
                                         <div class="lab-member-box-container">
                                             <div class="lab-member-box member-list">
@@ -234,25 +133,25 @@
                                 </div>
                             </div>
 
-                            <div class="lab-detail-info-container">
+                            <div class="lab-detail-info-container" style="margin-top: 0px;">
                                 <!-- 이미지 섹선 -->
-                                <div class="lab-image-area">
-                                    <div class="lab-image" style="background-image: url('{% static '/onelab/images/intro-img1.jpg' %}');"></div>
-                                </div>
+
+                                {% for file in onelab_file %}
+                                    <div class="lab-image-area">
+                                        <img src="/upload/{{ file.path }}" width="100%" class="lab-image">
+                                    </div>
+                                {% endfor %}
                                 <!-- 설명 글 섹션 -->
-                                <div class="lab-discription-text-area">
-                                    <strong class="lab-sub-title">라이프디자인 펀딩플랫폼, 와디즈</strong>
-                                    <h2 class="lab-custom-title">누구나 새로운 도전을
-                                        <br>시작할 수 있는 곳
+                                <div class="lab-discription-text-area" >
+                                    <strong class="lab-sub-title" name="onelab-content">{{ onelab.onelab_content }}</strong>
+                                    <h2 class="lab-custom-title" name="onelab-main-title">
+                                        {{ onelab.onelab_main_title }}
                                     </h2>
-                                    <p class="lab-custom-desc">
-                                        와디즈는 새로운 생각을 현실로 만들기 위해 도전하는 메이커와 <br>
-                                        그 도전을 응원하는 서포터가 모인 플랫폼입니다. <br>
-                                        참신한 아이템으로 삶을 보다 편하게 만들어주고, <br>
-                                        서로의 취향을 나누며 즐거움을 주고, <br>
-                                        나만의 아이디어로 어제보다 나은 내일을 기대할 수 있는<br>
-                                        다양한 사람들의 가치가 더 많은 사람들에게 닿을 수 있도록 와디즈는<br>
-                                        계속해서 변화하고 함께 성장할 수 있는 환경을 만들어 가겠습니다.
+                                    <p class="lab-custom-desc" name="onelab-detail-content">
+                                        {{ onelab.onelab_detail_content }}
+                                    </p>
+                                    <p class="onelab-ask-email" name="onelab-ask-email">
+                                        문의 메일: {{ onelab.onelab_ask_email }}
                                     </p>
                                 </div>
                             </div>
@@ -283,12 +182,14 @@
                         <div class="onelab-modal-wrapper">
                             <p class="onelab-modal-title">원랩 참여하기</p>
                             <div class="onelab-modal-buttons">
-                                <button type="button" class="onelab-modal-btn go-member-btn" style="width: 100%;">
-                                    <span>
-                                        <!-- 이 곳에 소통 url -->
-                                        <a href="">naver.com</a>
-                                    </span>
-                                </button>
+                               
+                                    <button type="button" class="onelab-modal-btn go-member-btn" style="width: 100%;">
+                                        <span>
+                                            <!-- 이 곳에 소통 url -->
+                                            <a href="">naver.com</a>
+                                        </span>
+                                    </button>
+                               
                             </div>
                         </div>
                         <button type="button" class="close-btn url-close">
@@ -315,11 +216,16 @@
                         <div class="onelab-modal-wrapper">
                             <p class="onelab-modal-title">원랩에 지원하시겠습니까?</p>
                             <div class="onelab-modal-buttons apply">
-                                <button type="button" class="onelab-modal-btn go-member-btn" style="width: 100%;">
+                              <form action="{% url 'onelab:detail' %}" method="post" enctype="multipart/form-data" name="join-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="onelab_id" value="{{ onelab.id }}">
+                                <button type="submit" class="onelab-modal-btn go-member-btn" style="width: 100%;">
                                     <span>
+                                        <input type="hidden" name="join" value="join">
                                         <span class="go-member-text">지원하기</span>
                                     </span>
                                 </button>
+                              </form>
                                 <button type="button" class="onelab-modal-btn go-to-login-btn">
                                     <span>
                                         <span class="cancel-text">취소하기</span>
@@ -369,5 +275,6 @@
 {% endblock %}
 
 {% block js %}
+{#    <script>const members = `{{ }}`</script>#}
     <script src="{% static 'onelab/js/one-lab-detail.js' %}"></script>
 {% endblock %}

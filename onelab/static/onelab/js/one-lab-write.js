@@ -128,20 +128,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 상세 내용 글자 수 계산
 const textarea = document.querySelector('.textarea-input textarea');
+const textareaA = document.querySelector('.textarea-input.A textarea');
 const formFieldHelper = document.querySelector('.form-field-helper');
+const formFieldHelperA = document.querySelector('.form-field-helper-A');
 
 textarea.addEventListener('input', function() {
     // textarea에 입력된 글자 수 계산
     const length = textarea.value.length;
 
-    // 최대 글자 수는 2000
-    const maxLength = 2000;
+    // 최대 글자 수는 100
+    const maxLength = 100;
 
     // 남은 글자 수를 계산합니다.
     const remaining = maxLength - length;
 
     formFieldHelper.textContent = remaining + '자 남음';
 });
+
+textareaA.addEventListener('input', function() {
+    // textarea에 입력된 글자 수 계산
+    const length = textareaA.value.length;
+
+    // 최대 글자 수는 1000
+    const maxLength = 1000;
+
+    // 남은 글자 수를 계산합니다.
+    const remaining = maxLength - length;
+
+    formFieldHelperA.textContent = remaining + '자 남음';
+});
+
 
 
 textarea.addEventListener('focus', function() {
@@ -158,14 +174,11 @@ document.addEventListener('click', function(event) {
     }
 });
 
-
-
-
-
-
-
-
-
+// 저장하기 버튼
+document.querySelector("button.save-btn").addEventListener("click", (e) => {
+//     유효성 검사
+    document['onelab-form'].submit();
+});
 
 
 
