@@ -17,3 +17,14 @@ likeBtns.forEach((likeBtn) => {
         likeBtn.classList.toggle('active')
     })
 })
+
+const onelabList = document.querySelectorAll('div.table-layout-container');
+const moreBtn = document.querySelectorAll('.get-more-result-btn');
+
+moreBtn.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        onelabList.forEach(list => {
+            list.style.display = 'grid';
+        });
+    });
+});
