@@ -600,6 +600,40 @@ button:not(:disabled) {
     box-sizing: border-box;
 }
 
+.badge-content-agree {
+    border: solid 1px #f2f4f6;
+    background-color: #008243;
+    border-radius: 5px;
+    padding: 2px 6px;
+    height: 22px;
+    line-height: 1.5;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    box-sizing: border-box;
+    color:white;
+}
+
+.badge-content-deny {
+    border: solid 1px #f2f4f6;
+    background-color: red;
+    border-radius: 5px;
+    padding: 2px 6px;
+    height: 22px;
+    line-height: 1.5;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    box-sizing: border-box;
+    color:white;
+}
+
 .notification-date-time {
     font-size: 12px;
     font-weight: 400;

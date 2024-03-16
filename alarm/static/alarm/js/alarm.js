@@ -109,34 +109,72 @@ const showList = (pageNationNewInfo) => {
     }else{
         alarmList.forEach((alarmInfo) => {
             let time = timeSince(alarmInfo.created_date)
-            text += `
-                <div class="alarm-list-container">
-                    <a class="notification-list-detail">
-                        <div>
-                            <div class="notification-icon-area">
-                                <img src="/static/alarm/images/letter_icon_small.png" class="notification-type-icon" />
-                            </div>
-                        </div>
-                        <div class="notification-info">
-                            <div class="notification-info-Line">
-                                <div class="notification-type">
-                                    <span class="badge-container">
-                                        <span class="badge-content">${alarmInfo.alarm_message}</span>
-                                        <span class="notification-date-time">${time}</span>
-                                        <span class="notification-date-time">${alarmInfo.created_date}</span>
-                                    </span>
-    
-                                </div>
-                                <div class="onelab-button-container">
-                                    <button class="onelab-agree ${alarmInfo.id}" value="수락" type="button">수락</button>
-                                    <button class="onelab-deny ${alarmInfo.id}" value="거절" type="button">거절</button>
+            console.log(alarmInfo)
+            // 1과 김규산은 session으로 member_id 를 가져와야함
+
+            if(alarmInfo.onelab_owner === 1 && alarmInfo.alarm_receiver === '또치' && alarmInfo.alarm_status == 2) {
+                text += `
+                    <div class="alarm-list-container">
+                        <a class="notification-list-detail">
+                            <div>
+                                <div class="notification-icon-area">
+                                    <img src="/static/alarm/images/letter_icon_small.png" class="notification-type-icon" />
                                 </div>
                             </div>
-                            <p class="notification-result">${alarmInfo.alarm_sender}의 원랩 가입신청이 대기중입니다!!</p>
-                        </div>
-                    </a>
-                </div>
-            `
+                            <div class="notification-info">
+                                <div class="notification-info-Line">
+                                    <div class="notification-type">
+                                        <span class="badge-container">
+                                            <span class="badge-content">${alarmInfo.alarm_message}</span>
+                                            <span class="notification-date-time">${time}</span>
+                                            <span class="notification-date-time">${alarmInfo.created_date}</span>
+                                        </span>
+        
+                                    </div>
+                                    <!-- member_id 와 onelab 의 member id 같은 경우만 출력                          -->
+                                    <div class="onelab-button-container">
+                                        <button class="onelab-agree ${alarmInfo.id}" value="수락" type="button">수락</button>
+                                        <button class="onelab-deny ${alarmInfo.id}" value="거절" type="button">거절</button>
+                                    </div>
+                                </div>
+                                <!-- alarm status 에 따라서 출력하는 결과가 달라야 함             -->
+                                <p class="notification-result">${alarmInfo.alarm_sender}의 원랩타이틀 가입신청 ${alarmInfo.alarm_message}</p>
+                            </div>
+                        </a>
+                    </div>
+                `
+            //   alarm_sender 의 경우 session의 아이디가 들어가야 함
+            }else if(( alarmInfo.alarm_sender === '또치')){
+                text += `
+                    <div class="alarm-list-container">
+                        <a class="notification-list-detail">
+                            <div>
+                                <div class="notification-icon-area">
+                                    <img src="/static/alarm/images/letter_icon_small.png" class="notification-type-icon" />
+                                </div>
+                            </div>
+                            <div class="notification-info">
+                                <div class="notification-info-Line">
+                                    <div class="notification-type">
+                                        <span class="badge-container">
+                                            <span class="badge-content">${alarmInfo.alarm_message}</span>
+                                            <span class="notification-date-time">${time}</span>
+                                            <span class="notification-date-time">${alarmInfo.created_date}</span>
+                                        </span>
+        
+                                    </div>
+                                </div>
+                                <!-- alarm status 에 따라서 출력하는 결과가 달라야 함             -->
+                                <p class="notification-result">${alarmInfo.alarm_sender}의 원랩타이틀 상태: ${alarmInfo.alarm_message}</p>
+                            </div>
+                        </a>
+                    </div>
+                `
+            }
+            else {
+                text += `
+                `
+            }
         })
     }
     notificationContainer.innerHTML = text

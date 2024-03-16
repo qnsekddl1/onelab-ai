@@ -1,17 +1,15 @@
+from django.db.models import Q
 from django.test import TestCase
 
 from alarm.models import Alarm
 
 
 class AlarmTestCase(TestCase):
-    #  alarm_message, alarm_receiver, alarm_sender, member_id, onelab_id
-    # data = {
-    #     'alarm_message': '승인대기',
-    #     'alarm_receiver': '테스트30',
-    #     'alarm_sender': '김규산',
-    #     'member_id': 1,
-    #     'onelab_id': 1
-    # }
-    #
-    # Alarm.objects.create(**data)
+    print(100000)
+    alarm_objects = Alarm.objects.filter(
+        (Q(alarm_receiver='김규산') | Q(member_id=2) & ~Q(alarm_status=-1))). \
+                        values('onelab_id').order_by('-created_date')[0:5]
+    print('='*20)
+    print(alarm_objects)
+    print('='*20)
     pass
