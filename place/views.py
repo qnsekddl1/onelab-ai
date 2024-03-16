@@ -496,5 +496,3 @@ class PlaceListAPIView(APIView):
             place_info['places'].append(place)
 
         return Response(place_info)
-
-

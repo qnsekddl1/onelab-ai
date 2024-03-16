@@ -10,7 +10,7 @@
     to {scale: 0;}
 }
 
-div.modal {
+.modal {
     display: none;
     position: fixed;
     flex-direction: column;
@@ -22,7 +22,7 @@ div.modal {
     background-color: #8586898a;
 }
 
-div.warn-modal {
+.warn-modal {
     box-sizing: border-box;
     position: unset;
     width: 288px;
@@ -32,10 +32,10 @@ div.warn-modal {
     border-radius: 8px;
 }
 
-div.warn-modal {
+.warn-modal {
     padding: 24px;
 }
 
-div#content-wrap span{
+#content-wrap span{
     display: block;
 }
