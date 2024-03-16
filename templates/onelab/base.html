@@ -1,5 +1,4 @@
 {% load static %}
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,22 +6,29 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{# 공통으로 들어갈 헤더 자리 #}
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'onelab/favicon/favicon-32x32.png' %}">
-    <link rel="stylesheet" href="{% static 'public/css/main-page-header.css' %}">
-{# 개별 헤더 자리 #}
+{#     헤더, 푸터 css경로#}
+    <link rel="stylesheet" href="{% static 'css/header/main-page-header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/header/main-page-header-all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/header/main-page-header-login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/header/main-page-header-login-one.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/modal.css'%}">
+{#favicon 경로#}
+    <link rel="shortcut icon" href="{% static '/public/images/realfavicon.png' %}">
     {% block static %}{% endblock %}
-{# 개별 타이틀 자리 #}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    {% include 'fix/header.html' %}
-    {% block content%}{% endblock %}
-{#    {% include 'fix/footer.html' %}#}
+    <div class="modal">
+        <div class="warn-modal">
+            <div id="content-wrap"></div>
+        </div>
+    </div>
+    {#헤더 html 경로#}
+{#    {% include 'header/main-page-header.html' %}#}
+    {% block content %}{% endblock %}
+    {#푸터 경로#}
 </body>
-{% block js %}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-{% endblock %}
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="{% static 'public/js/modal.js' %}"></script>
+    {% block js %}{% endblock %}
 </html>
