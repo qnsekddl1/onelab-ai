@@ -90,7 +90,7 @@
                             <!--마이페이지 아이콘-->
                             <div class="header-desktop-user">
                                 <div class="user-container">
-{#                                    <button type="button" class="user-btn-avatar" aria-label="마이 와디즈" onclick="location.href='{% url 'myPage:main' %}'">#}
+                                    <button type="button" class="user-btn-avatar" aria-label="마이 와디즈" onclick="location.href='{% url 'myPage:main' %}'">
                                         <div>
                                             <div class="avatar-avatar" style="width: 32px; height: 32px;">
                                                 {% if profile is None or profile == "" %}
@@ -113,7 +113,7 @@
                             </div>
                             <!--포인트 충전-->
                             <div class="charge-point">
-                                <button aria-label="포인트 충전" class="charge-point-button" type="button">
+                                <button aria-label="포인트 충전" class="charge-point-button" type="button" onclick="location.href='/point/new/'">
                                     <span><span class="button-children">포인트 충전</span></span>
                                 </button>
                             </div>
