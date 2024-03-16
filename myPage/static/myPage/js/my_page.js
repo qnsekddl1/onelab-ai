@@ -48,13 +48,113 @@
 
 // 카테고리 선택 기능
 // 랩장 랩원 눌렀을 때 구별되는 페이지 나타내는 기능
+const manageOnelabContainer = document.querySelector(".manage-onelab-container")
+
+// 내가 랩장인 원랩 목록을 화면에 표시하는 함수
+const showManageOnelabList = (onelabList) => {
+    let text = ``;
+    onelabList.forEach((onelab) => {
+        text += `
+            <div class="onelab-service-boxs-inner">
+                <button class="manage-onelab-btn">
+                    <span class="manage-onelab-icon" aria-hidden="true">
+                        <svg
+                            viewBox="0 0 32 32"
+                            focusable="false"
+                            role="presentation"
+                            class="withIcon-icon"
+                            aria-hidden="true">
+                            <path
+                                d="M17.84 3.2l.4 2.56.16.88.88.32a9.55 9.55 0 0 1 2.893 1.691l.707.549.88-.32 2.4-.88L28 11.2l-2 1.68-.72.56.16.88a9.022 9.022 0 0 1-.009 3.336l-.151.824.72.56 2 1.76-1.84 3.2-3.28-1.2-.72.56a9.485 9.485 0 0 1-2.814 1.658l-.946.342-.16.88-.4 2.56h-3.68l-.4-2.56-.16-.88-.88-.32a9.55 9.55 0 0 1-2.893-1.691L9.12 22.8l-.88.32-2.4.88L4 20.8l2-1.68.72-.56-.16-.88a9.022 9.022 0 0 1 .009-3.336l.151-.824-.72-.56-2-1.76L5.84 8l3.28 1.2.72-.56a9.485 9.485 0 0 1 2.814-1.658l.946-.342.16-.88.4-2.56h3.68zM16 21.6a5.6 5.6 0 1 0 0-11.2 5.6 5.6 0 0 0 0 11.2zm2.56-20h-5.136a.8.8 0 0 0-.783.635L12.08 5.44a11.21 11.21 0 0 0-3.292 2.011L5.76 6.24h-.267a.798.798 0 0 0-.691.397L2.24 10.961a.798.798 0 0 0 .238 1.038l2.562 2.082a10.647 10.647 0 0 0 .01 3.906l-2.57 2.014a.8.8 0 0 0-.158 1.044L4.8 25.362a.8.8 0 0 0 .693.4h.347l2.96-1.2c.956.798 2.07 1.448 3.282 1.895l.638 3.225c.077.368.399.64.784.64h5.072a.8.8 0 0 0 .783-.635l.561-3.205a11.212 11.212 0 0 0 3.296-1.934l3.024 1.134h.347a.798.798 0 0 0 .691-.397l2.562-4.404a.8.8 0 0 0-.159-1.039l-2.561-2.081a10.647 10.647 0 0 0-.01-3.906l2.41-1.854a.8.8 0 0 0 .158-1.044L27.2 6.64a.8.8 0 0 0-.693-.4h-.347l-2.96 1.2a11.163 11.163 0 0 0-3.282-1.895L19.28 2.32a.801.801 0 0 0-.784-.64h-.017zM16 20a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
+                            ></path>
+                        </svg>
+                    </span>
+                    관리하기
+                </button>
+                <dl class="onelab-service-detail">
+                    <dd class="box-icon">
+        `;
+        if (!onelab.path){
+            text += `
+                <i class="icon-maker-service"></i>
+            `;
+        } else {
+            text += `
+                <img src="/upload/${onelab.path}">
+            `
+        }
+        text += `
+                    </dd>
+                    <dd class="box-title">
+                        <strong>${onelab.onelab_main_title}</strong>
+                    </dd>
+                    <dd class="box-text">
+                        ${onelab.onelab_content}
+                    </dd>
+                    <dd class="box-last"></dd>
+                </dl>
+            </div>
+        `
+    })
+    manageOnelabContainer.innerHTML = text;
+    addClickEventToManageOnelabButtons();
+}
+
+
+
+// 내가 랩원인 원랩 목록을 넣을 컨테이너
+const memberOnelabContainer = document.querySelector(".member-onelab-container");
+
+// 내가 랩원인 원랩 목록을 화면에 표시하는 함수
+const showMemberOnelabList = (onelabList) => {
+    let text = ``;
+    onelabList.forEach((onelab) => {
+        text += `
+            <div class="onelab-service-boxs-inner">
+                <button class="exit-onelab-btn">
+                    탈퇴하기
+                </button>
+                <dl class="onelab-service-detail">
+                    <dd class="box-icon">
+        `;
+        if (!onelab.path){
+            text += `
+                <i class="icon-maker-service"></i>
+            `;
+        } else {
+            text += `
+                <img src="/upload/${onelab.path}">
+            `
+        }
+        text += `
+                    </dd>
+                    <dd class="box-title">
+                        <strong>${onelab.onelab_main_title}</strong>
+                    </dd>
+                    <dd class="box-text">
+                        ${onelab.onelab_content}
+                    </dd>
+                    <dd class="box-last"></dd>
+                </dl>
+            </div>
+        `
+    })
+    memberOnelabContainer.innerHTML = text;
+    addClickEventToQuitOnelabButtons();
+}
+
+
+
+
+
+// 랩장 랩원 눌렀을 때 구별되는 페이지 나타내는 기능
 const buttons = document.querySelectorAll(
     "div.main-list-filter-container ul.filter-list-wrapper button.major-btn"
 );
 const labpages = document.querySelectorAll(".section-body");
 
 for (let i = 0;i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function(e) {
+    buttons[i].addEventListener('click', async function(e) {
         e.preventDefault();
         for (let j=0;j<buttons.length; j++) {
             buttons[j].classList.remove("active-btn");
@@ -62,9 +162,13 @@ for (let i = 0;i < buttons.length; i++) {
         }
         this.classList.add("active-btn");
         labpages[i].style.display = "block";
+        if (i === 0) {
+            await myPageOnelabService.getList(false, showManageOnelabList);
+        } else {
+            await myPageOnelabService.getList(true, showMemberOnelabList);
+        }
     })
 }
-
 
 // 카테고리 목록 내, 좋아요 기능
 // 좋아요 눌렀을 때 좋아요 되었다는 알림글 나타내기
@@ -222,20 +326,35 @@ if (currentPage && currentPage !== 1) {
 }
 
 
-// 관리하기 눌렀을 때 열리는 기능
-const manage_onelab_btn = document.querySelectorAll(".manage-onelab-btn");
-manage_onelab_btn.forEach((btn)=>{
-    btn.addEventListener("click", ()=>{
-        if (onelab_page[5].style.display === "none") {
-            onelab_page.forEach((page)=>{
-                page.style.display = "none";
-            })
-            onelab_page[5].style.display = "block";
-        } else {
-            onelab_page[5].style.display = "none";
-        }
+// 관리하기 눌렀을 때 열리는 기능 -> 함수화하여 fetch 이후에 뿌려진 원랩목록들에 각각 적용합니다.
+// 관리하기 부분은 성현씨께서 fetch 관련 만들어서 구성원 정보 뿌리는 로직 추가하시면 됩니다.
+const addClickEventToManageOnelabButtons = () => {
+    const manage_onelab_btn = document.querySelectorAll(".manage-onelab-btn");
+    manage_onelab_btn.forEach((btn)=>{
+        btn.addEventListener("click", ()=>{
+            if (onelab_page[5].style.display === "none") {
+                onelab_page.forEach((page)=>{
+                    page.style.display = "none";
+                })
+                onelab_page[5].style.display = "block";
+            } else {
+                onelab_page[5].style.display = "none";
+            }
+        })
     })
-})
+}
+
+// 탈퇴하기 눌렀을 때 열리는 기능은 구현 안 돼있길래 아래에 함수를 만들어만 놓고,
+// fetch로 "내가 랩원인 원랩" 목록을 뿌리고 나서 각 버튼에도 적용되도록
+// 화면에 뿌리는 부분(위에 있습니다, showMemberOnelabList()) 에 써놓도록 하겠습니다.
+const addClickEventToQuitOnelabButtons = () => {
+    const exitOnelabButtons = document.querySelectorAll(".exit-onelab-btn");
+    exitOnelabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            // 탈퇴 관련 로직 구현
+        })
+    })
+}
 
 
 // 프로필 설정 창 모달 기능 구현

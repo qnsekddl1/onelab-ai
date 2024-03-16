@@ -62,9 +62,11 @@ apiBtn.addEventListener('click', async () => {
                     window.location.href = '/point/list/';
                 }else{
                     console.error('결제 실패',response);
-                    window.location.href='/member/main/'
+                    window.location.href='/'
+                    alert('대학생만 포인트 충전이 가능합니다!')
                 }
             }).catch(error => console.error('Error', error))
+
 
      //    await fetch(`/point/new/`, {
      //        method: 'POST',

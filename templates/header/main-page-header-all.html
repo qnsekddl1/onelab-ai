@@ -69,16 +69,16 @@
                                     </div>
                                 </form>
                             </div>
-                            <!--로그인 회원가입-->
+                           <!--로그인 회원가입-->
                             <div class="header-desktop-user">
                                 <div class="user-container">
-                                    <button type="button" class="user-btn-sign">로그인</button
-                                    ><button data-event="iam.signup" class="user-btn-sign">회원가입</button>
+                                    <button type="button" class="user-btn-sign" onclick="location.href='{% url 'member:login' %}'">로그인</button
+                                    ><button data-event="iam.signup" class="user-btn-sign" onclick="location.href='/member/join-normal/'">회원가입</button>
                                 </div>
                             </div>
                             <!--포인트 충전-->
                             <div class="charge-point">
-                                <button aria-label="포인트 충전" class="charge-point-button" type="button">
+                                <button aria-label="포인트 충전" class="charge-point-button" type="button" onclick="location.href='/point/new/'" >
                                     <span><span class="button-children">포인트 충전</span></span>
                                 </button>
                             </div>
