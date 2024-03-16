@@ -46,9 +46,29 @@ const alarmModuleService = (() => {
         return alarmResult
     }
 
+    const oneLabCancel = async (alarmClickId, alarmClickValue, callback) => {
+        const response = await fetch(`cancel/api/`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-CSRFToken':csrf_token
+            },
+            body: JSON.stringify(({
+                alarmClickId: alarmClickId,
+                buttonResult: alarmClickValue
+            }))
+        })
+        const alarmResult = await response.json()
+        if(callback){
+            return callback(alarmResult)
+        }
+        return alarmResult
+    }
+
     return {
         pageNation:pageNation,
         oneLabAgree:oneLabAgree,
-        oneLabDeny:oneLabDeny
+        oneLabDeny:oneLabDeny,
+        oneLabCancel:oneLabCancel
     }
 })();

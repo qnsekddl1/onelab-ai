@@ -600,7 +600,7 @@ button:not(:disabled) {
     box-sizing: border-box;
 }
 
-.badge-content-agree {
+.agree {
     border: solid 1px #f2f4f6;
     background-color: #008243;
     border-radius: 5px;
@@ -617,7 +617,7 @@ button:not(:disabled) {
     color:white;
 }
 
-.badge-content-deny {
+.deny {
     border: solid 1px #f2f4f6;
     background-color: red;
     border-radius: 5px;
@@ -773,6 +773,17 @@ button:not(:disabled) {
     padding: 2px 5px;
     border: 2px solid #008243;
     background-color: #008243;
+    color: white;
+    font-size: 11px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.onelab-cancel{
+    padding: 2px 5px;
+    border: 2px solid gray;
+    background-color: gray;
     color: white;
     font-size: 11px;
     border-radius: 5px;

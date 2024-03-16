@@ -5,11 +5,22 @@ from alarm.models import Alarm
 
 
 class AlarmTestCase(TestCase):
-    print(100000)
-    alarm_objects = Alarm.objects.filter(
-        (Q(alarm_receiver='김규산') | Q(member_id=2) & ~Q(alarm_status=-1))). \
-                        values('onelab_id').order_by('-created_date')[0:5]
-    print('='*20)
-    print(alarm_objects)
-    print('='*20)
+    # data= {
+    #     'alarm_message': '가입대기',
+    #     'alarm_receiver': '양현',
+    #     'alarm_sender': '김규산',
+    #     'member_id': 21,
+    #     'onelab_id': 1,
+    # }
+
+    data = {
+        'alarm_message': '가입대기',
+        'alarm_receiver': '김규산',
+        'alarm_sender': '이기영',
+        'member_id': 1,
+        'onelab_id': 1,
+    }
+
+    Alarm.objects.create(**data)
+
     pass

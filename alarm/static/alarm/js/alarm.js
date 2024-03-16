@@ -17,6 +17,7 @@ function timeSince(dateString) {
     return "오늘";
 }
 const prPagination = document.querySelector('.pagination-contents')
+const totalCount = document.querySelector('.notification-app-total')
 
 //페이지네이션 클릭 시 되는 함수
 const addPaginationEvent = (pageNationNewInfo) => {
@@ -26,6 +27,7 @@ const addPaginationEvent = (pageNationNewInfo) => {
     const prPaginationPageNumbers = document.querySelectorAll(".page-number-btn")
     const onelabAgree = document.querySelectorAll('.onelab-agree')
     const onelabDeny = document.querySelectorAll('.onelab-deny')
+    const onelabCancel = document.querySelectorAll('.onelab-cancel')
 
     leftButton.addEventListener('click', async () => {
         if (pageNationNewInfo.page <= 1) return;
@@ -47,11 +49,20 @@ const addPaginationEvent = (pageNationNewInfo) => {
         btn.addEventListener('click', async () =>{
             alarmClickValue = onelabAgree[i].value
             alarmClickId = onelabAgree[i].classList[1]
+            onelabAgree[i].classList.add('agree')
             await alarmModuleService.oneLabAgree(alarmClickId, alarmClickValue)
             await alarmModuleService.pageNation(1, showList)
         })
     })
     onelabDeny.forEach((btn, i) => {
+        btn.addEventListener('click', async () =>{
+            alarmClickValue = onelabDeny[i].value
+            alarmClickId = onelabDeny[i].classList[1]
+            await alarmModuleService.oneLabDeny(alarmClickId, alarmClickValue)
+            await alarmModuleService.pageNation(1, showList)
+        })
+    })
+    onelabCancel.forEach((btn, i) => {
         btn.addEventListener('click', async () =>{
             alarmClickValue = onelabDeny[i].value
             alarmClickId = onelabDeny[i].classList[1]
@@ -102,17 +113,18 @@ const showPagination = (pageNationNewInfo)=> {
 // 최초 알림 개수를 뿌리는 함수 (5개씩)
 const showList = (pageNationNewInfo) => {
     let text = ``
-    mainTotalCount.innertText = pageNationNewInfo.alarm_total_count
-    alarmList = pageNationNewInfo.alarm_list
-    if (pageNationNewInfo.alarm_list.length ===0){
+    mainTotalCount.innerHTML = `<strong>${pageNationNewInfo.alarm_total_count}</strong>`
+    let alarmList = pageNationNewInfo.alarm_list
+    let login_id = pageNationNewInfo.login_id
+    let login_name = pageNationNewInfo.login_name
+
+    if (alarmList.length ===0){
         text += `<div class="none-alarm-text">등록된 알림이 없습니다.</div>`
+        mainTotalCount.innerHTML = `<strong>${pageNationNewInfo.alarm_total_count}</strong>`
     }else{
         alarmList.forEach((alarmInfo) => {
             let time = timeSince(alarmInfo.created_date)
-            console.log(alarmInfo)
-            // 1과 김규산은 session으로 member_id 를 가져와야함
-
-            if(alarmInfo.onelab_owner === 1 && alarmInfo.alarm_receiver === '또치' && alarmInfo.alarm_status == 2) {
+            if(alarmInfo.onelab_owner === login_id && alarmInfo.alarm_receiver === login_name && alarmInfo.alarm_status === 2) {
                 text += `
                     <div class="alarm-list-container">
                         <a class="notification-list-detail">
@@ -138,13 +150,13 @@ const showList = (pageNationNewInfo) => {
                                     </div>
                                 </div>
                                 <!-- alarm status 에 따라서 출력하는 결과가 달라야 함             -->
-                                <p class="notification-result">${alarmInfo.alarm_sender}의 원랩타이틀 가입신청 ${alarmInfo.alarm_message}</p>
+                                <p class="notification-result">${alarmInfo.alarm_sender}의 ${alarmInfo.onelab_titie} 가입신청 ${alarmInfo.alarm_message}</p>
                             </div>
                         </a>
                     </div>
                 `
             //   alarm_sender 의 경우 session의 아이디가 들어가야 함
-            }else if(( alarmInfo.alarm_sender === '또치')){
+            }else if((alarmInfo.alarm_sender === login_name)){
                 text += `
                     <div class="alarm-list-container">
                         <a class="notification-list-detail">
@@ -160,24 +172,25 @@ const showList = (pageNationNewInfo) => {
                                             <span class="badge-content">${alarmInfo.alarm_message}</span>
                                             <span class="notification-date-time">${time}</span>
                                             <span class="notification-date-time">${alarmInfo.created_date}</span>
-                                        </span>
-        
+                                        </span>        
                                     </div>
+                                    <button class="onelab-cancel ${alarmInfo.id}" value="삭제" type="button">삭제</button>
                                 </div>
                                 <!-- alarm status 에 따라서 출력하는 결과가 달라야 함             -->
-                                <p class="notification-result">${alarmInfo.alarm_sender}의 원랩타이틀 상태: ${alarmInfo.alarm_message}</p>
+                                <p class="notification-result">${alarmInfo.alarm_sender}의 ${alarmInfo.onelab_titie} 상태: ${alarmInfo.alarm_message}</p>
                             </div>
                         </a>
                     </div>
                 `
             }
             else {
-                text += `
+                text += ` 
                 `
             }
         })
     }
     notificationContainer.innerHTML = text
+    mainTotalCount.innerHTML = `<strong>${pageNationNewInfo.alarm_total_count}</strong>`
     showPagination(pageNationNewInfo)
 }
 
