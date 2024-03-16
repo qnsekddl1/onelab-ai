@@ -69,7 +69,11 @@
                                                     {{ onelab.onelab_content }}
                                                 </strong>
                                                 <p class="info-maker-name">
-                                                    {{ onelab.onelabmember_set.count }} / {{ onelab.onelab_max_count }} 
+                                                    {% if onelab.one_lab_member_count %}
+                                                        {{ onelab.one_lab_member_count }} / {{ onelab.onelab_max_count }}
+                                                    {% else %}
+                                                        0 / {{ onelab.onelab_max_count }}
+                                                    {% endif %}
                                                 </p>
                                             </div>
                                         </div>
@@ -89,6 +93,7 @@
                         </div>
                     </div>
                 </div>
+            </main>
             </div>
         </main>
     </div>

@@ -77,27 +77,27 @@ class OnelabDetailView(View):
         print(onelab_id)
 
         datas = {
-            'onelab_member_status': 0,
+            'onelab_member_status': 1,
             'university_id': real_member.member_id,
             'onelab_id': onelab_id
         }
+        if real_member.member_id == onelab_id:
+            pass
         OneLabMember.objects.create(**datas)
         return redirect('onelab:list')
 
 class OnelabListView(View):
     def get(self, request):
-        # 원랩 리스트 가져오기
-        onelab = OneLab.enabled_objects.filter(onelab_post_status=True)
-        total = OneLab.enabled_objects.filter(onelab_post_status=True).count()
-
-
-        # 페이지 번호 가져오기
-
+        onelabs = OneLab.enabled_objects.filter(onelab_post_status=True).order_by('-id')
+        total_onelabs = onelabs.count()
+        for onelab in onelabs:
+            onelab_member_count = OneLabMember.objects.filter(onelab_id=onelab.id, onelab_member_status=1).count()
+            setattr(onelab, 'one_lab_member_count', onelab_member_count)
 
         context = {
             'member': request.session['member'],
-            'onelab': onelab,
-            'total': total,
+            'onelab': onelabs,
+            'total': total_onelabs,
         }
 
         return render(request, 'onelab/one-lab-list.html', context)
