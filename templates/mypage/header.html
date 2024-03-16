@@ -1,6 +1,6 @@
 {% load static %}
 
-{% block title %}로그인{% endblock %}
+{#{% block title %}로그인{% endblock %}#}
 {% block content %}
     <!--헤더-->
         <div class="web-header">
@@ -8,9 +8,9 @@
                 <header class="header-wrapper">
                     <div class="header-container">
                         <h1 class="wadiz-logo">
-                            <a href="">
+                            <a href="/">
                                 <span class="label">원랩</span>
-                                <img id="one-lab" src="/staticfiles/images/header-logo_RE.png" alt="" />
+                                <img id="one-lab" src="{% static 'myPage/images/img.png' %}" alt="" />
                             </a>
                         </h1>
                         <!--메뉴 탭-->

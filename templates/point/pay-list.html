@@ -71,18 +71,18 @@
                                         <dt class="blind-text">상태</dt>
                                         <dd>
                                             <span class="badge-container">
-                                                <span class="badge">적립 완료</span>
+                                                <span class="badge">충전 완료</span>
                                             </span>
                                         </dd>
                                         <dt class="blind-text">상품명</dt>
-                                        <dd class="purchase-card-title-text">[{{ point.point }} 포인트 적립!]</dd>
+                                        <dd class="purchase-card-title-text">[{{ point.point }} 포인트 충전!]</dd>
                                         <dd class="purchase-description">
                                             <span class="purchase-seller-name">{{ member.member_name }}</span>
                                         </dd>
                                     </dl>
                                 </div>
                                 <!-- 리스트 내, 오른편 하단 상세보기 클릭시 결제 내역 상세로 이동 -->
-                                <a href="/point/getDetail/?id={{ point.id }}">
+                                <a href="/point/detail/?id={{ point.id }}">
                                 <div class="purchase-card-detail-text">상세보기
                                     <svg viewBox="0 0 24 24" fill="none" focusable="false" role="presentation" class="purchase-detail-arrow-svg" aria-hidden="true">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"></path>

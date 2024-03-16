@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage
 from django.db.models import Q, Sum
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.views import View
 from rest_framework.response import Response
@@ -8,10 +8,13 @@ from rest_framework.utils import json
 from rest_framework.views import APIView
 import math
 
+from member.models import Member
 from place.models import PlacePoints, Place
+from placeMember.models import PlaceMember
 from point.models import Point
 from school.models import School
 from share.models import Share, SharePoints
+from shareMember.models import ShareMember
 from university.models import University
 
 
@@ -255,37 +258,47 @@ class PointUseListView(View):
 
 
 class PointUseDetailView(View):
+
     def get(self, request):
         member = request.session['member']
         member_id = request.session['member']['id']
         point_id = request.GET.get('id')
 
-        place_true = PlacePoints.objects.filter(points_id=point_id).first()
-        share_true = SharePoints.objects.filter(points_id=point_id).first()
+        try:
+            point = Point.objects.get(id=point_id, member_id=member_id)
+        except Point.DoesNotExist:
+            # Handle the case where the point does not exist
+            return HttpResponseNotFound("Point does not exist")
 
-        point = Point.objects.get(id=point_id, member_id=member_id)
+        place_true = PlaceMember.objects.filter(university=member_id).first()
+        print(place_true)
+        share_true = ShareMember.objects.filter(university=member_id).first()
+        print(share_true)
 
         context = {
-            'date': Point.objects.filter(member_id=member_id).values('updated_date').first(),
+            'date': point.updated_date,
             'member': member,
             'member_id': member_id,
             'point': point,
         }
-        if place_true :
-            place_point = PlacePoints.objects.get(points_id=point_id)
-            place_id = place_point.place_id
-            place_title = Place.objects.get(id=place_id)
-            context['place_true'] = place_true
-            context['place_title'] = place_title
-            context['place'] = place_id
 
-        if share_true :
-            share_point = SharePoints.objects.get(points_id=point_id)
-            share_id = share_point.share_id
-            share_title = Share.objects.get(id=share_id)
+        if place_true:
+            place = Place.objects.get(id=place_true.place_id)
+            context['place'] = place
+            context['place_true'] = place_true
+            context['place_title'] = place.place_title
+            context['place_points'] = place.place_points
+
+        if share_true:
+            share = Share.objects.get(id=share_true.share_id)
+            share_name = University.objects.get(member_id=share.university)
+            sale_member = Member.objects.get(id=share_name.member_id)
+            print(sale_member)
+            context['share'] = share
+            context['sale_member'] = sale_member
             context['share_true'] = share_true
-            context['share_title'] = share_title
-            context['share'] = share_id
+            context['share_title'] = share.share_title
+            context['share_points'] = share.share_points
 
         return render(request, 'point/use-list-detail.html', context)
 

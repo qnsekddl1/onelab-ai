@@ -133,29 +133,18 @@ class PlaceDetailView(View):
             'points_id': point.id
         }
         PlacePoints.objects.get_or_create(**place_data)
-<<<<<<< HEAD
-    # ------------------------------결제 부분 완료---------------------------------#
-    # --------------------------------멤버 참여 기능 시작---------------------------#
-=======
         # ------------------------------결제 부분 완료---------------------------------#
         # --------------------------------멤버 참여 기능 시작---------------------------#
->>>>>>> d1bde3fe9bb50131baf8fd696731410e94b3e5b6
         join_data = {
             'place_member_status': 0,
             'university_id': request.session['member']['id'],
             'place_id': post.id
         }
         PlaceMember.objects.get_or_create(**join_data)
-<<<<<<< HEAD
-    # --------------------------------멤버 참여 기능 완료---------------------------#
-        return redirect('/myPage/main/')
-
-=======
         # --------------------------------멤버 참여 기능 완료---------------------------#
         return redirect('/myPage/main/')
 
 
->>>>>>> d1bde3fe9bb50131baf8fd696731410e94b3e5b6
 # 좋아요
 class PlaceLikeView(View):
     def post(self, request):
@@ -507,5 +496,3 @@ class PlaceListAPIView(APIView):
             place_info['places'].append(place)
 
         return Response(place_info)
-
-

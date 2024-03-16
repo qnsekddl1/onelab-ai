@@ -172,19 +172,22 @@ class MyPageMainView(View):
             # context['share_file'] = list(shares.sharefile_set.all()),
 
 
-        else:
+        if school:
             member = request.session['member']['id']
             context['place_file'] = PlaceFile.objects.filter(place_id=place.first()).first()
             context['current_point'] = Point.objects.filter(member_id=member, point_status=3).aggregate(Sum('point'))['point__sum']
             context['places'] = places
+            context['school'] = school
             # context['places'] = places_page
             # context['exhibitions'] = exhibitions
         # else :
         #     context['exhibitions'] = exhibitions
+        else :
+            context['community_file'] = CommunityFile.objects.filter(community_id=community.first()).first()
 
         return render(request,
-                      'mypage/main-high.html' if highschool else 'mypage/main-university.html' if university else 'mypage/main.html',
-                      context)
+                      'mypage/main-high.html' if highschool else 'mypage/main-university.html' if university else 'mypage/main.html'
+                      if school else 'mypage/main-nomal.html', context)
 
 
 
