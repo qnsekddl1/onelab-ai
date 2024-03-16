@@ -10,6 +10,8 @@ from place.models import Place
 from school.models import School
 from rest_framework.views import APIView
 
+from share.models import Share
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 from django.shortcuts import render, redirect
@@ -36,7 +38,7 @@ class MainView(View):
                 'created_date': place.created_date,
             })
 
-        print(place_info)
+        # print(place_info)
 
         # 공모전쪽
         exhibitions = Exhibition.objects.all()
@@ -53,8 +55,30 @@ class MainView(View):
                 'exhibition_content': exhibition.exhibition_content,
                 'exhibition_status': exhibition.exhibition_status,
             })
+        # print("들어옴")
+        # print(exhibition_info)
+
+        # share
+        shares = Share.objects.all()
+        share_info = {
+            'shares': []
+        }
+
+        # 쉐어 파일쪽
+        for share in shares:
+            share_files = list(share.sharefile_set.values('path'))
+            share_info['shares'].append({
+                'files': share_files,
+                'share_title': share.share_title,
+                'share_content': share.share_content,
+                'share_points': share.share_points,
+                'share_choice_major': share.share_choice_grade,
+                'share_type': share.share_type,
+                'share_text_major': share.share_text_major,
+                'share_text_name': share.share_text_name,
+            })
         print("들어옴")
-        print(exhibition_info)
+        print(share_info)
 
         # 멤버쪽
         member_id = request.session.get('member', {}).get('id')
@@ -79,7 +103,7 @@ class MainView(View):
 
         # Member.objects.create(**data)
 
-        return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions})
+        return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions, 'shares': shares})
     #
     # def post(self, request):
     #     data = request.POST
