@@ -2,10 +2,13 @@ import math
 import ssl
 
 from django.core.paginator import Paginator, EmptyPage
+
+from community.models import Community
 from exhibition.models import Exhibition
 from django.db.models import Q, Sum
 from member.models import MemberFile, Member
 from member.serializers import MemberSerializer
+from onelab.models import OneLab
 from place.models import Place
 from school.models import School
 from rest_framework.views import APIView
@@ -58,7 +61,7 @@ class MainView(View):
         # print("들어옴")
         # print(exhibition_info)
 
-        # share
+        # 쉐어쪽
         shares = Share.objects.all()
         share_info = {
             'shares': []
@@ -69,6 +72,7 @@ class MainView(View):
             share_files = list(share.sharefile_set.values('path'))
             share_info['shares'].append({
                 'files': share_files,
+                'id':share.id,
                 'share_title': share.share_title,
                 'share_content': share.share_content,
                 'share_points': share.share_points,
@@ -77,8 +81,42 @@ class MainView(View):
                 'share_text_major': share.share_text_major,
                 'share_text_name': share.share_text_name,
             })
-        print("들어옴")
-        print(share_info)
+
+        # 원랩쪽
+        onelabs = OneLab.objects.all()
+        onelab_info = {
+            'onelabs': []
+        }
+
+        # 원랩 파일쪽
+        # for onelab in onelabs:
+        #     onelab_files = list(onelab.onelabfile_set.values('path'))
+        #     onelab_info['onelabs'].append({
+        #         'files': onelab_files,
+        #         'onelab_main_title': onelab.onelab_main_title,
+        #         'onelab_content': onelab.onelab_content,
+        #     })
+        # print("들어옴")
+        # print( onelab_info)
+        #
+        # # 커뮤니티 쪽
+        # communities = Community.objects.all()
+        # community_info = {
+        #     'communities': []
+        # }
+        #
+        # # 원랩 파일쪽
+        # for community in communities:
+        #     community.co
+        #     community_files = list(community.)
+        #     community_files = list(community.communityfile_set.values('path'))
+        #     community_info['communities'].append({
+        #         'files': community_files,
+        #         'community_title': community.community_title,
+        #         'community_content': community.community_content,
+        #     })
+        # print("들어옴")
+        # print(onelab_info)
 
         # 멤버쪽
         member_id = request.session.get('member', {}).get('id')
@@ -103,7 +141,7 @@ class MainView(View):
 
         # Member.objects.create(**data)
 
-        return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions, 'shares': shares})
+        return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions, 'shares': shares, 'onelabs':onelabs})
     #
     # def post(self, request):
     #     data = request.POST
