@@ -314,7 +314,7 @@
                                             <div class="DetailInfoHeader_badgeContainer"></div>
                                             <div class="DetailInfoHeader_titleInfo">
                                                 <h3 class="DetailInfoHeader_title">{{ place.place_title }}</h3>
-                                                    {% if request.session.member.id == place.school.member_id %}
+                                                    {% if request.session.member == place.school.member %}
                                                         <div>
                                                             <a href="{% url 'place:update' id=place.id %}">
                                                                 <button type="button" class="update-btn">수정하기</button>
@@ -455,8 +455,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-
+                                <form action="{% url 'place:detail' id=place.id %}" method="POST" enctype="multipart/form-data" name="purchase-form">
                                         <!-- 재입고 알림신청 쪽 -->
+                                {% csrf_token %}
                                         <div class="ProductBuyInfo_container">
                                             <div class="ProductFloatButton_container">
                                                 <div class="ProductFloatButton_wishButtonBox">
@@ -492,13 +493,15 @@
                                                         </button>
                                                     {% endif %}
                                                 </div>
-                                                <button class="Button_button Button_primary purchase-btn">
+                                            
+                                                <button class="Button_button Button_primary purchase-btn" id="order-button">
                                                     <span>
                                                         <span class="Button_children">
                                                             <span>대여 하기</span>
                                                         </span>
                                                     </span>
                                                 </button>
+                                            
                                             </div>
                                         </div>
 
@@ -508,12 +511,14 @@
                                         <div class="SpaceLocationSection_map">
                                             <iframe style="margin-top: 20px; height: 400px; width: 455px;" src="{% static 'map.html' %}?place_address={{place.school.school_member_address}}&place_name={{ place.school.member.member_school_email }}" scrolling="no" frameborder="0" class="SpaceLocationMap_frame"></iframe>
                                         </div>
+                                        </form>
                                     </div>
                                     <div class="DetailInfo_observer"></div>
                                 </div>
                             </div>
                         </div>
                     </section>
+                
                 </div>
             </main>
         </div>

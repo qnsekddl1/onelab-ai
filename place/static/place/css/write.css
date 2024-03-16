@@ -1925,6 +1925,28 @@ span.text-field-fixed-text {
     font-size: 24px;
 }
 
-.menu-open-svg.active {
-   transform: rotate(90deg);
+.sidebar-sub-menus {
+    transition: transform 0.3s ease;
+    transform: translateY(-0%);
+}
+
+.hidden {
+    transform: translateY(-300%);
+}
+
+.exit-modal-btns {
+    display: flex;
+    justify-content: center;
+}
+
+.exit-modal-btn {
+    margin-top: 15px;
+    border-radius: 5px;
+    color: #fff;
+    background: #008243;
+    padding: 5px 10px;
+}
+
+.not-exit-btn {
+    margin-left: 15px;
 }

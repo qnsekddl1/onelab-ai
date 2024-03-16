@@ -34,7 +34,7 @@
                                     <a href="" class="sidebar-menu-item-nav-link result">{{ total_post_count }}개</a>
                                 </li>
                             </ul>
-                            <ul class="sidebar-sub-menus">
+                            <ul class="sidebar-sub-menus hidden">
                                 {% for place in places %}
                                     <li class="sidebar-sub-menu">
                                         <a href="{% url 'place:detail' id=place.id %}" class="sidebar-menu-item-nav-link sub">{{ place.place_title }}</a>
@@ -278,15 +278,7 @@
                                         </button>
                                     </div>
                                 </nav>
-
-{#                                <!-- 저장버튼 클릭시 전송될 form -->#}
-{#                                <form action="{% url 'place:write' %}" method="post" name="write-form" enctype="multipart/form-data">#}
-{#                                    {% csrf_token %}#}
-{#                                    <button class="save-btn">#}
-{#                                    <span>#}
-{#                                        <span class="save-btn-text">저장하기</span>#}
-{#                                    </span>#}
-{#                                </button>#}
+                                
                                     <section class="section-container" style="max-width: 630px">
                                         <div class="section-header">
                                             <h3 class="section-title">
@@ -299,7 +291,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" maxlength="30" name="place-title" id="title-input" class="maker-input input-maker-name" placeholder="제목 입력" />
+                                                <input type="text" maxlength="30" name="place-title" id="title-input" class="maker-input input-maker-name must-input" placeholder="제목 입력" />
                                             </div>
                                             <em class="helper-msg">30자 남음</em>
                                         </div>
@@ -321,7 +313,7 @@
                                                                 등록하기
                                                             </button>
                                                             <div class="img-file-btn-input">
-                                                                <input class="file" accept="image/jpg,image/jpeg,image/png" name="upload-file" placeholder="" type="file" value="" multiple/>
+                                                                <input class="file must-input" id="file-input" accept="image/jpg,image/jpeg,image/png" name="upload-file" placeholder="" type="file" value="" multiple/>
                                                             </div>
                                                         </label>
                                                         <em class="helper error"></em>
@@ -347,7 +339,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" name="place-points" id="title-input" class="maker-input input-maker-name" placeholder="포인트 입력" />
+                                                <input type="text" name="place-points" id="point-input" class="maker-input input-maker-name must-input" placeholder="포인트 입력" />
                                                 <span class="text-field-fixed-text">포인트</span>
                                             </div>
                                         </div>
@@ -368,7 +360,7 @@
                                                 <div class="date-field-container">
                                                     <div class="ant-picker date-picker" style="width: 100%">
                                                         <div class="ant-picker-input">
-                                                            <input name="place-date" placeholder="예시) 2024-02-20" autocomplete="off" id="change-input" type="date" />
+                                                            <input name="place-date" class="must-input" placeholder="예시) 2024-02-20" autocomplete="off" id="change-input" type="date" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -389,7 +381,7 @@
                                                         <div class="wide column-2"></div>
                                                         <div class="wide column-4">
                                                             <div class="wz input">
-                                                                <textarea class="content-textarea" placeholder="내용 입력" name="place-content" maxlength="2000" rows="10" style="resize: none;"></textarea>
+                                                                <textarea class="content-textarea must-input" id="content-input" placeholder="내용 입력" name="place-content" maxlength="2000" rows="10" style="resize: none;"></textarea>
                                                             </div>
                                                             <em class="helper form-field-textarea-helper">2000자 남음</em>
                                                         </div>
@@ -408,7 +400,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" name="place-ask-email" id="" class="maker-input input-email" placeholder="이메일 입력" value="" />
+                                                <input type="text" name="place-ask-email" id="email-input" class="maker-input input-email must-input" placeholder="이메일 입력" value="" />
                                             </div>
                                         </div>
                                     </section>
@@ -419,7 +411,7 @@
                                         </div>
                                         <div class="section-content">
                                             <div class="text-field">
-                                                <input type="text" name="place-url" id="" class="maker-input input-id" placeholder="홈페이지 URL 입력" value="" />
+                                                <input type="text" name="place-url" class="maker-input input-id must-input" placeholder="홈페이지 URL 입력" value="" />
                                             </div>
                                         </div>
                                     </section>

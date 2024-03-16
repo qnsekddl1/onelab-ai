@@ -1804,3 +1804,26 @@ button {
     cursor: pointer;
 }
 
+h1.nav-logo {
+    background: url(../images/realfavicon.png) 50% center / contain no-repeat;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+}
+
+.exit-modal-btns {
+    display: flex;
+    justify-content: center;
+}
+
+.exit-modal-btn {
+    margin-top: 15px;
+    border-radius: 5px;
+    color: #fff;
+    background: #008243;
+    padding: 5px 10px;
+}
+
+.not-exit-btn {
+    margin-left: 15px;
+}

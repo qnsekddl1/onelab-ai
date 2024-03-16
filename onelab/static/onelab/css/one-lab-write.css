@@ -464,8 +464,12 @@ nav.project-navbar-container {
     min-height: 56px;
 }
 
+img.header-logo {
+    width: 17%;
+}
+
 h1.nav-logo {
-    background: url(https://static.wadiz.kr/studio/funding/static/media/wadiz-logo.549edcd7.svg) 50% center / contain no-repeat;
+    /*background-image: url("{% static '' %}");*/
     width: 129px;
     height: 48px;
     cursor: pointer;
@@ -798,6 +802,26 @@ span.exit-button-text {
     align-items: center;
 }
 
+button.exit-button {
+    display: flex;
+    position: relative;
+    transition: background-color .3s;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button.exit-button>span {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: top;
+}
+
+span.exit-button-text {
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+}
+
 section.section-container {
     margin-bottom: 80px;
     position: relative;
@@ -1021,7 +1045,7 @@ em.helper {
     font-weight: 400;
 }
 
-em.helper.img-form-field-helper {
+em.helper.img-form-field-helper, em.helper.img-form-field-helper-A  {
     color: #868e96;
 
 }
@@ -1407,7 +1431,7 @@ div.textarea-input::after {
     font-size: 1.41176em;
 }
 
-em.form-field-helper {
+em.form-field-helper, em.helper.img-form-field-helper-A {
     line-height: 18px;
     font-size: 13px;
     font-weight: 400;
