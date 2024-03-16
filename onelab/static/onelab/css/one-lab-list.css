@@ -284,6 +284,7 @@ div.search-result-card-container {
     width: 100%;
     gap: 40px 60px;
     display: flex;
+    margin: 0 0 30px 0;
 }
 
 
@@ -358,7 +359,7 @@ strong.info-title {
     line-height: 28px;
     font-size: 16px;
     font-weight: 400;
-    height: 56px;
+    height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -540,6 +541,19 @@ button.wish-btn {
     width: 44px;
     height: 44px;
     background-color: transparent;
+    border: none;
+}
+
+button.make-btn {
+    color: white;
+    background-color: #008243;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    outline: none;
+    width: 80px;
+    height: 32px;
     border: none;
 }
 

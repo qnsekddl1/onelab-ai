@@ -48,3 +48,18 @@ applyOpenBtn.addEventListener('click', function(e) {
         })
     })
 })
+
+// {% for member in onelab.onelabmember_set.all %}
+//     <div class="lab-member-box-container">
+//         <div class="lab-member-box member-list">
+//             <dl class="lab-member-detail">
+//                 <dd class="lab-member-university-icon member">
+//                     <i class="university-icon member"></i>
+//                 </dd>
+//                 <dd class="member-name member">
+//                     <strong>{{ member.member_name }}</strong>
+//                 </dd>
+//             </dl>
+//         </div>
+//     </div>
+// {% endfor %}
