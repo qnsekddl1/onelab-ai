@@ -19,6 +19,8 @@ class Alarm(Period):
     alarm_sender = models.CharField(null=False, blank=False, max_length=100)
     member = models.ForeignKey(Member, on_delete=models.PROTECT, null=False)
     onelab = models.ForeignKey(OneLab, on_delete=models.PROTECT, null=False)
+    # 알람 표기를 위한 상태값
+    status = models.BooleanField(default=1, null=False, blank=False)
 
     class Meta:
         db_table = 'tbl_alarm'
