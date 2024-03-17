@@ -4,7 +4,7 @@ from member.views import MemberJoinView, MemberCheckIdView, MemberLoginView, Sen
     MemberNormalJoinView, MemberIdSearchView, MemberResetPasswordView, MemberActivateEmailView, MemberMainView, \
     AdminMemberLoginView, AdminMainView, AdminMainUserView, AdminMainUserListAPI, AdminMainNotificationView, \
     AdminNotificationListAPI, AdminMainExhibitionView, AdminMainExhibitionListAPI, soft_delete, soft_delete_exhibition, \
-    translate
+    translate, AdminMainLogoutView
 
 app_name = 'member'
 
@@ -29,4 +29,5 @@ urlpatterns = [
     path('soft_delete/', soft_delete, name='soft_delete'),
     path('soft_delete_exhibition/', soft_delete_exhibition, name='soft_delete_exhibition'),
     path('translate/', translate, name='translate'),
+    path('admin_main_logout/', AdminMainLogoutView.as_view(), name='admin_logout')
 ]
