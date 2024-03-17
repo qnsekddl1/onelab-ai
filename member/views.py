@@ -426,6 +426,7 @@ class AdminMainUserListAPI(APIView):
             'member_email',
             'member_name',
             'member_phone',
+            'created_date'
         ]
 
         keyword = request.GET.get('keyword', '')

@@ -1070,3 +1070,7 @@ button.comment-ok-btn.active {
     top: 10px;
     color: #0000004f;
 }
+
+#content {
+    white-space: pre-line;
+}

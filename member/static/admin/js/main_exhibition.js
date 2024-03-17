@@ -66,8 +66,9 @@ function initialize() {
 function handlePageLinkClick(pageNumber) {
     if (!isNaN(pageNumber)) {
         page = pageNumber;
-        const selectedOption = document.getElementById("selectedOption");
-        const option = selectedOption.textContent;
+        // const selectedOption = document.getElementById("selectedOption");
+        // const option = selectedOption.textContent;
+        const option = '';
         fetchExhibitions(option, page);
     }
 }

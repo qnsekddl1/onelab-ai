@@ -1,5 +1,6 @@
 import mimetypes
 from urllib.parse import quote
+from django.utils.encoding import iri_to_uri
 
 from django.core.files.storage import FileSystemStorage
 from django.db import transaction
@@ -73,7 +74,8 @@ class ExhibitionFileDownloadView(View):
         # file_path = file_path.replace('-', '/')
         file_path = file_path
         file_name = file_path.split('/')[-1]
-        print(file_path, file_name)
+        print('====================')
+        print(file_name)
         # file_path: 파일이 있는 경로 설정, 경로에 파일 이름 포함 가능
         fs = FileSystemStorage()
         # fs.open("파일 이름", 'rb')
@@ -81,9 +83,9 @@ class ExhibitionFileDownloadView(View):
         response = FileResponse(fs.open(file_path, 'rb'),
                                 content_type=content_type)
         # response['Content-Disposition'] = f'attachment; filename="{file_name}"'
-        encoded_file_name = quote(file_name.encode('utf-8'))
+        encoded_file_name = quote(file_name)
         print(encoded_file_name)
-        response['Content-Disposition'] = f'attachment;filename*=UTF-8\'\'{encoded_file_name}'
+        response['Content-Disposition'] = f'attachment; filename="{encoded_file_name}"; filename*=UTF-8\'\'{encoded_file_name}'
         return response
 
 class ExhibitionListView(View):
