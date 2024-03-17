@@ -858,13 +858,15 @@ button:not(:disabled) {
 }
 
 .curation-vertical-card-thumbnail-wrap {
+    width: 254px;
+    height: 170px;
     display: block;
     margin: 0;
     padding: 0;
 }
 
 .curation-vertical-card-thumbnail-wrap:before {
-    display: block;
+    display: none;
     content: "";
     width: 100%;
     padding-top: 56.25%;
