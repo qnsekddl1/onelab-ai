@@ -91,15 +91,25 @@
                         <!-- 헤더 navigation -->
                         <div class="page-content">
                             <nav class="project-navbar-container">
-                                <div class="nav-logo">
-{#                                    <h1 class="nav-logo">#}
-                                    <img src="{% static 'onelab/images/header-logo.png'%}" class="header-logo">
-{#                                    </h1>#}
-                                </div>
-                                <div class="project-navbar-maker">
-                                    <div class="profile-img">
-                                        <span></span>
+                                <div style="display: flex; align-items: center;">
+                                    <div style="overflow: hidden; border-radius: 999px;">
+                                        <h1 class="nav-logo">
+                                            <!-- <span class="blind-text-hidden">메이커 스튜디오</span> -->
+                                        </h1>
                                     </div>
+                                    <span style="padding-left: 10px;color: #008243;font-weight: bold;">ONELAB</span>
+                                </div>
+                                <!-- 회원 프로필 -->
+                                <div class="project-navbar-maker" >
+                                    {% if profile.path is None or profile.path == '' %}
+                                        <img class="profile" style="width: 11%" src="{% static 'myPage/images/profile.jpg' %}">
+                                    {% else %}
+                                        <img class="profile" src="/upload/{{ profile.path}}"
+                                             style=" 
+                                             width:42px; 
+                                             height: 42px; 
+                                             border-radius: 100%">
+                                    {% endif %}
                                     <!-- 회원 이름 -->
                                     <div>{{ request.session.member.member_name }}</div>
                                 </div>

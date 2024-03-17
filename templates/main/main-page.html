@@ -305,178 +305,100 @@
                             </div>
                             <!--맞춤 취향 글 목록-->
                             <div class="recommend-funding-wrap-card-list-group">
-                                <div class="recommend-funding-wrap-card" style="width: 253.667px;">
-                                    <div class="curation-vertical-card-container">
-                                        <a class="curation-vertical-card-content" href=""
-                                            ><div class="curation-vertical-card-thumbnail-box">
-                                                <div class="curation-vertical-card-thumbnail-wrap">
-                                                    <div class="thumbnail-image-container">
-                                                        <img class="thumbnail-image" alt="" src="" />
+{#                                <div class="recommend-funding-wrap-card" style="width: 253.667px;">#}
+{#                                    <div class="curation-vertical-card-container">#}
+{#                                        <a class="curation-vertical-card-content" href=""#}
+{#                                            ><div class="curation-vertical-card-thumbnail-box">#}
+{#                                                <div class="curation-vertical-card-thumbnail-wrap">#}
+{#                                                    <div class="thumbnail-image-container">#}
+{#                                                        <img class="thumbnail-image" alt="" src="" />#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="curation-vertical-card-info-box">#}
+{#                                                <div class="curation-vertical-card-badge-wrapper">#}
+{#                                                    <span class="label-badge">펀딩</span>#}
+{#                                                </div>#}
+{#                                                <div class="curation-vertical-card-info">#}
+{#                                                    <p class="info-string-wrapper-info-string">23,209% 달성</p>#}
+{#                                                    <strong class="title-title"#}
+{#                                                        >[누적24억]원터치텐트 맞나요? 압도적 개방감에 1분설치#}
+{#                                                        #모어뷰텐트2</strong#}
+{#                                                    >#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="card-spinner-container">#}
+{#                                                <div class="card-spinner-loader" style="width: 32px; height: 32px;">#}
+{#                                                    <svg viewBox="25 25 50 50" aria-label="Loading">#}
+{#                                                        <g class="loader-circular">#}
+{#                                                            <circle#}
+{#                                                                class="loader-path"#}
+{#                                                                cx="50"#}
+{#                                                                cy="50"#}
+{#                                                                r="20"#}
+{#                                                                fill="none"#}
+{#                                                                stroke-width="4"#}
+{#                                                                stroke-miterlimit="10"#}
+{#                                                            ></circle>#}
+{#                                                        </g>#}
+{#                                                    </svg>#}
+{#                                                </div></div#}
+{#                                        ></a>#}
+{#                                    </div>#}
+{#                                </div>#}
+
+                                {% for onelab in onelabs|slice:":4"  %}
+                                    {% with first_onelab_file=onelab.onelabfile_set.first %}
+                                        <div class="recommend-funding-wrap-card" style="width: 253.667px;">
+                                            <div class="curation-vertical-card-container">
+                                                <a class="curation-vertical-card-content" href=""
+                                                    ><div class="curation-vertical-card-thumbnail-box">
+                                                        <div class="curation-vertical-card-thumbnail-wrap">
+                                                             {% if first_onelab_file %}
+                                                                <img class="thumbnail-image" alt="" src="/upload/{{ first_onelab_file.path }}" style="width: 100%; height: 100%"/>
+                                                            {% endif %}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="curation-vertical-card-info-box">
-                                                <div class="curation-vertical-card-badge-wrapper">
-                                                    <span class="label-badge">펀딩</span>
-                                                </div>
-                                                <div class="curation-vertical-card-info">
-                                                    <p class="info-string-wrapper-info-string">23,209% 달성</p>
-                                                    <strong class="title-title"
-                                                        >[누적24억]원터치텐트 맞나요? 압도적 개방감에 1분설치
-                                                        #모어뷰텐트2</strong
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="card-spinner-container">
-                                                <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                    <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                        <g class="loader-circular">
-                                                            <circle
-                                                                class="loader-path"
-                                                                cx="50"
-                                                                cy="50"
-                                                                r="20"
-                                                                fill="none"
-                                                                stroke-width="4"
-                                                                stroke-miterlimit="10"
-                                                            ></circle>
-                                                        </g>
-                                                    </svg>
-                                                </div></div
-                                        ></a>
-                                    </div>
-                                </div>
-                                <div class="recommend-funding-wrap-card" style="width: 253.667px;">
-                                    <div class="curation-vertical-card-container">
-                                        <a class="curation-vertical-card-content" href=""
-                                            ><div class="curation-vertical-card-thumbnail-box">
-                                                <div class="curation-vertical-card-thumbnail-wrap">
-                                                    <div class="thumbnail-image-container">
-                                                        <img class="thumbnail-image" alt="" src="" />
+                                                    <div class="curation-vertical-card-info-box">
+{#                                                        <div class="curation-vertical-card-badge-wrapper">#}
+{#                                                            <span class="label-badge">예약구매</span>#}
+{#                                                        </div>#}
+                                                        <div class="curation-vertical-card-info">
+                                                            <p class="info-string-wrapper-info-string-wrapper">{{ onelab.onelab_main_title }}</p>
+                                                            <strong class="title-title"
+                                                                >{{ onelab.onelab_content }}</strong
+                                                            >
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="card-spinner-container">
+                                                        <div class="card-spinner-loader" style="width: 32px; height: 32px;">
+                                                            <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                                <g class="loader-circular">
+                                                                    <circle
+                                                                        class="loader-path"
+                                                                        cx="50"
+                                                                        cy="50"
+                                                                        r="20"
+                                                                        fill="none"
+                                                                        stroke-width="4"
+                                                                        stroke-miterlimit="10"
+                                                                    ></circle>
+                                                                </g>
+                                                            </svg>
+                                                        </div></div
+                                                ></a>
                                             </div>
-                                            <div class="curation-vertical-card-info-box">
-                                                <div class="curation-vertical-card-badge-wrapper">
-                                                    <span class="label-badge">예약구매</span>
-                                                </div>
-                                                <div class="curation-vertical-card-info">
-                                                    <p class="info-string-wrapper-info-string-wrapper">538% 달성</p>
-                                                    <strong class="title-title"
-                                                        >[와디즈 단독공개] '귀멸의 칼날' 홈웨어 에디션!
-                                                        귀살대잠옷&amp;하오리담요</strong
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="card-spinner-container">
-                                                <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                    <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                        <g class="loader-circular">
-                                                            <circle
-                                                                class="loader-path"
-                                                                cx="50"
-                                                                cy="50"
-                                                                r="20"
-                                                                fill="none"
-                                                                stroke-width="4"
-                                                                stroke-miterlimit="10"
-                                                            ></circle>
-                                                        </g>
-                                                    </svg>
-                                                </div></div
-                                        ></a>
-                                    </div>
-                                </div>
-                                <div class="recommend-funding-wrap-card" style="width: 253.667px;">
-                                    <div class="curation-vertical-card-container">
-                                        <a class="curation-vertical-card-content" href=""
-                                            ><div class="curation-vertical-card-thumbnail-box">
-                                                <div class="curation-vertical-card-thumbnail-wrap">
-                                                    <div class="thumbnail-image-container">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="curation-vertical-card-info-box">
-                                                <div class="curation-vertical-card-badge-wrapper">
-                                                    <span class="label-badge">예약구매</span>
-                                                </div>
-                                                <div class="curation-vertical-card-info">
-                                                    <p class="info-string-wrapper-info-string-wrapper">16,217% 달성</p>
-                                                    <strong class="title-title"
-                                                        >[2024 갓생 프로젝트] 모든 것을 계획하는 갓생&amp;일잘러 노션
-                                                        템플릿</strong
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="card-spinner-container">
-                                                <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                    <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                        <g class="loader-circular">
-                                                            <circle
-                                                                class="loader-path"
-                                                                cx="50"
-                                                                cy="50"
-                                                                r="20"
-                                                                fill="none"
-                                                                stroke-width="4"
-                                                                stroke-miterlimit="10"
-                                                            ></circle>
-                                                        </g>
-                                                    </svg>
-                                                </div></div
-                                        ></a>
-                                    </div>
-                                </div>
-                                <div class="recommend-funding-wrap-card" style="width: 253.667px;">
-                                    <div class="curation-vertical-card-container">
-                                        <a class="curation-vertical-card-content" href=""
-                                            ><div class="curation-vertical-card-thumbnail-box">
-                                                <div class="curation-vertical-card-thumbnail-wrap">
-                                                    <div class="thumbnail-image-container">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="curation-vertical-card-info-box">
-                                                <div class="curation-vertical-card-badge-wrapper">
-                                                    <span class="label-badge">예약구매</span>
-                                                </div>
-                                                <div class="curation-vertical-card-info">
-                                                    <p class="info-string-wrapper-info-string-wrapper">3,251% 달성</p>
-                                                    <strong class="title-title"
-                                                        >누적 14억｜캐리어가 뚱뚱하면 못 담을 게 없죠. 뚱카롱 new컬러
-                                                        컴백</strong
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="card-spinner-container">
-                                                <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                    <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                        <g class="loader-circular">
-                                                            <circle
-                                                                class="loader-path"
-                                                                cx="50"
-                                                                cy="50"
-                                                                r="20"
-                                                                fill="none"
-                                                                stroke-width="4"
-                                                                stroke-miterlimit="10"
-                                                            ></circle>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                                        </div>
+                                    {% endwith %}
+                                {% endfor %}
                                 <!--광고-->
                                 <div class="ad-planned-card">
                                     <div class="ad-collection-card">
                                         <a href=""
                                             ><article>
                                                 <div class="commons-thumbnail">
-                                                    <div aria-hidden="true" class="card-thumbnail-card"></div>
+{#                                                    <div aria-hidden="true" class="card-thumbnail-card"></div>#}
+                                                    <img class="card-thumbnail-card" src="{% static 'public/images/main-front-image.png'  %}" alt="">
                                                 </div>
                                                 <div>
                                                     <span class="card-type-badge">기획전</span
@@ -521,526 +443,135 @@
                             <p class="ranking-funding-wrap-title">실시간 랭킹</p>
                             <div class="tab-container-container">
                                 <div class="tab-container-tab">
-                                    <div>
-                                        <div class="tab-button-container">
-                                            <button type="button" title="REWARD" class="tab-button-btn active">
-                                                조회순
-                                            </button>
-                                        </div>
-                                        <div class="tab-button-container">
-                                            <button type="button" title="STORE" class="tab-button-btn">인기순</button>
-                                        </div>
-                                    </div>
+{#                                    <div>#}
+{#                                        <div class="tab-button-container">#}
+{#                                            <button type="button" title="REWARD" class="tab-button-btn active">#}
+{#                                                조회순#}
+{#                                            </button>#}
+{#                                        </div>#}
+{#                                        <div class="tab-button-container">#}
+{#                                            <button type="button" title="STORE" class="tab-button-btn">인기순</button>#}
+{#                                        </div>#}
+{#                                    </div>#}
                                 </div>
                                 <div class="tab-container-tabList">
                                     <ol>
-                                        <li class="tab-container-list-item">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">1</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title">
-                                                            돌돌 말리는 가벼운 친환경 보틀! 등산,캠핑에 최적화 된 실리콘
-                                                            핸디보틀
-                                                        </strong>
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">2,202% 달성</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">2</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >6cm 다운사이징! 작심삼일 다이어트 말고 육각하이팬티로 라인
-                                                            완성해요!</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">170명 참여</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">3</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >[1억 미백] 당신은 먼저 주무세요. 저희가 밤 새도록
-                                                            미백합니다.
-                                                        </strong>
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">207명 참여</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">4</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >[와디즈 단독공개] '귀멸의 칼날' 홈웨어 에디션!
-                                                            귀살대잠옷&amp;하오리담요</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">1,320명 참여</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">5</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >[내 손안의 와이파이] LTE 라우터로 어디서든 공짜
-                                                            인터넷!</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">1,333명 참여</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order ranking-card-hidden">6</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >매년 달라지는 나의 일상에 맞춰 함께 모습을 바꾸는 가구,
-                                                            말렌 시리즈</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">2,343% 달성</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                    <span class="ad-ranking-card">AD</span>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item tab-container-hide">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">1</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >[야식먹고45kg유지?] 먹고싶은 거 먹고 날씬한 체질되는
-                                                            법</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">5,082명 인증</p>
-                                                            <div class="RankingCard_badgeWrapper">
-                                                                <div class="StoreRatingWrapper_ratingWrapper">
-                                                                    <div
-                                                                        class="RatingScore_container RatingScore_smCard02 StoreRatingWrapper_rating"
-                                                                    >
-                                                                        <div class="RatingScore_icon"></div>
-                                                                        <span class="RatingScore_score">4.7</span>
-                                                                    </div>
+{#                                        <li class="tab-container-list-item">#}
+{#                                            <a class="ranking-card-container" href=""#}
+{#                                                ><div class="ranking-card-content-box">#}
+{#                                                    <div class="ranking-card-order">1</div>#}
+{#                                                    <div class="ranking-card-content">#}
+{#                                                        <strong class="title-title">#}
+{#                                                            돌돌 말리는 가벼운 친환경 보틀! 등산,캠핑에 최적화 된 실리콘#}
+{#                                                            핸디보틀#}
+{#                                                        </strong>#}
+{#                                                        <div class="ranking-card-info-wrapper">#}
+{#                                                            <p class="ranking-card-info-string-wrapper">2,202% 달성</p>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="ranking-card-thumbnail-box">#}
+{#                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">#}
+{#                                                        <img class="thumbnail-image" alt="" src="" />#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="card-spinner-container">#}
+{#                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">#}
+{#                                                        <svg viewBox="25 25 50 50" aria-label="Loading">#}
+{#                                                            <g class="loader-circular">#}
+{#                                                                <circle#}
+{#                                                                    class="loader-path"#}
+{#                                                                    cx="50"#}
+{#                                                                    cy="50"#}
+{#                                                                    r="20"#}
+{#                                                                    fill="none"#}
+{#                                                                    stroke-width="4"#}
+{#                                                                    stroke-miterlimit="10"#}
+{#                                                                ></circle>#}
+{#                                                            </g>#}
+{#                                                        </svg>#}
+{#                                                    </div></div#}
+{#                                            ></a>#}
+{#                                        </li>#}
+                                        {% for share in shares|slice:":6" %}
+                                            {% with first_share_file=share.sharefile_set.first %}
+                                                <li class="tab-container-list-item">
+                                                    <a class="ranking-card-container" href=""
+                                                        ><div class="ranking-card-content-box">
+                                                            <div class="ranking-card-order">{{ share.id }}</div>
+                                                            <div class="ranking-card-content">
+                                                                <strong class="title-title"
+                                                                    >{{ share.share_title }}</strong
+                                                                >
+                                                                <div class="ranking-card-info-wrapper">
+                                                                    <p class="ranking-card-info-string-wrapper">{{ share.share_points }}</p>
                                                                 </div>
-                                                                <span class="label-badge">무료배송</span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item tab-container-hide">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">2</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >침투율 높은 프리미엄 근적외선 테라피 #시리어스
-                                                            LED그랜드</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">537명 인증</p>
-                                                            <div class="RankingCard_badgeWrapper">
-                                                                <div class="StoreRatingWrapper_ratingWrapper">
-                                                                    <div
-                                                                        class="RatingScore_container RatingScore_smCard02 StoreRatingWrapper_rating"
-                                                                    >
-                                                                        <div class="RatingScore_icon"></div>
-                                                                        <span class="RatingScore_score">4.7</span>
-                                                                    </div>
-                                                                </div>
-                                                                <span class="label-badge">무료배송</span
-                                                                ><span class="label-badge"><i></i>와배송</span>
-                                                            </div>
+                                                        <div class="ranking-card-thumbnail-box">
+                                                            {% if first_share_file %}
+                                                                <img class="thumbnail-image" alt="" src="/upload/{{ first_share_file.path }}" style="width: 100%; height: 100%"/>
+                                                            {% endif %}
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                    <div
-                                                        class="StripLabelWrapper_stripLabel RankingCard_stripLabelWrapper"
-                                                    >
-                                                        14% 할인
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item tab-container-hide">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">3</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >전문가가 만들면 다르다! 쓸수록 모발이 좋아지는, 청담남자
-                                                            스프레이&amp;왁스</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">2,280명 인증</p>
-                                                            <div class="RankingCard_badgeWrapper">
-                                                                <div class="StoreRatingWrapper_ratingWrapper">
-                                                                    <div
-                                                                        class="RatingScore_container RatingScore_smCard02 StoreRatingWrapper_rating"
-                                                                    >
-                                                                        <div class="RatingScore_icon"></div>
-                                                                        <span class="RatingScore_score">4.8</span>
-                                                                    </div>
-                                                                </div>
-                                                                <span class="label-badge">무료배송</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item tab-container-hide">
-                                            <a class="ranking-card-container" href="">
-                                                <div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">4</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >[한일6.3억펀딩] 리얼EMS 복근+무릎 임상실험 및 각종 테스트
-                                                            검증!</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">440명 인증</p>
-                                                            <div class="RankingCard_badgeWrapper">
-                                                                <div class="StoreRatingWrapper_ratingWrapper">
-                                                                    <div
-                                                                        class="RatingScore_container RatingScore_smCard02 StoreRatingWrapper_rating"
-                                                                    >
-                                                                        <div class="RatingScore_icon"></div>
-                                                                        <span class="RatingScore_score">4.6</span>
-                                                                    </div>
-                                                                </div>
-                                                                <span class="label-badge">무료배송</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item tab-container-hide">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order">5</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >누적9억ㅣ체온3도up! 아우터 전문가가 만든 솜털90% 프리미엄
-                                                            구스다운</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">25명 인증</p>
-                                                            <div class="RankingCard_badgeWrapper">
-                                                                <div class="StoreRatingWrapper_ratingWrapper">
-                                                                    <div
-                                                                        class="RatingScore_container RatingScore_smCard02 StoreRatingWrapper_rating"
-                                                                    >
-                                                                        <div class="RatingScore_icon"></div>
-                                                                        <span class="RatingScore_score">4.5</span>
-                                                                    </div>
-                                                                </div>
-                                                                <span class="label-badge">무료배송</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
-                                        <li class="tab-container-list-item tab-container-hide">
-                                            <a class="ranking-card-container" href=""
-                                                ><div class="ranking-card-content-box">
-                                                    <div class="ranking-card-order ranking-card-hidden">6</div>
-                                                    <div class="ranking-card-content">
-                                                        <strong class="title-title"
-                                                            >친가.외가 다 탈모 집안이라 만든 두피 샴푸ㅣ경력20년
-                                                            피부&amp;헤어전문가</strong
-                                                        >
-                                                        <div class="ranking-card-info-wrapper">
-                                                            <p class="ranking-card-info-string-wrapper">2,463% 달성</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ranking-card-thumbnail-box">
-                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">
-                                                        <img class="thumbnail-image" alt="" src="" />
-                                                    </div>
-                                                    <span class="ad-ranking-card">AD</span>
-                                                </div>
-                                                <div class="card-spinner-container">
-                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                            <g class="loader-circular">
-                                                                <circle
-                                                                    class="loader-path"
-                                                                    cx="50"
-                                                                    cy="50"
-                                                                    r="20"
-                                                                    fill="none"
-                                                                    stroke-width="4"
-                                                                    stroke-miterlimit="10"
-                                                                ></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div></div
-                                            ></a>
-                                        </li>
+                                                        <div class="card-spinner-container">
+                                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
+                                                                <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                                    <g class="loader-circular">
+                                                                        <circle
+                                                                            class="loader-path"
+                                                                            cx="50"
+                                                                            cy="50"
+                                                                            r="20"
+                                                                            fill="none"
+                                                                            stroke-width="4"
+                                                                            stroke-miterlimit="10"
+                                                                        ></circle>
+                                                                    </g>
+                                                                </svg>
+                                                            </div></div
+                                                    ></a>
+                                                </li>
+                                            {% endwith %}
+                                        {% endfor %}
+
+{#                                        <li class="tab-container-list-item tab-container-hide">#}
+{#                                            <a class="ranking-card-container" href=""#}
+{#                                                ><div class="ranking-card-content-box">#}
+{#                                                    <div class="ranking-card-order ranking-card-hidden">6</div>#}
+{#                                                    <div class="ranking-card-content">#}
+{#                                                        <strong class="title-title"#}
+{#                                                            >친가.외가 다 탈모 집안이라 만든 두피 샴푸ㅣ경력20년#}
+{#                                                            피부&amp;헤어전문가</strong#}
+{#                                                        >#}
+{#                                                        <div class="ranking-card-info-wrapper">#}
+{#                                                            <p class="ranking-card-info-string-wrapper">2,463% 달성</p>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="ranking-card-thumbnail-box">#}
+{#                                                    <div class="thumbnail-image-container-ranking-card-thumbnail">#}
+{#                                                        <img class="thumbnail-image" alt="" src="" />#}
+{#                                                    </div>#}
+{#                                                    <span class="ad-ranking-card">AD</span>#}
+{#                                                </div>#}
+{#                                                <div class="card-spinner-container">#}
+{#                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">#}
+{#                                                        <svg viewBox="25 25 50 50" aria-label="Loading">#}
+{#                                                            <g class="loader-circular">#}
+{#                                                                <circle#}
+{#                                                                    class="loader-path"#}
+{#                                                                    cx="50"#}
+{#                                                                    cy="50"#}
+{#                                                                    r="20"#}
+{#                                                                    fill="none"#}
+{#                                                                    stroke-width="4"#}
+{#                                                                    stroke-miterlimit="10"#}
+{#                                                                ></circle>#}
+{#                                                            </g>#}
+{#                                                        </svg>#}
+{#                                                    </div></div#}
+{#                                            ></a>#}
+{#                                        </li>#}
                                     </ol>
                                 </div>
                             </div>
@@ -1066,53 +597,82 @@
                             <h2 class="contest-title">공모전·대회</h2>
                             <p>전국의 공모전·대회는 여기에서 시작</p>
                         </div>
-                        <div class="contest-pagination">
-                            <div class="pagination-btn-group">
+
+{#                        버튼 쪽!! #}
+                         <div class="recommend-funding-wrap-show-more-outer">
                                 <button
-                                    class="pagination-prev pagination-first-page"
-                                    disabled=""
-                                    aria-label="이전 목록"
+                                    data-event="web.main.recommendation.more"
+                                    class="recommend-funding-wrap-google-tagged-button"
+                                    type="button"
+                                    onclick="location.href='{% url 'member:login' %}'"
                                 >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        focusable="false"
-                                        role="presentation"
-                                        class="withicon-icon"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            clip-rule="evenodd"
-                                            d="M16.076 2.576l.848.848L8.35 12l8.575 8.576-.848.848L6.65 12l9.425-9.424z"
-                                        ></path>
-                                    </svg></button
-                                ><button class="pagination-next" aria-label="다음 목록">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        focusable="false"
-                                        role="presentation"
-                                        class="withicon-icon"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            clip-rule="evenodd"
-                                            d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"
-                                        ></path>
-                                    </svg>
+                                    <span
+                                        ><svg
+                                            viewBox="0 0 40 40"
+                                            focusable="false"
+                                            role="presentation"
+                                            class="withicon-icon button-icon"
+                                            aria-hidden="true"
+                                        >
+                                            <path
+                                                d="M35 16V7l-3.5 3.5A15 15 0 1 0 34.4 24h-2.1a13 13 0 1 1-2.2-12.1L26 16z"
+                                            ></path>
+                                        </svg>
+                                        <span class="button-children">
+                                            <span class="recommend-funding-wrap-font-highlight"></span>
+                                            더보기<span class="recommend-funding-wrap-pagenum">
+                                                <span class="recommend-funding-wrap-font-highlight">
+                                        </span>
+                                    </span>
                                 </button>
                             </div>
-                            <ul class="pagination-pagelist" aria-label="pagination">
-                                <li class="pagination-listitem pagination-active">
-                                    <button type="button">1</button>
-                                </li>
-                                <li class="pagination-listitem"><button type="button">2</button></li>
-                                <li class="pagination-listitem"><button type="button">3</button></li>
-                                <li class="pagination-listitem"><button type="button">4</button></li>
-                            </ul>
-                        </div>
+{#                        <div class="contest-pagination">#}
+{#                            <div class="pagination-btn-group">#}
+{#                                <button#}
+{#                                    class="pagination-prev pagination-first-page"#}
+{#                                    disabled=""#}
+{#                                    aria-label="이전 목록"#}
+{#                                >#}
+{#                                    <svg#}
+{#                                        viewBox="0 0 24 24"#}
+{#                                        fill="none"#}
+{#                                        focusable="false"#}
+{#                                        role="presentation"#}
+{#                                        class="withicon-icon"#}
+{#                                        aria-hidden="true"#}
+{#                                    >#}
+{#                                        <path#}
+{#                                            fill-rule="evenodd"#}
+{#                                            clip-rule="evenodd"#}
+{#                                            d="M16.076 2.576l.848.848L8.35 12l8.575 8.576-.848.848L6.65 12l9.425-9.424z"#}
+{#                                        ></path>#}
+{#                                    </svg></button#}
+{#                                ><button class="pagination-next" aria-label="다음 목록">#}
+{#                                    <svg#}
+{#                                        viewBox="0 0 24 24"#}
+{#                                        fill="none"#}
+{#                                        focusable="false"#}
+{#                                        role="presentation"#}
+{#                                        class="withicon-icon"#}
+{#                                        aria-hidden="true"#}
+{#                                    >#}
+{#                                        <path#}
+{#                                            fill-rule="evenodd"#}
+{#                                            clip-rule="evenodd"#}
+{#                                            d="M7.924 2.576l-.848.848L15.65 12l-8.575 8.576.848.848L17.35 12 7.924 2.576z"#}
+{#                                        ></path>#}
+{#                                    </svg>#}
+{#                                </button>#}
+{#                            </div>#}
+{#                            <ul class="pagination-pagelist" aria-label="pagination">#}
+{#                                <li class="pagination-listitem pagination-active">#}
+{#                                    <button type="button">1</button>#}
+{#                                </li>#}
+{#                                <li class="pagination-listitem"><button type="button">2</button></li>#}
+{#                                <li class="pagination-listitem"><button type="button">3</button></li>#}
+{#                                <li class="pagination-listitem"><button type="button">4</button></li>#}
+{#                            </ul>#}
+{#                        </div>#}
                     </div>
                     <ul class="earlybird-desktop-earlybird-list">
 {#                        <li class="earlybird-desktop-list-item">#}
@@ -1253,7 +813,7 @@
                         <div class="hot-funding-list-title-wrap">
                             <div class="hot-funding-list-title">
                                 <div class="title-content-wrapper-title">
-                                    <p><em>#급상승</em> 프로젝트</p>
+                                    <p><em>#급상승</em> 커뮤니티</p>
                                 </div>
                             </div>
                             <div class="hot-funding-list-tooltip">
@@ -1307,251 +867,92 @@
                             </div>
                         </div>
                         <ul class="hot-funding-list-content">
-                            <li class="hot-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
+{#                            <li class="hot-funding-list-card">#}
+{#                                <div class="curation-vertical-card-container">#}
+{#                                    <a class="curation-vertical-card-content" href=""#}
+{#                                        ><div class="curation-vertical-card-thumbnail-box">#}
+{#                                            <div class="curation-vertical-card-thumbnail-wrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="" src="" />#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="curation-vertical-card-info-box">#}
+{#                                            <div class="curation-vertical-card-badge-wrapper">#}
+{#                                                <span class="label-badge">예약구매</span>#}
+{#                                            </div>#}
+{#                                            <div class="curation-vertical-card-info">#}
+{#                                                <p class="info-string-wrapper-info-string-wrapper">13,033% 달성</p>#}
+{#                                                <strong class="title-title"#}
+{#                                                    >[앵콜|업그레이드] 15구 괴물스펙! C타입 단자까지 품은 타워형#}
+{#                                                    멀티탭</strong#}
+{#                                                >#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="card-spinner-container">#}
+{#                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">#}
+{#                                                <svg viewBox="25 25 50 50" aria-label="Loading">#}
+{#                                                    <g class="loader-circular">#}
+{#                                                        <circle#}
+{#                                                            class="loader-path"#}
+{#                                                            cx="50"#}
+{#                                                            cy="50"#}
+{#                                                            r="20"#}
+{#                                                            fill="none"#}
+{#                                                            stroke-width="4"#}
+{#                                                            stroke-miterlimit="10"#}
+{#                                                        ></circle>#}
+{#                                                    </g>#}
+{#                                                </svg>#}
+{#                                            </div></div#}
+{#                                    ></a>#}
+{#                                </div>#}
+{#                            </li>#}
+                            {% for onelab in onelabs|slice:":6"  %}
+                                {% with first_community_file=community.community_file_set.first %}
+                                    <li class="hot-funding-list-card">
+                                        <div class="curation-vertical-card-container">
+                                            <a class="curation-vertical-card-content" href=""
+                                                ><div class="curation-vertical-card-thumbnail-box">
+                                                    <div class="curation-vertical-card-thumbnail-wrap">
+                                                        {% if first_community_file %}
+                                                            <img class="thumbnail-image" alt="" src="/upload/{{ first_community_file.path }}" style="width: 100%; height: 100%"/>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">13,033% 달성</p>
-                                                <strong class="title-title"
-                                                    >[앵콜|업그레이드] 15구 괴물스펙! C타입 단자까지 품은 타워형
-                                                    멀티탭</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="hot-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
+                                                <div class="curation-vertical-card-info-box">
+                                                    <div class="curation-vertical-card-badge-wrapper">
+                                                        <span class="label-badge">예약구매</span>
+                                                    </div>
+                                                    <div class="curation-vertical-card-info">
+                                                        <p class="info-string-wrapper-info-string-wrapper">85,256% 달성</p>
+                                                        <strong class="title-title"
+                                                            >34억 심플리웍스 | 모공 1위! 이번에도 저희가 해볼게요
+                                                            &lt;모공한번&gt;</strong
+                                                        >
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <div class="card-spinner-container">
+                                                    <div class="card-spinner-loader" style="width: 32px; height: 32px;">
+                                                        <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                            <g class="loader-circular">
+                                                                <circle
+                                                                    class="loader-path"
+                                                                    cx="50"
+                                                                    cy="50"
+                                                                    r="20"
+                                                                    fill="none"
+                                                                    stroke-width="4"
+                                                                    stroke-miterlimit="10"
+                                                                ></circle>
+                                                            </g>
+                                                        </svg>
+                                                    </div></div
+                                            ></a>
                                         </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">85,256% 달성</p>
-                                                <strong class="title-title"
-                                                    >34억 심플리웍스 | 모공 1위! 이번에도 저희가 해볼게요
-                                                    &lt;모공한번&gt;</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="hot-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">펀딩</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">17,527% 달성</p>
-                                                <strong class="title-title"
-                                                    >[하루 15분] 무의식 브레인 해킹 영어! 나이 상관없이 영어뇌
-                                                    장착하기</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="hot-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">펀딩</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">2,745% 달성</p>
-                                                <strong class="title-title"
-                                                    >돌돌 말리는 가벼운 친환경 보틀! 등산,캠핑에 최적화 된 실리콘
-                                                    핸디보틀</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="hot-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">569% 달성</p>
-                                                <strong class="title-title"
-                                                    >[와디즈 단독공개] '귀멸의 칼날' 홈웨어 에디션!
-                                                    귀살대잠옷&amp;하오리담요</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="hot-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">1,022% 달성</p>
-                                                <strong class="title-title"
-                                                    >[3IN1] 애플 감성 가득 감성전자 시그니처 충전기!</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
                         </ul>
                     </section>
                     <section class="like-funding-list-container">
@@ -1613,249 +1014,93 @@
                                 </div>
                             </div>
                         </div>
-                        <ul class="like-funding-list-content">
-                            <li class="like-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
+                        <ul class="like-funding-list-content" style="padding: 45px;">
+{#                            <li class="like-funding-list-card">#}
+{#                                <div class="curation-vertical-card-container">#}
+{#                                    <a class="curation-vertical-card-content" href=""#}
+{#                                        ><div class="curation-vertical-card-thumbnail-box">#}
+{#                                            <div class="curation-vertical-card-thumbnail-wrap">#}
+{#                                                <div class="thumbnail-image-container">#}
+{#                                                    <img class="thumbnail-image" alt="" src="" />#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="curation-vertical-card-info-box">#}
+{#                                            <div class="curation-vertical-card-badge-wrapper">#}
+{#                                                <span class="label-badge">예약구매</span>#}
+{#                                            </div>#}
+{#                                            <div class="curation-vertical-card-info">#}
+{#                                                <p class="info-string-wrapper-info-string-wrapper">85,256% 달성</p>#}
+{#                                                <strong class="title-title"#}
+{#                                                    >34억 심플리웍스 | 모공 1위! 이번에도 저희가 해볼게요#}
+{#                                                    &lt;모공한번&gt;</strong#}
+{#                                                >#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="card-spinner-container">#}
+{#                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">#}
+{#                                                <svg viewBox="25 25 50 50" aria-label="Loading">#}
+{#                                                    <g class="loader-circular">#}
+{#                                                        <circle#}
+{#                                                            class="loader-path"#}
+{#                                                            cx="50"#}
+{#                                                            cy="50"#}
+{#                                                            r="20"#}
+{#                                                            fill="none"#}
+{#                                                            stroke-width="4"#}
+{#                                                            stroke-miterlimit="10"#}
+{#                                                        ></circle>#}
+{#                                                    </g>#}
+{#                                                </svg>#}
+{#                                            </div></div#}
+{#                                    ></a>#}
+{#                                </div>#}
+{#                            </li>#}
+                            {% for share in shares|slice:":8"  %}
+                                {% with first_share_file=share.sharefile_set.first %}
+                                    <li class="like-funding-list-card">
+                                    <div class="curation-vertical-card-container">
+                                        <a class="curation-vertical-card-content" href=""
+                                            ><div class="curation-vertical-card-thumbnail-box">
+{#                                                <div class="curation-vertical-card-thumbnail-wrap">#}
+{#                                                    {% if first_exhibition_file %}#}
+{#                                                        <img class="thumbnail-image" alt="" src="/upload/{{ first_share_file.path }}" style="width: 100%; height: 100%"/>#}
+{#                                                    {% endif %}#}
+{#                                                </div>#}
+                                            </div>
+                                            <div class="curation-vertical-card-info-box">
+                                                <div class="curation-vertical-card-badge-wrapper">
+                                                    <span class="label-badge">{{ share.share_choice_major }}</span>
+                                                    <span class="label-badge">{{ share.share_choice_grade}}</span>
+                                                </div>
+                                                <div class="curation-vertical-card-info">
+                                                    <p class="info-string-wrapper-info-string-wrapper">{{ share.share_points }}</p>
+                                                    <strong class="title-title"
+                                                        >{{ share.share_title }}
+                                                    </strong>
                                                 </div>
                                             </div>
+                                            <div class="card-spinner-container">
+                                                <div class="card-spinner-loader" style="width: 32px; height: 32px;">
+                                                    <svg viewBox="25 25 50 50" aria-label="Loading">
+                                                        <g class="loader-circular">
+                                                            <circle
+                                                                class="loader-path"
+                                                                cx="50"
+                                                                cy="50"
+                                                                r="20"
+                                                                fill="none"
+                                                                stroke-width="4"
+                                                                stroke-miterlimit="10"
+                                                            ></circle>
+                                                        </g>
+                                                    </svg>
+                                                </div></div
+                                            ></a>
                                         </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">13,033% 달성</p>
-                                                <strong class="title-title"
-                                                    >[앵콜|업그레이드] 15구 괴물스펙! C타입 단자까지 품은 타워형
-                                                    멀티탭</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="like-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">2,326% 달성</p>
-                                                <strong class="title-title"
-                                                    >[앵콜] 단 18g, 75일 지속 괴물 블루투스 녹음기 | 이지렉</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="like-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">14,132% 달성</p>
-                                                <strong class="title-title"
-                                                    >[내 손안의 와이파이] LTE 라우터로 어디서든 공짜 인터넷!</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="like-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">펀딩</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">2,922% 달성</p>
-                                                <strong class="title-title"
-                                                    >향수 1등이 만든ㅣ향기로 극락가는 1초 컷 냄새 지우개</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="like-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">85,256% 달성</p>
-                                                <strong class="title-title"
-                                                    >34억 심플리웍스 | 모공 1위! 이번에도 저희가 해볼게요
-                                                    &lt;모공한번&gt;</strong
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
-                            <li class="like-funding-list-card">
-                                <div class="curation-vertical-card-container">
-                                    <a class="curation-vertical-card-content" href=""
-                                        ><div class="curation-vertical-card-thumbnail-box">
-                                            <div class="curation-vertical-card-thumbnail-wrap">
-                                                <div class="thumbnail-image-container">
-                                                    <img class="thumbnail-image" alt="" src="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="curation-vertical-card-info-box">
-                                            <div class="curation-vertical-card-badge-wrapper">
-                                                <span class="label-badge">예약구매</span>
-                                            </div>
-                                            <div class="curation-vertical-card-info">
-                                                <p class="info-string-wrapper-info-string-wrapper">2,797% 달성</p>
-                                                <strong class="title-title"
-                                                    >말하기 + 듣기 + 읽기 모두 되는 똑똑한 영어선생님~ AI스캔톡!!
-                                                </strong>
-                                            </div>
-                                        </div>
-                                        <div class="card-spinner-container">
-                                            <div class="card-spinner-loader" style="width: 32px; height: 32px;">
-                                                <svg viewBox="25 25 50 50" aria-label="Loading">
-                                                    <g class="loader-circular">
-                                                        <circle
-                                                            class="loader-path"
-                                                            cx="50"
-                                                            cy="50"
-                                                            r="20"
-                                                            fill="none"
-                                                            stroke-width="4"
-                                                            stroke-miterlimit="10"
-                                                        ></circle>
-                                                    </g>
-                                                </svg>
-                                            </div></div
-                                    ></a>
-                                </div>
-                            </li>
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
                         </ul>
                     </section>
                     <section class="supported-funding-list-container">

@@ -43,7 +43,7 @@ class OAuthLoginView(View):
 
         # 최초 로그인(회원가입 필요)
         # 반드시 입력받아야 되는 것을 써야된다.
-        url = "member:main"
+        url = "main"
         if member.member_name is None or created:
             # return redirect(f'/?member=_email={member_email}&member_type={user.provider}&id={member.id}')
             url = f'/member/join/?member_email={member_email}&member_type={user.provider}&id={member.id}&member_name={member.member_name}'

@@ -130,8 +130,8 @@
                     <div class="notification-app-header">
                         <div class="notification-app-title-line">
                             <div>
-                                <span class="notification-app-main-header">알림</span
-                                ><span class="notification-app-total"><strong>1</strong></span>
+                                <span class="notification-app-main-header">알림</span>
+                                <span class="notification-app-total"><strong>{{ alarm_total_count }}</strong></span>
                             </div>
                         </div>
                         <div class="notification-app-desc">
@@ -142,26 +142,71 @@
                         <hr class="divider-line" />
                     </div>
                     <div>
-                        <div class="notification-date">02월 21일</div>
-                        <a href="" class="notification-list-detail"
-                            ><div>
-                                <div class="notification-icon-area">
-                                    <img src="{% static 'alarm/images/letter_icon_small.png' %}" class="notification-type-icon" />
-                                </div>
+                        <div class="notification-date">알림 목록</div>
+                        <div class="notification-container">
+                            {# 알람이 없는 경우 띄워야 할 부분                            #}
+{#                            {% if alarm_list|length < 1 %}#}
+{#                                <div class="none-alarm-text">등록된 알람이 없습니다.</div>#}
+{#                            {% endif %}#}
+                            {# 알람이 있는경우 최대 5개 개수를 반복하여 뿌리기                           #}
+{#                            <div class="alarm-list-container">#}
+{#                                <a class="notification-list-detail">#}
+{#                                    <div>#}
+{#                                        <div class="notification-icon-area">#}
+{#                                            <img src="{% static 'alarm/images/letter_icon_small.png' %}" class="notification-type-icon" />#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="notification-info">#}
+{#                                        <div class="notification-info-Line">#}
+{#                                            <div class="notification-type">#}
+{#                                                <span class="badge-container">#}
+{#                                                    <span class="badge-content">원랩알림</span>#}
+{#                                                    <span class="notification-date-time">5일 전</span>#}
+{#                                                    <span class="notification-date-time">2024-03-14</span>#}
+{#                                                </span>#}
+{##}
+{#                                            </div>#}
+{#                                            <div class="onelab-button-container">#}
+{#                                                <button class="onelab-agree">수락</button>#}
+{#                                                <button class="onelab-deny">거절</button>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <p class="notification-result">누구누구의 원랩 가입신청이 대기중입니다!!</p>#}
+{#                                    </div>#}
+{#                                </a>#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                    <div class="pagination-box">
+                        <div class="pagination-contents">
+                            <div class="pagination-items">
+{#                                <button class="next-btn" type="button" id="leftButton">#}
+{#                                    <svg xmlns="http://www.w3.org/2000/svg" class="left-arrow-svg" viewBox="0 0 20 20" fill="currentColor">#}
+{#                                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>#}
+{#                                    </svg>#}
+{#                                </button>#}
+{#                                <div class="page-numbers" id="pageButtons">#}
+{#                                    <button class="page-number-btn focus-page" type="button" value="1">1</button>#}
+{#                                </div>#}
+{#                                <button class="next-btn" type="button" id="rightButton">#}
+{#                                    <svg xmlns="http://www.w3.org/2000/svg" class="right-arrow-svg" viewBox="0 0 20 20" fill="currentColor">#}
+{#                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>#}
+{#                                    </svg>#}
+{#                                </button>#}
                             </div>
-                            <div class="notification-info">
-                                <div class="notification-info-Line">
-                                    <div class="notification-type">
-                                        <span class="badge-container"><span class="badge-content">원랩알림</span></span>
-                                    </div>
-                                    <div class="notification-date-time">5일 전</div>
-                                </div>
-                                <p class="notification-result">원랩 가입신청이 수락되었습니다!</p>
-                            </div></a
-                        >
+                        </div>
                     </div>
                 </main>
             </div>
         </div>
         <!--푸터-->
 {% endblock %}
+{% block js %}
+    <script>
+        const csrf_token = '{{ csrf_token }}'
+    </script>
+    <script src="{% static 'alarm/js/alarm-module.js' %}"></script>
+    <script src="{% static 'alarm/js/alarm.js' %}"></script>
+
+{% endblock %}
+

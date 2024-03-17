@@ -469,9 +469,9 @@ img.header-logo {
 }
 
 h1.nav-logo {
-    /*background-image: url("{% static '' %}");*/
-    width: 129px;
-    height: 48px;
+    background: url(../images/realfavicon.png) 50% center / contain no-repeat;
+    width: 42px;
+    height: 42px;
     cursor: pointer;
 }
 
@@ -485,6 +485,7 @@ span.blind-text-hidden {
 }
 
 div.project-navbar-maker {
+    justify-content: center;
     display: flex;
     position: absolute;
     left: 50%;
