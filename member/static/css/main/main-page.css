@@ -1031,7 +1031,7 @@ button:not(:disabled) {
     background: no-repeat 50%/cover border-box;
     width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 100%;
     min-height: 10px;
 }
 
