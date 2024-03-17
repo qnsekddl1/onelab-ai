@@ -43,4 +43,5 @@ class MemberTest(TestCase):
     #     member_phone='010-0000-0000',
     #     member_name='홍길동',
     # )
+    #
     pass
