@@ -49,13 +49,28 @@ class MyPageMainView(View):
 
 
         # 공모전 목록 가져오기
-        # exhibitions = None  # 공모전 목록 초기화
-        # if university:
-        #     exhibitions = Exhibition.objects.filter(exhibitionmember__university=university).order_by('-id')
-        #
-        #
-        # elif school:
-        #     exhibitions = Exhibition.objects.filter(school=school).order_by('-id')
+        exhibitions = None  # 공모전 목록 초기화
+        if university:
+            exhibitions = Exhibition.objects.filter(exhibitionmember__university=university).order_by('-id')
+
+
+        elif school:
+            exhibitions = Exhibition.objects.filter(school=school).order_by('-id')
+
+        # 공모전 페이징 처리
+        exhibitions_row_count = 3
+        exhibitions_paginator = Paginator(exhibitions, exhibitions_row_count)
+
+        if exhibitions:
+            page = request.GET.get('page', 1)
+            try:
+                exhibitions = exhibitions_paginator.page(page)
+            except PageNotAnInteger:
+                exhibitions = exhibitions_paginator.page(1)
+            except EmptyPage:
+                exhibitions = exhibitions_paginator.page(exhibitions_paginator.num_pages)
+        else:
+            exhibitions = None
 
         point = request.GET.get('point')
         # 커뮤니티 목록 가져오기
@@ -183,12 +198,12 @@ class MyPageMainView(View):
             context['places'] = places
             context['school'] = school
             # context['places'] = places_page
-            # context['exhibitions'] = exhibitions
+            context['exhibitions'] = exhibitions
         # else :
         #     context['exhibitions'] = exhibitions
         else :
             context['community_file'] = CommunityFile.objects.filter(community_id=community.first()).first()
-
+            context['exhibitions'] = exhibitions
         return render(request,
                       'mypage/main-high.html' if highschool else 'mypage/main-university.html' if university else 'mypage/main.html'
                       if school else 'mypage/main-nomal.html', context)
@@ -464,14 +479,24 @@ class MemberLogoutView(View):
         return redirect('/')
 
 
-def deleteOnelab(request):
+def delete_onelab(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        selected_item = data.get('selected_items')
-        onelab = OneLab.objects.filter(onelab_main_title=selected_item)
-        member = request.session['member']['id']
-        onelab_member = OneLabMember.objects.get(university=member, onelab=onelab)
-        onelab_member.update(onelab_member_status=3)
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            selected_item = data.get('selectedName')
+            onelab = OneLab.objects.get(onelab_main_title=selected_item)
+            member_id = request.session['member']['id']
 
-        return JsonResponse({'message':'선택된 항목이 성공적으로 탈퇴되었습니다'})
-    return JsonResponse({'error':'POST 요청이 필요합니다'}, status=400)
+            # 해당 사용자가 해당 OneLab에 속한 멤버인지 확인
+            onelab_member = OneLabMember.objects.get(university_id=member_id, onelab_id=onelab.id)
+
+            # 멤버 상태를 탈퇴(3)로 변경
+            onelab_member.onelab_member_status = 3
+            onelab_member.save()
+
+            return JsonResponse({'message': '선택된 항목이 성공적으로 탈퇴되었습니다.'})
+        except ObjectDoesNotExist:
+            return JsonResponse({'error': '해당 항목이 존재하지 않거나 권한이 없습니다.'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'POST 요청이 필요합니다'}, status=400)

@@ -1428,10 +1428,9 @@ svg.wish-icon>path {
 }
 
 .search-result-banner-inner {
-    width: 100%;
+    width: 110%;
     height: 100%;
     margin-bottom: 16px;
-    
     border-radius: 10px;
     cursor: pointer;
     background-color: #fff;
@@ -1440,7 +1439,6 @@ svg.wish-icon>path {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    
     border: 1px solid #eaeaea;
 }
 
@@ -1456,7 +1454,7 @@ svg.wish-icon>path {
 }
 
 .search-result-inner-inner span {
-    height: 100%;
+    height: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1465,7 +1463,6 @@ svg.wish-icon>path {
     border-radius: 10px;
     color: #fff;
 }
-
 .search-result-inner-inner span:hover {
     background-color: #00592e
 }

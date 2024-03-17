@@ -355,43 +355,47 @@ const addClickEventToQuitOnelabButtons = () => {
     const exitOnelabButtons = document.querySelectorAll(".exit-onelab-btn");
     exitOnelabButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            // csrf-token 가져오기
-            const csrfToken = getCSRFToken();
 
-            // 탈퇴 관련 로직 구현
             const parent = btn.parentElement;
             const onelabname = parent.querySelector(".box-title strong").textContent;
             console.log(onelabname);
-            const data = {selectedName: onelabname};
-            fetch(`http://127.0.0.1:10000/myPage/deleteOnelab/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken' : csrfToken
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('서버 응답에 문제가 있습니다');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data.message);
-                    window.location.reload();
-                })
-                .catch(error => {
-                    console.error('오류발생:', error);
-                    alert('삭제 중 오류가 발생했습니다.')
-                })
+            // const data = {selectedName: onelabname};
+            soft_delete_onelab(onelabname);
         })
     })
 } // <<< 이쪽 탈퇴하기 부분을  OneLabMember의 onelab_member_status가 3으로 바뀌어야함
 
+function soft_delete_onelab(onelabname)  {
+    const csrfToken = getCSRFToken();
+
+    const data = { selectedName: onelabname };
+
+   fetch('http://127.0.0.1:10000/myPage/deleteonelab/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+    },
+    body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('서버 응답에 문제가 있습니다');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.message);
+        window.location.reload();
+    })
+    .catch(error => {
+        console.error('오류발생:', error);
+        alert('삭제 중 오류가 발생했습니다.')
+    });
+}
 // 프로필 설정 창 모달 기능 구현
 const profile_modal = document.querySelector(".bottom-modal-profile-portal");
-console.log(profile_modal);
+// console.log(profile_modal);
 // 프로필 설정창 열기
 const open_profile = document.querySelector("button.user-profile-edit-profile");
 open_profile.addEventListener("click", ()=>{
