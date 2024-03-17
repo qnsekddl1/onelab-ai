@@ -1875,120 +1875,38 @@
                                 <!--이쪽 부분 지우고 school-place-share-list의 search-result-card-container 부분을 복붙하면 됨-->
                             </div>
                             <!-- 공모전/대회 클릭했을 때 나타나는 페이지 -->
-                            <div id="exhibit-list" class="main-container">
-                                <div
-                                    id="show-list"
-                                    class="SearchResult_cardContainer"
-                                >
-                                    <!-- 처음 목록 3개 -->
-                                    <div
-                                        id="swipe"
-                                        class="swiper-slide swiper-slide-active show"
-                                        style="
-                                            width: 236.8px;
-                                            margin-right: 24px;
-                                        "
-                                    >
-                                        <div class="css-1pulbqw">
-                                            <div class="css-3xk0il"></div>
-                                            <div
-                                                id="display-animation"
-                                                class="css-qn01ot"
-                                            >
-                                                <div class="css-18m1pdx">
-                                                    [2023 연말 결산] 와디즈가
-                                                    조명한 스무 갈래의 열린 길
+                             <div id="exhibit-list" class="main-container">
+                                <div id="show-list" class="SearchResult_cardContainer">
+                                    {% for exhibition in exhibitions %}
+                                    <div class="exhibition-item">
+                                        <a href="{{ exhibition.get_absolute_url }}">
+                                            <div class="css-1pulbqw">
+                                                <div class="css-3xk0il">
+                                                    {% for exhibitionfile in exhibition.exhibitionfile_set.all %}
+                                                        {% if exhibitionfile.preview %}
+                                                            <img src="/upload/{{ exhibitionfile.path }}" class="preview">
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 </div>
-                                                <div
-                                                    class="css-ivvewn"
-                                                    style="display: none"
-                                                >
-                                                    성공 메이커 이야기 연말 결산
+                                                <div class="css-qn01ot">
+                                                    <div class="css-18m1pdx" style="color: #FFFFFF">{{ exhibition.exhibition_title }}</div>
+                                                    {# 다른 정보도 출력하고 싶다면 여기에 추가 #}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
-                                    <div
-                                        id="swipe"
-                                        class="swiper-slide swiper-slide-active show"
-                                        style="
-                                            width: 236.8px;
-                                            margin-right: 24px;
-                                        "
-                                    >
-                                        <div class="css-1pulbqw">
-                                            <div class="css-3xk0il"></div>
-                                            <div
-                                                id="display-animation"
-                                                class="css-qn01ot"
-                                            >
-                                                <div class="css-18m1pdx">
-                                                    [2023 연말 결산] 와디즈가
-                                                    조명한 스무 갈래의 열린 길
-                                                </div>
-                                                <div
-                                                    class="css-ivvewn"
-                                                    style="display: none"
-                                                >
-                                                    성공 메이커 이야기 연말 결산
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        id="swipe"
-                                        class="swiper-slide swiper-slide-active show"
-                                        style="
-                                            width: 236.8px;
-                                            margin-right: 24px;
-                                        "
-                                    >
-                                        <div class="css-1pulbqw">
-                                            <div class="css-3xk0il"></div>
-                                            <div
-                                                id="display-animation"
-                                                class="css-qn01ot"
-                                            >
-                                                <div class="css-18m1pdx">
-                                                    [2023 연말 결산] 와디즈가
-                                                    조명한 스무 갈래의 열린 길
-                                                </div>
-                                                <div
-                                                    class="css-ivvewn"
-                                                    style="display: none"
-                                                >
-                                                    성공 메이커 이야기 연말 결산
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 더보기/목록이동 컨테이너 -->
-                                    <div
-                                        id="search-scroll-banner"
-                                        class="search-result-scroll-banner-container"
-                                    >
-                                        <div
-                                            class="search-result-scroll-banner"
-                                        >
-                                            <div
-                                                class="search-result-banner-inner"
-                                            >
-                                                <div
-                                                    id="more-view-btn"
-                                                    class="search-result-inner-inner"
-                                                >
-                                                    <span>더보기</span>
-                                                </div>
-                                                <div
-                                                    class="search-result-inner-inner"
-                                                >
-                                                    <span>공모전으로 가기</span>
-                                                </div>
+                                    {% endfor %}
+                                  <div id="search-scroll-banner" class="search-result-scroll-banner-container">
+                                    <div class="search-result-scroll-banner">
+                                        <div class="search-result-banner-inner">
+                                            <div id="more-view-btn" class="search-result-inner-inner" data-page="1">
+                                                <span>더보기</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                                </div>
                             <!-- 커뮤니티 클릭했을 때 나타나는 페이지 -->
                             <div class="main-container">
                                 <div class="board-list-main">

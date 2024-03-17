@@ -47,7 +47,10 @@
 
 
 // 카테고리 선택 기능
+
 // 랩장 랩원 눌렀을 때 구별되는 페이지 나타내는 기능
+// 양현 작업
+// 내가 랩장인 원랩 목록을 넣을 컨테이너
 const manageOnelabContainer = document.querySelector(".manage-onelab-container")
 
 // 내가 랩장인 원랩 목록을 화면에 표시하는 함수
@@ -80,7 +83,7 @@ const showManageOnelabList = (onelabList) => {
             `;
         } else {
             text += `
-                <img src="/upload/${onelab.path}">
+                <img src="${onelab.path}">
             `
         }
         text += `
@@ -100,10 +103,9 @@ const showManageOnelabList = (onelabList) => {
     addClickEventToManageOnelabButtons();
 }
 
-
-
 // 내가 랩원인 원랩 목록을 넣을 컨테이너
 const memberOnelabContainer = document.querySelector(".member-onelab-container");
+
 
 // 내가 랩원인 원랩 목록을 화면에 표시하는 함수
 const showMemberOnelabList = (onelabList) => {
@@ -123,7 +125,7 @@ const showMemberOnelabList = (onelabList) => {
             `;
         } else {
             text += `
-                <img src="/upload/${onelab.path}">
+                <img src="${onelab.path}">
             `
         }
         text += `
@@ -142,9 +144,6 @@ const showMemberOnelabList = (onelabList) => {
     memberOnelabContainer.innerHTML = text;
     addClickEventToQuitOnelabButtons();
 }
-
-
-
 
 
 // 랩장 랩원 눌렀을 때 구별되는 페이지 나타내는 기능
@@ -169,6 +168,7 @@ for (let i = 0;i < buttons.length; i++) {
         }
     })
 }
+
 
 // 카테고리 목록 내, 좋아요 기능
 // 좋아요 눌렀을 때 좋아요 되었다는 알림글 나타내기
@@ -240,14 +240,15 @@ const tabpages = document.querySelectorAll(".my-page-project-content");
 //         // 선택한 해당탭의 색상을 넣어주는 기능
 //         tabpages[i].classList.toggle("onclick");
 //     })
-    
+
 // }
 
 // 탭 눌렀을 때 화면나타나는 기능과 함께 추가작업 필요
 
 // 원랩 눌렸을 때 열리는 기능
-tabpages[0].addEventListener("click", (e)=> {
+tabpages[0].addEventListener("click", async (e)=> {
     if (onelab_page[0].style.display === "none") {
+        await myPageOnelabService.getList(false, showManageOnelabList);
         onelab_page.forEach((page)=>{
             page.style.display = "none";
         })
@@ -337,6 +338,17 @@ const addClickEventToManageOnelabButtons = () => {
                     page.style.display = "none";
                 })
                 onelab_page[5].style.display = "block";
+
+                // OneLab 멤버 정보를 불러와서 뿌리는 로직 추가
+                fetch('/myPage/onelab_list/')
+                    .then(response => response.json())
+                    .then(data => {
+                        // OneLab 멤버 정보를 받아서 처리하는 함수 호출
+                        showOnelabMembers(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             } else {
                 onelab_page[5].style.display = "none";
             }
@@ -344,6 +356,26 @@ const addClickEventToManageOnelabButtons = () => {
     })
 }
 
+// OneLab 멤버 정보를 받아서 처리하는 함수
+const showOnelabMembers = (members) => {
+    let memberList = '';
+    members.forEach(member => {
+        memberList += `
+            <div>
+                <p>이름: ${member.member_name}</p>
+                <p>학교: ${member.university_member_school}</p>
+                <p>전공: ${member.university_member_major}</p>
+                <p>포인트: ${member.university_member_points}</p>
+            </div>
+        `;
+    });
+    // 멤버 정보를 해당 위치에 표시
+    document.getElementById('member-list-container').innerHTML = memberList;
+}
+function getCSRFToken() {
+    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    return csrfTokenMeta.getAttribute('content');
+}
 // 탈퇴하기 눌렀을 때 열리는 기능은 구현 안 돼있길래 아래에 함수를 만들어만 놓고,
 // fetch로 "내가 랩원인 원랩" 목록을 뿌리고 나서 각 버튼에도 적용되도록
 // 화면에 뿌리는 부분(위에 있습니다, showMemberOnelabList()) 에 써놓도록 하겠습니다.
@@ -351,15 +383,47 @@ const addClickEventToQuitOnelabButtons = () => {
     const exitOnelabButtons = document.querySelectorAll(".exit-onelab-btn");
     exitOnelabButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            // 탈퇴 관련 로직 구현
+
+            const parent = btn.parentElement;
+            const onelabname = parent.querySelector(".box-title strong").textContent;
+            console.log(onelabname);
+            // const data = {selectedName: onelabname};
+            soft_delete_onelab(onelabname);
         })
     })
+} // <<< 이쪽 탈퇴하기 부분을  OneLabMember의 onelab_member_status가 3으로 바뀌어야함
+
+function soft_delete_onelab(onelabname)  {
+    const csrfToken = getCSRFToken();
+
+    const data = { selectedName: onelabname };
+
+   fetch('http://127.0.0.1:10000/myPage/deleteonelab/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+    },
+    body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('서버 응답에 문제가 있습니다');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.message);
+        window.location.reload();
+    })
+    .catch(error => {
+        console.error('오류발생:', error);
+        alert('삭제 중 오류가 발생했습니다.')
+    });
 }
-
-
 // 프로필 설정 창 모달 기능 구현
 const profile_modal = document.querySelector(".bottom-modal-profile-portal");
-console.log(profile_modal);
+// console.log(profile_modal);
 // 프로필 설정창 열기
 const open_profile = document.querySelector("button.user-profile-edit-profile");
 open_profile.addEventListener("click", ()=>{
@@ -541,3 +605,5 @@ likes.forEach((like) => {
         e.ariaPressed = "true";
     });
 });
+
+
