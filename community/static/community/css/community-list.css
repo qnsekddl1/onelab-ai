@@ -73,8 +73,8 @@ main.main-board {
 
 div.board-header {
     max-width: 800px;
-    padding-top: 64px;
-    padding-bottom: 48px;
+    padding-top: 28px;
+    padding-bottom: 28px;
 }
 
 div.board-header {
@@ -231,6 +231,7 @@ div.thumb {
 
 .preview {
     width: 90%;
+    padding-top: 20px
 }
 
 h3.title {

@@ -66,7 +66,7 @@ em, i {
 }
 
 img {
-    max-width: 17%;
+    max-width: 100%;
     vertical-align: top;
 }
 
@@ -465,9 +465,9 @@ img.header-logo {
 }
 
 h1.nav-logo {
-    background-image: url('/view/static/public/images/header-logo.png');
-    width: 129px;
-    height: 48px;
+    background: url(../images/realfavicon.png) 50% center / contain no-repeat;
+    width: 42px;
+    height: 42px;
     cursor: pointer;
 }
 
@@ -481,6 +481,7 @@ span.blind-text-hidden {
 }
 
 div.project-navbar-maker {
+    justify-content: center;
     display: flex;
     position: absolute;
     left: 50%;

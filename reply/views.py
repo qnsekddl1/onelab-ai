@@ -3,6 +3,7 @@ from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from member.models import Member
 from reply.models import Reply
 
 

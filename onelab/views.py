@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 
 from file.models import File
-from member.models import Member
+from member.models import Member, MemberFile
 from onelab.models import OneLab, OneLabFile, OneLabBannerFile
 from onelabMember.models import OneLabMember
 from university.models import University
@@ -16,10 +16,18 @@ class OnelabWriteView(View):
     def get(self, request):
         member = Member(**request.session['member'])
         university = University.objects.get(member=member)
+        profile = MemberFile.objects.filter(member=member).first()
+
         context = {
             'member': member,
-            'university': university
+            'university': university,
+            'profile': profile,
         }
+
+        default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
+
+        if profile is None:
+            profile = default_profile_url
 
         return render(request, "onelab/one-lab-write.html", context)
 
@@ -90,6 +98,8 @@ class OnelabListView(View):
     def get(self, request):
         onelabs = OneLab.enabled_objects.filter(onelab_post_status=True).order_by('-id')
         total_onelabs = onelabs.count()
+        member_id = request.session['member']['id']
+
         for onelab in onelabs:
             onelab_member_count = OneLabMember.objects.filter(onelab_id=onelab.id, onelab_member_status=1).count()
             setattr(onelab, 'one_lab_member_count', onelab_member_count)
