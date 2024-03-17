@@ -52,6 +52,7 @@ const addPaginationEvent = (pageNationNewInfo) => {
             onelabAgree[i].classList.add('agree')
             await alarmModuleService.oneLabAgree(alarmClickId, alarmClickValue)
             await alarmModuleService.pageNation(1, showList)
+            mainTotalCount.innerHTML = `<strong>${pageNationNewInfo.alarm_total_count}</strong>`
         })
     })
     onelabDeny.forEach((btn, i) => {
@@ -60,14 +61,16 @@ const addPaginationEvent = (pageNationNewInfo) => {
             alarmClickId = onelabDeny[i].classList[1]
             await alarmModuleService.oneLabDeny(alarmClickId, alarmClickValue)
             await alarmModuleService.pageNation(1, showList)
+            mainTotalCount.innerHTML = `<strong>${pageNationNewInfo.alarm_total_count}</strong>`
         })
     })
     onelabCancel.forEach((btn, i) => {
         btn.addEventListener('click', async () =>{
-            alarmClickValue = onelabDeny[i].value
-            alarmClickId = onelabDeny[i].classList[1]
-            await alarmModuleService.oneLabDeny(alarmClickId, alarmClickValue)
+            alarmClickValue = onelabCancel[i].value
+            alarmClickId = onelabCancel[i].classList[1]
+            await alarmModuleService.oneLabCancel(alarmClickId, alarmClickValue)
             await alarmModuleService.pageNation(1, showList)
+            mainTotalCount.innerHTML = `<strong>${pageNationNewInfo.alarm_total_count}</strong>`
         })
     })
 

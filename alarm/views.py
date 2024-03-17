@@ -104,7 +104,7 @@ class AlarmCancelAPIView(APIView):
         alarm_id = data['alarmClickId']
 
         # 알람 안보이게하기
-        Alarm.objects.filter(id=alarm_id,status=2).update(status=0)
+        Alarm.objects.filter(id=alarm_id,alarm_status=2).update(status=0)
 
         return Response("success")
 
