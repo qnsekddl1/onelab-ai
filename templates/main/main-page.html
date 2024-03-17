@@ -908,7 +908,7 @@
 {#                                    ></a>#}
 {#                                </div>#}
 {#                            </li>#}
-                            {% for community in communities|slice:":6"  %}
+                            {% for onelab in onelabs|slice:":6"  %}
                                 {% with first_community_file=community.community_file_set.first %}
                                     <li class="hot-funding-list-card">
                                         <div class="curation-vertical-card-container">
