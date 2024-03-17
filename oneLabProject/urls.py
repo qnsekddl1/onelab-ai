@@ -22,6 +22,9 @@ urlpatterns = [
     path('review/', include('review.urls')),
     path('share/', include('share.urls')),
     path('upload/<path:file_path>', ShareDownloadView.as_view(), name='download'),
+    # path('exhibition/', include('exhibition.urls')),
+    # path('upload/<path:file_path>/', ExhibitionFileDownloadView.as_view(), name='exhibition-down'),
+    # path('notification/', include('notification.urls')),
     path('', MainView.as_view(), name='main'),
 ]
 
