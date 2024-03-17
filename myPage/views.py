@@ -47,30 +47,17 @@ class MyPageMainView(View):
         school = School.objects.filter(member_id=member_id).first()
         profile = MemberFile.objects.filter(member_id=member_id).first()
 
-
+        print(school)
         # 공모전 목록 가져오기
-        exhibitions = None  # 공모전 목록 초기화
+
         if university:
             exhibitions = Exhibition.objects.filter(exhibitionmember__university=university).order_by('-id')
-
 
         elif school:
             exhibitions = Exhibition.objects.filter(school=school).order_by('-id')
 
-        # 공모전 페이징 처리
-        exhibitions_row_count = 3
-        exhibitions_paginator = Paginator(exhibitions, exhibitions_row_count)
-
-        if exhibitions:
-            page = request.GET.get('page', 1)
-            try:
-                exhibitions = exhibitions_paginator.page(page)
-            except PageNotAnInteger:
-                exhibitions = exhibitions_paginator.page(1)
-            except EmptyPage:
-                exhibitions = exhibitions_paginator.page(exhibitions_paginator.num_pages)
-        else:
-            exhibitions = None
+        request.session['member'] = MemberSerializer(Member.objects.get(id=request.session['member']['id'])).data
+        check = request.GET.get('check')
 
         point = request.GET.get('point')
         # 커뮤니티 목록 가져오기
@@ -153,7 +140,7 @@ class MyPageMainView(View):
 
         # 커뮤니티 페이징 처리
         page = request.GET.get('page', 1)
-        community_row_count = 3
+        community_row_count = 5
         community_paginator = Paginator(community, community_row_count)
         try:
             communities = community_paginator.page(page)
@@ -161,6 +148,20 @@ class MyPageMainView(View):
             communities = community_paginator.page(1)
         except EmptyPage:
             communities = community_paginator.page(community_paginator.num_pages)
+
+        # 공모전 페이징 처리
+        exhibitions_row_count = 3
+        exhibitions_paginator = Paginator(exhibitions, exhibitions_row_count)
+
+        if exhibitions:
+            try:
+                exhibitions = exhibitions_paginator.page(page)
+            except PageNotAnInteger:
+                exhibitions = exhibitions_paginator.page(1)
+            except EmptyPage:
+                exhibitions = exhibitions_paginator.page(exhibitions_paginator.num_pages)
+        else:
+            exhibitions = None
 
         default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
 
@@ -188,6 +189,7 @@ class MyPageMainView(View):
             context['places'] = places
             context['place_file'] = PlaceFile.objects.filter(place_id=places.first()).first()
             context['shares'] = shares
+            context['exhibitions'] = exhibitions
             # context['share_file'] = list(shares.sharefile_set.all()),
 
 
