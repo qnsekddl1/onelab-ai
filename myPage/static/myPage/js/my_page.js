@@ -329,26 +329,162 @@ if (currentPage && currentPage !== 1) {
 
 // 관리하기 눌렀을 때 열리는 기능 -> 함수화하여 fetch 이후에 뿌려진 원랩목록들에 각각 적용합니다.
 // 관리하기 부분은 성현씨께서 fetch 관련 만들어서 구성원 정보 뿌리는 로직 추가하시면 됩니다.
+// const addClickEventToManageOnelabButtons = () => {
+//     const manage_onelab_btn = document.querySelectorAll(".manage-onelab-btn");
+//     manage_onelab_btn.forEach((btn)=>{
+//         btn.addEventListener("click", ()=>{
+//             if (onelab_page[5].style.display === "none") {
+//                 onelab_page.forEach((page)=>{
+//                     page.style.display = "none";
+//                 })
+//                 onelab_page[5].style.display = "block";
+//
+//                 // OneLab 멤버 정보를 불러와서 뿌리는 로직 추가
+//                 fetch('/myPage/onelab_list/')
+//                     .then(response => response.json())
+//                     .then(data => {
+//                         // OneLab 멤버 정보를 받아서 처리하는 함수 호출
+//                         showOnelabMembers(data);
+//                     })
+//                     .catch(error => {
+//                         console.error('Error:', error);
+//                     });
+//             } else {
+//                 onelab_page[5].style.display = "none";
+//             }
+//         })
+//     })
+// }
+
+function selectAll(selectAll) {
+    const checkboxes = document.querySelectorAll(
+        'input[type="checkbox"]'
+    ); /* type = checkbox 인 요소들을 불러온다. */
+
+    checkboxes.forEach((checkbox) => {
+        /* 모든 체크 박스들을 순회하여 */
+        checkbox.checked =
+            selectAll.checked; /* 모든 체크박스들을 체크시킨다. */
+    });
+}
+
+
+
+// OneLab 멤버 정보를 받아서 처리하는 함수
+// AJAX를 사용하여 멤버 정보를 가져오고 화면에 표시하는 함수
+const fetchAndDisplayMembers = () => {
+    fetch('/myPage/onelab_list/')
+        .then(response => response.json())
+        .then(data => {
+            // OneLab 멤버 정보를 받아서 화면에 표시
+            const onelabList = document.querySelectorAll('.col-center');
+            onelabList.forEach((listItem, index) => {
+                const members = data[index].members; // 각 원랩에 속한 멤버 정보
+                listItem.innerHTML = ''; // 기존 내용 비우기
+
+                members.forEach(member => {
+                    const memberItem = document.createElement('li');
+                    memberItem.classList.add('user-list');
+
+                    const checkbox = document.createElement('input');
+                    checkbox.classList.add('check2');
+                    checkbox.setAttribute('type', 'checkbox');
+                    checkbox.setAttribute('name', 'num2');
+
+                    const email = document.createElement('span');
+                    email.classList.add('email');
+                    email.textContent = member.member_email;
+
+                    const name = document.createElement('span');
+                    name.classList.add('name');
+                    name.textContent = member.member_name;
+
+                    const status = document.createElement('span');
+                    status.classList.add('date');
+                    status.textContent = member.onelab_member_status;
+
+                    memberItem.appendChild(checkbox);
+                    memberItem.appendChild(email);
+                    memberItem.appendChild(name);
+                    memberItem.appendChild(status);
+
+                    listItem.appendChild(memberItem);
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};
+function getCSRFToken() {
+    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    return csrfTokenMeta.getAttribute('content');
+}
+
+
+
+// 원랩 해체 기능
+
+
+
+
+// 회원 탈퇴 기능
+function deleteSelectedMembers() {
+    const csrfToken = getCSRFToken();
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedItems = Array.from(checkboxes)
+        .filter(checkbox => checkbox.closest(".user-list"))
+        .map(checkbox => checkbox.parentElement.querySelector(".email").textContent);
+
+    if (selectedItems.length === 0) {
+        alert("삭제할 항목을 선택하세요");
+        return;
+    }
+
+    const data = { selected_items: selectedItems }; // 데이터를 객체 형태로 JSON으로 전달
+    fetch('/myPage/delete_members/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify(data) // 객체를 JSON 문자열로 변환하여 전송
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('서버 응답에 문제가 있습니다.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+            // 성공적으로 처리된 경우에 대한 작업 수행
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('오류 발생:', error);
+            alert('삭제 중 오류가 발생했습니다.');
+        });
+}
+
+// 관리하기 버튼 클릭 시
 const addClickEventToManageOnelabButtons = () => {
     const manage_onelab_btn = document.querySelectorAll(".manage-onelab-btn");
     manage_onelab_btn.forEach((btn)=>{
         btn.addEventListener("click", ()=>{
+
+
             if (onelab_page[5].style.display === "none") {
                 onelab_page.forEach((page)=>{
                     page.style.display = "none";
                 })
                 onelab_page[5].style.display = "block";
 
-                // OneLab 멤버 정보를 불러와서 뿌리는 로직 추가
-                fetch('/myPage/onelab_list/')
-                    .then(response => response.json())
-                    .then(data => {
-                        // OneLab 멤버 정보를 받아서 처리하는 함수 호출
-                        showOnelabMembers(data);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                // OneLab 멤버 정보를 불러와서 화면에 표시
+                fetchAndDisplayMembers();
+                const title = document.querySelector('box-title')
+                deleteOneLab(title)
+
             } else {
                 onelab_page[5].style.display = "none";
             }
@@ -356,22 +492,40 @@ const addClickEventToManageOnelabButtons = () => {
     })
 }
 
-// OneLab 멤버 정보를 받아서 처리하는 함수
-const showOnelabMembers = (members) => {
-    let memberList = '';
-    members.forEach(member => {
-        memberList += `
-            <div>
-                <p>이름: ${member.member_name}</p>
-                <p>학교: ${member.university_member_school}</p>
-                <p>전공: ${member.university_member_major}</p>
-                <p>포인트: ${member.university_member_points}</p>
-            </div>
-        `;
+
+function deleteOneLab(title) {
+    const csrfToken = getCSRFToken(); // CSRF 토큰 가져오기
+
+    const data = { title: title };
+
+    fetch('/myPage/delete_all/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({id : `${onelab.id}`}) // 데이터 없음
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('서버 응답에 문제가 있습니다.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.message); // 성공적인 응답
+        // 성공적으로 처리된 경우에 대한 작업 수행
+        // 예: 페이지 새로고침 또는 다른 작업 수행
+        window.location.reload(); // 페이지 새로고침
+    })
+    .catch(error => {
+        console.error('오류 발생:', error);
+        alert('처리 중 오류가 발생했습니다.');
     });
-    // 멤버 정보를 해당 위치에 표시
-    document.getElementById('member-list-container').innerHTML = memberList;
 }
+
+
+
 function getCSRFToken() {
     const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
     return csrfTokenMeta.getAttribute('content');
