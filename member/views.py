@@ -426,6 +426,7 @@ class AdminMainUserListAPI(APIView):
             'member_email',
             'member_name',
             'member_phone',
+            'created_date'
         ]
 
         keyword = request.GET.get('keyword', '')
@@ -583,3 +584,9 @@ def soft_delete_exhibition(request):
         return JsonResponse({'message': '선택된 항목이 성공적으로 삭제되었습니다.'})
 
     return JsonResponse({'error': 'POST 요청이 필요합니다.'}, status=400)
+
+
+class AdminMainLogoutView(View):
+    def get(self, request):
+        request.session.clear()
+        return redirect('/')

@@ -17,6 +17,8 @@ const showList = (member_info) => {
     let members = member_info.members;
 
     members.forEach((member) => {
+        const createdDate = new Date(member.created_date);
+        const formattedDate = `${createdDate.getFullYear()}-${(createdDate.getMonth() + 1).toString().padStart(2, '0')}-${createdDate.getDate().toString().padStart(2, '0')} `;
 
         value.innerHTML += `
         <li class="user-list">
@@ -24,7 +26,7 @@ const showList = (member_info) => {
             <span class="number">${member.id}</span>
             <span class="email">${member.member_email}</span>
             <span class="info">${member.member_name}</span>
-            <span class="date">2024.02.17</span>
+            <span class="date">${formattedDate}</span>
             <span class="type">${member['member-type']}</span>
         </li>
     `
