@@ -47,7 +47,7 @@ class MyPageMainView(View):
         school = School.objects.filter(member_id=member_id).first()
         profile = MemberFile.objects.filter(member_id=member_id).first()
 
-        print(school)
+
         # 공모전 목록 가져오기
 
         if university:
@@ -479,21 +479,54 @@ class MemberLogoutView(View):
     def get(self, request):
         request.session.clear()
         return redirect('/')
-# class OneLabListAPI(APIView):
-#     def get(self, request, page):
-#         row_count = 5
-#         offset = (page - 1) * row_count
-#         limit = page * row_count
-#
-#         columns = [
-#             'id',
-#             'member_name',
-#             'member_id',
-#             'onelab_member_status',
-#             'created_date'
-#         ]
 
 
+class OneLabMembersAPI(View):
+    def get(self, request):
+        # 해당 University와 OneLab 정보 가져오기
+        university = University.objects.get(member_id=request.session['member']['id'])
+        onelabs = OneLab.objects.filter(university=university)
+
+        onelab_info = []
+        for onelab in onelabs:
+            members_info = []
+            members = OneLabMember.objects.filter(onelab=onelab, onelab_member_status=1).select_related(
+                'university__member')
+            for member in members:
+                member_info = {
+                    'member_id': member.university.member.id,
+                    'member_email': member.university.member.member_email,
+                    'member_name': member.university.member.member_name,
+                    'member_major': member.university.university_member_major,
+                    'member_points': member.university.university_member_points,
+                    'onelab_member_status': member.onelab_member_status
+                }
+                members_info.append(member_info)
+
+            onelab_info.append({
+                'onelab_id': onelab.id,
+                'members': members_info
+            })
+
+        return JsonResponse(onelab_info, safe=False)
+
+
+def delete_members(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        selected_items = data.get("selected_items")
+        print(selected_items)
+        print(selected_items)
+        # 선택된 항목들의 상태를 3으로 변경하는 코드를 작성
+        for item_id in selected_items:
+            try :
+                OneLabMember.objects.filter(university__member__member_email=item_id).update(onelab_member_status=3)
+                print('성공!')
+            except :
+                pass # 항목이 존재하지 않는 경우 무시
+
+        return JsonResponse({'message': '선택된 회원이 성공적으로 탈퇴 되었습니다.'})
+    return JsonResponse({'message': 'POST 요청이 필요합니다.'}, status=400)
 
 def delete_onelab(request):
     if request.method == 'POST':
@@ -516,3 +549,23 @@ def delete_onelab(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'POST 요청이 필요합니다'}, status=400)
+
+def delete_all(request):
+    if request.method == 'POST':
+        # OneLab 모델에서 해당하는 객체 가져오기
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            onelabId = data.get('id')
+            print(onelabId)
+            print('아이디를 못받아옴 ',onelabId)
+            onelab = OneLab.objects.filter(id=onelabId).first()  # 해당하는 원랩 객체 가져오기
+            if onelab:
+                # onelab_post_status 값을 False로 변경
+                onelab.onelab_post_status = False
+                onelab.save()
+                return JsonResponse({'message': '원랩이 성공적으로 종료되었습니다.'})
+            else:
+                return JsonResponse({'message': '원랩을 찾을 수 없습니다.'}, status=404)
+
+        except:
+            return JsonResponse({'message': 'POST 요청이 필요합니다.'}, status=400)

@@ -1753,10 +1753,10 @@ h3.title:hover {
 .grid-px {
     padding-left: 12px;
     padding-right: 45px;
-    column-gap: 132px;
+    column-gap: 190px;
     grid-auto-flow: column;
     display: grid;
-    margin-right: 42px ;
+    margin-right: -32px;
 }
 .col-center {
     justify-content: center;
@@ -1767,13 +1767,16 @@ h3.title:hover {
     /* margin-top: 88px; */
 }
 .user-list{
-    width: 944px; 
-    height: 23px; 
-    border-style: solid; 
-    border-bottom-width: 1px; 
-    justify-content: space-between; 
-    align-items: center; min-height: 60px; 
-    display: flex; 
+    width: 979px;
+    height: 23px;
+    border-style: solid;
+    border-bottom-width: 1px;
+    justify-content: space-between;
+    align-items: center;
+    /* min-width: 97px; */
+    column-gap: 106px;
+    min-height: 60px;
+    display: flex;
     border-color: #e6e6e7;
 }
 .check2{
