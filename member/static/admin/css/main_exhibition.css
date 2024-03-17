@@ -1060,11 +1060,11 @@ input::placeholder{
 
 }
 .min-3{
-    width: 194px;
+    width: 280px;
 }
 
 .min-4 {
-    width: 106px;
+    width: 120px;
 }
 
 .min-6 {
@@ -1072,7 +1072,7 @@ input::placeholder{
 }
 
 .min-7 {
-    width: 46px;
+    width: 120px;
 }
 .column {
     display: flex;
@@ -1124,7 +1124,7 @@ input::placeholder{
     width: 79px;
 }
 .info{
-    width: 100px;
+    width: 124px;
 }
 .check2{
     width: 100px;
@@ -1132,13 +1132,13 @@ input::placeholder{
     accent-color: #008244;
 }
 .email{
-    width: 200px;
+    width: 280px;
 }
 .name{
     padding-left: 80px
 }
 .type{
-    width: 47px;
+    width: 118px;
 }
 .date{
     width: 189px;
