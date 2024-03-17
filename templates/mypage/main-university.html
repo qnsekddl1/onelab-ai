@@ -17,7 +17,7 @@
             justify-content: center;
             margin-top: 20px;
         }
-    
+
         .step-links a {
             padding: 10px;
             margin: 0 5px;
@@ -28,7 +28,7 @@
             background-color: #ffffff;
             cursor: pointer;
         }
-    
+
         .step-links .current {
             padding: 10px;
             margin: 0 5px;
@@ -37,7 +37,7 @@
             background-color: #008244;
             color: #fff;
         }
-    
+
         .step-links a:hover {
             background-color:  #E8F5E9;
         }
@@ -51,7 +51,7 @@
         align-items: center;
         justify-content: center;
     }
-    
+
     .search-result-inner-inner span {
         height: 70%;
         display: flex;
@@ -62,7 +62,7 @@
         border-radius: 10px;
         color: #fff;
     }
-    
+
     .search-result-inner-inner span:hover {
         background-color: #00592e
     }
@@ -120,7 +120,7 @@
                                                 aria-label="프로필 상세 보기"
                                                 data-event="profile"
                                                 >
-                                            
+
                                               {% if profile.path is None or profile.path == '' %}
                                                     <img class="profile" src="{% static 'myPage/images/profile.jpg' %}">
                                               {% else %}
@@ -128,7 +128,7 @@
                                               {% endif %}
                                             <input type="file" name="profile" style="display: none">
                                             </button>
-                                        
+
                                             <button
                                                 type="button"
                                                 class="user-profile-edit-profile"
@@ -147,7 +147,7 @@
                                                     ></path>
                                                 </svg>
                                             </button>
-                                        </label>    
+                                        </label>
                                     </div>
                                     <div class="user-profile-profile">
                                         <button
@@ -552,268 +552,17 @@
                                     style="display: block"
                                 >
                                     <!-- 박스를 감싸고 있는 컨테이너 -->
-                                    <div class="onelab-service-boxs col-4">
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="manage-onelab-btn">
-                                                <span
-                                                    class="manage-onelab-icon"
-                                                    aria-hidden="true"
-                                                    ><svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon-icon"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <path
-                                                            d="M17.84 3.2l.4 2.56.16.88.88.32a9.55 9.55 0 0 1 2.893 1.691l.707.549.88-.32 2.4-.88L28 11.2l-2 1.68-.72.56.16.88a9.022 9.022 0 0 1-.009 3.336l-.151.824.72.56 2 1.76-1.84 3.2-3.28-1.2-.72.56a9.485 9.485 0 0 1-2.814 1.658l-.946.342-.16.88-.4 2.56h-3.68l-.4-2.56-.16-.88-.88-.32a9.55 9.55 0 0 1-2.893-1.691L9.12 22.8l-.88.32-2.4.88L4 20.8l2-1.68.72-.56-.16-.88a9.022 9.022 0 0 1 .009-3.336l.151-.824-.72-.56-2-1.76L5.84 8l3.28 1.2.72-.56a9.485 9.485 0 0 1 2.814-1.658l.946-.342.16-.88.4-2.56h3.68zM16 21.6a5.6 5.6 0 1 0 0-11.2 5.6 5.6 0 0 0 0 11.2zm2.56-20h-5.136a.8.8 0 0 0-.783.635L12.08 5.44a11.21 11.21 0 0 0-3.292 2.011L5.76 6.24h-.267a.798.798 0 0 0-.691.397L2.24 10.961a.798.798 0 0 0 .238 1.038l2.562 2.082a10.647 10.647 0 0 0 .01 3.906l-2.57 2.014a.8.8 0 0 0-.158 1.044L4.8 25.362a.8.8 0 0 0 .693.4h.347l2.96-1.2c.956.798 2.07 1.448 3.282 1.895l.638 3.225c.077.368.399.64.784.64h5.072a.8.8 0 0 0 .783-.635l.561-3.205a11.212 11.212 0 0 0 3.296-1.934l3.024 1.134h.347a.798.798 0 0 0 .691-.397l2.562-4.404a.8.8 0 0 0-.159-1.039l-2.561-2.081a10.647 10.647 0 0 0-.01-3.906l2.41-1.854a.8.8 0 0 0 .158-1.044L27.2 6.64a.8.8 0 0 0-.693-.4h-.347l-2.96 1.2a11.163 11.163 0 0 0-3.282-1.895L19.28 2.32a.801.801 0 0 0-.784-.64h-.017zM16 20a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
-                                                        ></path>
-                                                    </svg>
-                                                </span>
-                                                관리하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="manage-onelab-btn">
-                                                <span
-                                                    class="manage-onelab-icon"
-                                                    aria-hidden="true"
-                                                    ><svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon-icon"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <path
-                                                            d="M17.84 3.2l.4 2.56.16.88.88.32a9.55 9.55 0 0 1 2.893 1.691l.707.549.88-.32 2.4-.88L28 11.2l-2 1.68-.72.56.16.88a9.022 9.022 0 0 1-.009 3.336l-.151.824.72.56 2 1.76-1.84 3.2-3.28-1.2-.72.56a9.485 9.485 0 0 1-2.814 1.658l-.946.342-.16.88-.4 2.56h-3.68l-.4-2.56-.16-.88-.88-.32a9.55 9.55 0 0 1-2.893-1.691L9.12 22.8l-.88.32-2.4.88L4 20.8l2-1.68.72-.56-.16-.88a9.022 9.022 0 0 1 .009-3.336l.151-.824-.72-.56-2-1.76L5.84 8l3.28 1.2.72-.56a9.485 9.485 0 0 1 2.814-1.658l.946-.342.16-.88.4-2.56h3.68zM16 21.6a5.6 5.6 0 1 0 0-11.2 5.6 5.6 0 0 0 0 11.2zm2.56-20h-5.136a.8.8 0 0 0-.783.635L12.08 5.44a11.21 11.21 0 0 0-3.292 2.011L5.76 6.24h-.267a.798.798 0 0 0-.691.397L2.24 10.961a.798.798 0 0 0 .238 1.038l2.562 2.082a10.647 10.647 0 0 0 .01 3.906l-2.57 2.014a.8.8 0 0 0-.158 1.044L4.8 25.362a.8.8 0 0 0 .693.4h.347l2.96-1.2c.956.798 2.07 1.448 3.282 1.895l.638 3.225c.077.368.399.64.784.64h5.072a.8.8 0 0 0 .783-.635l.561-3.205a11.212 11.212 0 0 0 3.296-1.934l3.024 1.134h.347a.798.798 0 0 0 .691-.397l2.562-4.404a.8.8 0 0 0-.159-1.039l-2.561-2.081a10.647 10.647 0 0 0-.01-3.906l2.41-1.854a.8.8 0 0 0 .158-1.044L27.2 6.64a.8.8 0 0 0-.693-.4h-.347l-2.96 1.2a11.163 11.163 0 0 0-3.282-1.895L19.28 2.32a.801.801 0 0 0-.784-.64h-.017zM16 20a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
-                                                        ></path>
-                                                    </svg>
-                                                </span>
-                                                관리하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="manage-onelab-btn">
-                                                <span
-                                                    class="manage-onelab-icon"
-                                                    aria-hidden="true"
-                                                    ><svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon-icon"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <path
-                                                            d="M17.84 3.2l.4 2.56.16.88.88.32a9.55 9.55 0 0 1 2.893 1.691l.707.549.88-.32 2.4-.88L28 11.2l-2 1.68-.72.56.16.88a9.022 9.022 0 0 1-.009 3.336l-.151.824.72.56 2 1.76-1.84 3.2-3.28-1.2-.72.56a9.485 9.485 0 0 1-2.814 1.658l-.946.342-.16.88-.4 2.56h-3.68l-.4-2.56-.16-.88-.88-.32a9.55 9.55 0 0 1-2.893-1.691L9.12 22.8l-.88.32-2.4.88L4 20.8l2-1.68.72-.56-.16-.88a9.022 9.022 0 0 1 .009-3.336l.151-.824-.72-.56-2-1.76L5.84 8l3.28 1.2.72-.56a9.485 9.485 0 0 1 2.814-1.658l.946-.342.16-.88.4-2.56h3.68zM16 21.6a5.6 5.6 0 1 0 0-11.2 5.6 5.6 0 0 0 0 11.2zm2.56-20h-5.136a.8.8 0 0 0-.783.635L12.08 5.44a11.21 11.21 0 0 0-3.292 2.011L5.76 6.24h-.267a.798.798 0 0 0-.691.397L2.24 10.961a.798.798 0 0 0 .238 1.038l2.562 2.082a10.647 10.647 0 0 0 .01 3.906l-2.57 2.014a.8.8 0 0 0-.158 1.044L4.8 25.362a.8.8 0 0 0 .693.4h.347l2.96-1.2c.956.798 2.07 1.448 3.282 1.895l.638 3.225c.077.368.399.64.784.64h5.072a.8.8 0 0 0 .783-.635l.561-3.205a11.212 11.212 0 0 0 3.296-1.934l3.024 1.134h.347a.798.798 0 0 0 .691-.397l2.562-4.404a.8.8 0 0 0-.159-1.039l-2.561-2.081a10.647 10.647 0 0 0-.01-3.906l2.41-1.854a.8.8 0 0 0 .158-1.044L27.2 6.64a.8.8 0 0 0-.693-.4h-.347l-2.96 1.2a11.163 11.163 0 0 0-3.282-1.895L19.28 2.32a.801.801 0 0 0-.784-.64h-.017zM16 20a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
-                                                        ></path>
-                                                    </svg>
-                                                </span>
-                                                관리하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="manage-onelab-btn">
-                                                <span
-                                                    class="manage-onelab-icon"
-                                                    aria-hidden="true"
-                                                    ><svg
-                                                        viewBox="0 0 32 32"
-                                                        focusable="false"
-                                                        role="presentation"
-                                                        class="withIcon-icon"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <path
-                                                            d="M17.84 3.2l.4 2.56.16.88.88.32a9.55 9.55 0 0 1 2.893 1.691l.707.549.88-.32 2.4-.88L28 11.2l-2 1.68-.72.56.16.88a9.022 9.022 0 0 1-.009 3.336l-.151.824.72.56 2 1.76-1.84 3.2-3.28-1.2-.72.56a9.485 9.485 0 0 1-2.814 1.658l-.946.342-.16.88-.4 2.56h-3.68l-.4-2.56-.16-.88-.88-.32a9.55 9.55 0 0 1-2.893-1.691L9.12 22.8l-.88.32-2.4.88L4 20.8l2-1.68.72-.56-.16-.88a9.022 9.022 0 0 1 .009-3.336l.151-.824-.72-.56-2-1.76L5.84 8l3.28 1.2.72-.56a9.485 9.485 0 0 1 2.814-1.658l.946-.342.16-.88.4-2.56h3.68zM16 21.6a5.6 5.6 0 1 0 0-11.2 5.6 5.6 0 0 0 0 11.2zm2.56-20h-5.136a.8.8 0 0 0-.783.635L12.08 5.44a11.21 11.21 0 0 0-3.292 2.011L5.76 6.24h-.267a.798.798 0 0 0-.691.397L2.24 10.961a.798.798 0 0 0 .238 1.038l2.562 2.082a10.647 10.647 0 0 0 .01 3.906l-2.57 2.014a.8.8 0 0 0-.158 1.044L4.8 25.362a.8.8 0 0 0 .693.4h.347l2.96-1.2c.956.798 2.07 1.448 3.282 1.895l.638 3.225c.077.368.399.64.784.64h5.072a.8.8 0 0 0 .783-.635l.561-3.205a11.212 11.212 0 0 0 3.296-1.934l3.024 1.134h.347a.798.798 0 0 0 .691-.397l2.562-4.404a.8.8 0 0 0-.159-1.039l-2.561-2.081a10.647 10.647 0 0 0-.01-3.906l2.41-1.854a.8.8 0 0 0 .158-1.044L27.2 6.64a.8.8 0 0 0-.693-.4h-.347l-2.96 1.2a11.163 11.163 0 0 0-3.282-1.895L19.28 2.32a.801.801 0 0 0-.784-.64h-.017zM16 20a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
-                                                        ></path>
-                                                    </svg>
-                                                </span>
-                                                관리하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
+                                    <div class="onelab-service-boxs col-4 manage-onelab-container">
                                     </div>
                                 </div>
                                 <!-- 랩원 목록 ~ 전체 리스트들 감싸는 div -->
                                 <div class="section-body">
                                     <!-- 박스를 감싸고 있는 컨테이너 -->
-                                    <div class="onelab-service-boxs col-4">
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="exit-onelab-btn">
-                                                탈퇴하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="exit-onelab-btn">
-                                                탈퇴하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="exit-onelab-btn">
-                                                탈퇴하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
-                                        <div class="onelab-service-boxs-inner">
-                                            <button class="exit-onelab-btn">
-                                                탈퇴하기
-                                            </button>
-                                            <dl class="onelab-service-detail">
-                                                <dd class="box-icon">
-                                                    <i
-                                                        class="icon-maker-service"
-                                                    ></i>
-                                                </dd>
-                                                <dd class="box-title">
-                                                    <strong
-                                                        >강남 IT
-                                                        아카데미</strong
-                                                    >
-                                                </dd>
-                                                <dd class="box-text">
-                                                    우리 브랜드의 팬을 모으고
-                                                    빠르게 새소식을 알릴 수
-                                                    있어요.
-                                                </dd>
-                                                <dd class="box-last"></dd>
-                                            </dl>
-                                        </div>
+                                    <div class="onelab-service-boxs col-4 member-onelab-container">
                                     </div>
                                 </div>
                             </div>
+                        <div style="height: 50px"></div>
 
                        <!-- 자료 공유 클릭했을 때 나타나는 페이지 -->
                             <div id="share-list" class="main-container">
@@ -926,7 +675,7 @@
                                                         <div class="HomeVerticalCard_content">
                                                             <div class="HomeVerticalCard_thumbnailBox" style="padding-top: 56.25%;">
                                                                 <div class="HomeVerticalCard_thumbnailWrap">
-                                                                
+
                                                                     <div class="ThumbnailImage_container HomeVerticalCard_thumbnail">
                                                                     {% for placefile in place.placefile_set.all %}
                                                                             <img src="/upload/{{ placefile.path }}">
@@ -935,7 +684,7 @@
                                                                         </div>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                             <div class="HomeVerticalCard_infoBox HomeVerticalCard_isStore">
                                                                 <div class="HomeVerticalCard_info">
                                                                     <strong class="Title_title">{{ place.place_title }}</strong>
@@ -2276,7 +2025,7 @@
                                         disabled
                                     />
                                 </li>
-                                
+
                                 <li>
                                     <input
                                         type="text"
@@ -2289,7 +2038,7 @@
                                     />
                                 </li>
                             </ul>
-                           
+
                             <div class="btn-bottom">
                                 <ul class="btn-div2">
                                     <li>
@@ -2372,6 +2121,7 @@
 {%  endblock %}
 
 {% block js %}
+    <script src="{% static 'myPage/js/my-page-onelab-module.js' %}"></script>
     <script src="{% static 'myPage/js/my_page.js' %}"></script>
     <script src="{% static 'myPage/js/note_sending.js' %}"></script>
      <script>
@@ -2419,19 +2169,19 @@
 {#    });#}
 {#});#}
 {#    </script>#}
-    
+
     <script>
      // 더보기 버튼 요소를 선택.
         const moreViewBtn = document.querySelector("#more-view-btn");
-        
+
         // 더보기 버튼 클릭 이벤트에 대한 리스너를 추가.
         moreViewBtn.addEventListener("click", () => {
             // 현재 페이지에서 1을 더한 페이지를 계산.
-            const page = parseInt(moreViewBtn.dataset.page) + 1; 
-        
+            const page = parseInt(moreViewBtn.dataset.page) + 1;
+
             // 현재 페이지 URL에서 쿼리스트링을 제거한 URL을 가져옴
-            const url = window.location.href.split('?')[0]; 
-        
+            const url = window.location.href.split('?')[0];
+
             // fetch & AJAX를 사용하여 서버에 새로운 페이지의 공모전 목록을 요청.
             fetch(`${url}?page=${page}`)
                 // 서버로부터 받은 응답을 텍스트 형식으로 변환.
@@ -2441,24 +2191,24 @@
                     // 받은 HTML 텍스트를 파싱하여 새로운 문서로 만든다.
                     const parser = new DOMParser();
                     const newDocument = parser.parseFromString(html, "text/html");
-        
+
                     // 새로운 문서에서 공모전 목록 항목들을 선택.
                     const newExhibitionItems = newDocument.querySelectorAll(".exhibition-item");
-        
+
                     // 새로운 공모전 목록 항목들을 현재 페이지에 추가.
                     const showList = document.getElementById("show-list");
                     let count = 0;
                     newExhibitionItems.forEach(item => {
                         // exhibitions의 개수만큼만 추가될 수 있도록 제한.
-                        if (count < 4) { 
+                        if (count < 4) {
                             showList.appendChild(item);
                             count++;
                         }
                     });
-        
+
                     // 더보기 버튼의 페이지 데이터를 업데이트.
                     moreViewBtn.dataset.page = page;
-        
+
                     // 만약 더 이상 추가할 공모전이 없다면 더보기 버튼을 숨김.
                     if (count === 3) {
                         moreViewBtn.style.display = "none";
@@ -2470,7 +2220,7 @@
                 });
         });
     </script>
- 
+
     
 {% endblock %}
     
