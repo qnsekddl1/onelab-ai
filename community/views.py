@@ -13,8 +13,21 @@ from member.models import Member, MemberFile
 
 class CommunityWriteView(View):
     def get(self, request):
+        member = Member(**request.session['member'])
+        profile = MemberFile.objects.filter(member=member).first()
 
-        return render(request, 'community/community-write.html')
+        context = {
+            'member': member,
+            'profile': profile,
+        }
+
+        default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
+
+        if profile is None:
+            profile = default_profile_url
+
+
+        return render(request, 'community/community-write.html', context)
 
     @transaction.atomic
     def post(self, request):
@@ -28,7 +41,8 @@ class CommunityWriteView(View):
             'member': member,
             'community_title': data['community-title'],
             'community_content': data['community-content'],
-            'post_status': data['categories']
+            'post_status': data['categories'],
+            'member_file': MemberFile.objects.filter(member=member),
         }
 
         community = Community.objects.create(**data)
@@ -46,14 +60,21 @@ class CommunityDetailView(View):
     def get(self, request):
         community = Community.objects.get(id=request.GET['id'])
         community.update_date = timezone.now()
-        member = request.session['member']['id']
-        profile = MemberFile.objects.filter(member_id=member).first()
+        member = Member(**request.session['member'])
+        profile = MemberFile.objects.filter(member=member).first()
+
 
         context = {
             'community': community,
             'community_file': CommunityFile.objects.filter(community=community),
-            'profile': profile
+            'profile': profile,
         }
+
+        default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
+
+        if profile is None:
+            profile = default_profile_url
+
         return render(request, 'community/community-detail.html', context)
 
 
