@@ -80,6 +80,7 @@ class MainView(View):
                 'share_type': share.share_type,
                 'share_text_major': share.share_text_major,
                 'share_text_name': share.share_text_name,
+                'share_choice_grade': share.share_choice_grade,
             })
 
         # 원랩쪽
@@ -120,26 +121,46 @@ class MainView(View):
 
         # 멤버쪽
         member_id = request.session.get('member', {}).get('id')
-        member_name = request.session.get('member_name')
-        # request.session['member_name'] = MemberSerializer(Member.objects.get(id=request.session['member']['id'])).data
-        # print(request.session['member_name'])
-        # member = request.session['member']['id']
-        # profile = MemberFile.objects.filter(member_id=member).first()
         default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
 
-        # if profile is None:
-        #     profile = default_profile_url
-        #     context = {
-        #         'profile': profile
-        #     }
-        #     return render(request, 'main/main-page.html', context)
-        # else:
-        #     context = {
-        #         'profile': profile
-        #     }
-        #     return render(request, 'main/main-page.html', context)
+        if member_id is None:
+            profile = default_profile_url
+            context = {
+                'places': places,
+                'exhibitions': exhibitions,
+                'shares': shares,
+                'onelabs': onelabs,
+                'profile': profile,
+            }
+            return render(request, 'main/main-page.html', context)
+        else:
+            request.session['member_name'] = MemberSerializer(
+                Member.objects.get(id=request.session['member']['id'])).data
+            member = request.session['member']['id']
 
-        # Member.objects.create(**data)
+            profile = MemberFile.objects.filter(member_id=member).first()
+            if profile is not None:
+                context = {
+                    'places': places,
+                    'exhibitions': exhibitions,
+                    'shares': shares,
+                    'onelabs':onelabs,
+                    'profile': profile,
+                }
+                return render(request, 'main/main-page.html', context)
+
+            else:
+                profile = default_profile_url
+                context = {
+                    'places': places,
+                    'exhibitions': exhibitions,
+                    'shares': shares,
+                    'onelabs': onelabs,
+                    'profile': profile,
+                }
+                return render(request, 'main/main-page.html', context)
+
+            # Member.objects.create(**data)
 
         return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions, 'shares': shares, 'onelabs':onelabs})
     #

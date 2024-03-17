@@ -397,7 +397,8 @@
                                         <a href=""
                                             ><article>
                                                 <div class="commons-thumbnail">
-                                                    <div aria-hidden="true" class="card-thumbnail-card"></div>
+{#                                                    <div aria-hidden="true" class="card-thumbnail-card"></div>#}
+                                                    <img class="card-thumbnail-card" src="{% static 'public/images/main-front-image.png'  %}" alt="">
                                                 </div>
                                                 <div>
                                                     <span class="card-type-badge">기획전</span
@@ -1013,7 +1014,7 @@
                                 </div>
                             </div>
                         </div>
-                        <ul class="like-funding-list-content">
+                        <ul class="like-funding-list-content" style="padding: 45px;">
 {#                            <li class="like-funding-list-card">#}
 {#                                <div class="curation-vertical-card-container">#}
 {#                                    <a class="curation-vertical-card-content" href=""#}
@@ -1055,26 +1056,27 @@
 {#                                    ></a>#}
 {#                                </div>#}
 {#                            </li>#}
-                            {% for share in shares|slice:":6"  %}
+                            {% for share in shares|slice:":8"  %}
                                 {% with first_share_file=share.sharefile_set.first %}
                                     <li class="like-funding-list-card">
                                     <div class="curation-vertical-card-container">
                                         <a class="curation-vertical-card-content" href=""
                                             ><div class="curation-vertical-card-thumbnail-box">
-                                                <div class="curation-vertical-card-thumbnail-wrap">
-                                                    {% if first_exhibition_file %}
-                                                        <img class="thumbnail-image" alt="" src="/upload/{{ first_share_file.path }}" style="width: 100%; height: 100%"/>
-                                                    {% endif %}
-                                                </div>
+{#                                                <div class="curation-vertical-card-thumbnail-wrap">#}
+{#                                                    {% if first_exhibition_file %}#}
+{#                                                        <img class="thumbnail-image" alt="" src="/upload/{{ first_share_file.path }}" style="width: 100%; height: 100%"/>#}
+{#                                                    {% endif %}#}
+{#                                                </div>#}
                                             </div>
                                             <div class="curation-vertical-card-info-box">
                                                 <div class="curation-vertical-card-badge-wrapper">
                                                     <span class="label-badge">{{ share.share_choice_major }}</span>
+                                                    <span class="label-badge">{{ share.share_choice_grade}}</span>
                                                 </div>
                                                 <div class="curation-vertical-card-info">
                                                     <p class="info-string-wrapper-info-string-wrapper">{{ share.share_points }}</p>
                                                     <strong class="title-title"
-                                                        >{{ share.share_content }}
+                                                        >{{ share.share_title }}
                                                     </strong>
                                                 </div>
                                             </div>
