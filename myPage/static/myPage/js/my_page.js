@@ -518,23 +518,23 @@ confirmed_btn_modal.addEventListener("click", (e)=> {
 
 
 // 더보기 했을 때 애니메이션 살리는 기능
-const show_page = document.querySelector("#show-list");
+// const show_page = document.querySelector("#show-list");
+//
+// const main_view = document.querySelector("#exhibit-list");
 
-const main_view = document.querySelector("#exhibit-list");
-
-main_view.addEventListener("mouseover",()=>{
-    
-    const lists = document.querySelectorAll(".swiper-slide");
-    const display_animation = document.querySelectorAll(".css-qn01ot");
-    for(let i=0;i<lists.length;i++) {
-        lists[i].addEventListener("mouseover", ()=>{
-            display_animation[i].classList.add("list-active");
-        })
-        lists[i].addEventListener("mouseout", ()=>{
-            display_animation[i].classList.remove("list-active");
-        })
-    }
-})
+// main_view.addEventListener("mouseover",()=>{
+//
+//     const lists = document.querySelectorAll(".swiper-slide");
+//     const display_animation = document.querySelectorAll(".css-qn01ot");
+//     for(let i=0;i<lists.length;i++) {
+//         lists[i].addEventListener("mouseover", ()=>{
+//             display_animation[i].classList.add("list-active");
+//         })
+//         lists[i].addEventListener("mouseout", ()=>{
+//             display_animation[i].classList.remove("list-active");
+//         })
+//     }
+// })
 // 공모전 더보기 눌렀을 때 기능
 // main_view.addEventListener("mouseover",()=>{
 //     const more_view_containers = document.querySelectorAll(".search-result-scroll-banner-container");
@@ -543,54 +543,54 @@ main_view.addEventListener("mouseover",()=>{
 // })
 
 
-const more_view_btn = document.querySelector("#more-view-btn");
-more_view_btn.addEventListener("click", () => {
-    const more_view_containers = document.querySelectorAll(".search-result-scroll-banner-container");
-    
-    for (let j = 0; j < 3; j ++) {
-        const newDiv = document.createElement("div");
-        newDiv.className = "swiper-slide swiper-slide-active show";
-        newDiv.style.width = "236.8px";
-        newDiv.style.marginRight = "24px";
-
-        newDiv.innerHTML = `
-            <div class="css-1pulbqw">
-                <div class="css-3xk0il"></div>
-                <div class="css-qn01ot">
-                    <div class="css-18m1pdx">
-                        [2023 연말 결산] 와디즈가 조명한 스무 갈래의 열린 길
-                    </div>
-                    <div class="css-ivvewn" style="display: none;">
-                        성공 메이커 이야기 연말 결산
-                    </div>
-                </div>
-            </div>
-        `;
-        show_page.appendChild(newDiv);
-    }
-    const newDiv2 = document.createElement("div");
-    newDiv2.className = "search-result-scroll-banner-container";
-    newDiv2.id = "search-scroll-banner";
-    
-    newDiv2.innerHTML = `
-        <div class="search-result-scroll-banner">
-            <div class="search-result-banner-inner">
-                <div id="more-view-btn" class="search-result-inner-inner">
-                    <span>더보기</span>
-                </div>
-                <div class="search-result-inner-inner">
-                    <span>목록으로 이동</span>
-                </div>
-            </div>
-        </div>
-    `;
-    show_page.appendChild(newDiv2);
-    more_view_containers[0].remove();
-    const new_more_view_btn = newDiv2.querySelector("#more-view-btn");
-    new_more_view_btn.addEventListener("click", ()=>{
-        more_view_btn.click();
-    })
-});
+// const more_view_btn = document.querySelector("#more-view-btn");
+// more_view_btn.addEventListener("click", () => {
+//     const more_view_containers = document.querySelectorAll(".search-result-scroll-banner-container");
+//
+//     for (let j = 0; j < 3; j ++) {
+//         const newDiv = document.createElement("div");
+//         newDiv.className = "swiper-slide swiper-slide-active show";
+//         newDiv.style.width = "236.8px";
+//         newDiv.style.marginRight = "24px";
+//
+//         newDiv.innerHTML = `
+//             <div class="css-1pulbqw">
+//                 <div class="css-3xk0il"></div>
+//                 <div class="css-qn01ot">
+//                     <div class="css-18m1pdx">
+//                         [2023 연말 결산] 와디즈가 조명한 스무 갈래의 열린 길
+//                     </div>
+//                     <div class="css-ivvewn" style="display: none;">
+//                         성공 메이커 이야기 연말 결산
+//                     </div>
+//                 </div>
+//             </div>
+//         `;
+//         show_page.appendChild(newDiv);
+//     }
+//     const newDiv2 = document.createElement("div");
+//     newDiv2.className = "search-result-scroll-banner-container";
+//     newDiv2.id = "search-scroll-banner";
+//
+//     newDiv2.innerHTML = `
+//         <div class="search-result-scroll-banner">
+//             <div class="search-result-banner-inner">
+//                 <div id="more-view-btn" class="search-result-inner-inner">
+//                     <span>더보기</span>
+//                 </div>
+//                 <div class="search-result-inner-inner">
+//                     <span>목록으로 이동</span>
+//                 </div>
+//             </div>
+//         </div>
+//     `;
+//     show_page.appendChild(newDiv2);
+//     more_view_containers[0].remove();
+//     const new_more_view_btn = newDiv2.querySelector("#more-view-btn");
+//     new_more_view_btn.addEventListener("click", ()=>{
+//         more_view_btn.click();
+//     })
+// });
 
 
 

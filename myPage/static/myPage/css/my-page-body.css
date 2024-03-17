@@ -249,8 +249,10 @@ h4{
     background-color: #212529;
     color: #fff;
 }
-.user-container-button{
-    position: relative;
+
+.user-container-button {
+    margin-left: 110px;
+    position: absolute;
     z-index: 0;
     border-radius: 8px;
     width: 61px;
@@ -259,6 +261,7 @@ h4{
     line-height: 28px;
     color: #868e96;
 }
+
 .user-profile{
     background-color: #fff;
     position: relative;
@@ -1412,9 +1415,6 @@ svg.wish-icon>path {
 #search-scroll-banner {
     width: 192px;
 }
-.search-result-scroll-banner-container {
-    width: 198px;
-}
 
 .search-result-scroll-banner {
     position: relative;
@@ -1444,7 +1444,7 @@ svg.wish-icon>path {
 
 .search-result-inner-inner {
     width: 70%;
-    height: 18%;
+    height: 35%;
     background-color: #ffffffea;
     border-radius: 10px;
     margin: 15px auto 10px;
