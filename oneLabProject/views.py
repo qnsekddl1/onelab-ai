@@ -2,6 +2,8 @@ import math
 import ssl
 
 from django.core.paginator import Paginator, EmptyPage
+from django.utils import timezone
+
 from exhibition.models import Exhibition
 from django.db.models import Q, Sum
 from member.models import MemberFile, Member
@@ -9,6 +11,8 @@ from member.serializers import MemberSerializer
 from place.models import Place
 from school.models import School
 from rest_framework.views import APIView
+
+from visitRecord.models import VisitRecord
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -78,6 +82,13 @@ class MainView(View):
         #     return render(request, 'main/main-page.html', context)
 
         # Member.objects.create(**data)
+        # 방문자 기록
+        visit_record, created = VisitRecord.objects.get_or_create(date=timezone.now().date())
+        if created:
+            visit_record.count = 1
+        else:
+            visit_record.count += 1
+        visit_record.save()
 
         return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions})
     #
