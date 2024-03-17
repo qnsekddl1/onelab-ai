@@ -15,6 +15,7 @@ urlpatterns = [
     path('logout/',MemberLogoutView.as_view(),name='logout'),
     path('onelab/api/', MyPageOnelabAPI.as_view(), name='onelab_api'),
     path('deleteonelab/', delete_onelab, name='deleteonelab'),
+
     # path('onelab/quit/<int:id>/', MyPageOnelabQuitAPI.as_view(), name='onelab_quit_api'),
 ]
 

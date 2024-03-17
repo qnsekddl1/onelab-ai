@@ -338,11 +338,39 @@ const addClickEventToManageOnelabButtons = () => {
                     page.style.display = "none";
                 })
                 onelab_page[5].style.display = "block";
+
+                // OneLab 멤버 정보를 불러와서 뿌리는 로직 추가
+                fetch('/myPage/onelab_list/')
+                    .then(response => response.json())
+                    .then(data => {
+                        // OneLab 멤버 정보를 받아서 처리하는 함수 호출
+                        showOnelabMembers(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             } else {
                 onelab_page[5].style.display = "none";
             }
         })
     })
+}
+
+// OneLab 멤버 정보를 받아서 처리하는 함수
+const showOnelabMembers = (members) => {
+    let memberList = '';
+    members.forEach(member => {
+        memberList += `
+            <div>
+                <p>이름: ${member.member_name}</p>
+                <p>학교: ${member.university_member_school}</p>
+                <p>전공: ${member.university_member_major}</p>
+                <p>포인트: ${member.university_member_points}</p>
+            </div>
+        `;
+    });
+    // 멤버 정보를 해당 위치에 표시
+    document.getElementById('member-list-container').innerHTML = memberList;
 }
 function getCSRFToken() {
     const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');

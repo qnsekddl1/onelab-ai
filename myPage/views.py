@@ -477,6 +477,20 @@ class MemberLogoutView(View):
     def get(self, request):
         request.session.clear()
         return redirect('/')
+# class OneLabListAPI(APIView):
+#     def get(self, request, page):
+#         row_count = 5
+#         offset = (page - 1) * row_count
+#         limit = page * row_count
+#
+#         columns = [
+#             'id',
+#             'member_name',
+#             'member_id',
+#             'onelab_member_status',
+#             'created_date'
+#         ]
+
 
 
 def delete_onelab(request):
