@@ -9,6 +9,7 @@
 {% block title %}커뮤니티 상세보기{% endblock %}
     
 {% block content %}
+    {% include 'community/header.html' %}
     <div id="page-container">
         <main id="main" style="visibility: visible;">
             <!-- 헤더 -->
@@ -38,7 +39,7 @@
                                         </p>
                                         <div class="community-title-wrapper">
                                             <p class="community-title">
-                                                {{ community.community_title}}
+                                                {{ community.community_title }}
                                             </p>
                                             <!-- 좋아요 버튼 -->
                                             <div class="community-like-icon">
@@ -51,7 +52,7 @@
                                             </div>
                                         </div>
                                         <div class="community-writer">
-                                            <span style="font-size: 18px">{{ community.member.member_name }} | 조회 {{ community.community_view_count }}</span>
+                                            <span style="font-size: 18px">{{ community.member.member_name }} </span>
                                             <span style="font-size: 18px"></span>
                                         </div>
                                        
@@ -93,8 +94,16 @@
                                                         <!-- a태그 클릭시 마이페이지 이동 -->
                                                         <!-- 로그인 안되어있을 경우 로그인 페이지로 이동 -->
                                                         <a href="">
-                                                            <div class="avatar" style="width: 36px; height: 36px;">
-                                                                <span></span>
+                                                            <div class="project-navbar-maker">
+                                                                {% if profile.path is None or profile.path == '' %}
+                                                                    <img class="profile" style="width: 11%" src="{% static 'myPage/images/profile.jpg' %}">
+                                                                {% else %}
+                                                                    <img class="profile" src="/upload/{{ profile.path}}"
+                                                                         style=" 
+                                                                         width:42px; 
+                                                                         height: 42px; 
+                                                                         border-radius: 100%">
+                                                                {% endif %}
                                                             </div>
                                                         </a>
                                                     </div>

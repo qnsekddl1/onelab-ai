@@ -1,9 +1,8 @@
 import math
 import ssl
-
 from django.core.paginator import Paginator, EmptyPage
-
 from community.models import Community
+from django.utils import timezone
 from exhibition.models import Exhibition
 from django.db.models import Q, Sum
 from member.models import MemberFile, Member
@@ -13,7 +12,9 @@ from place.models import Place
 from school.models import School
 from rest_framework.views import APIView
 
+
 from share.models import Share
+from visitRecord.models import VisitRecord
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -118,6 +119,13 @@ class MainView(View):
         #     })
         # print("들어옴")
         # print(onelab_info)
+        # 방문자 기록
+        visit_record, created = VisitRecord.objects.get_or_create(date=timezone.now().date())
+        if created:
+            visit_record.count = 1
+        else:
+            visit_record.count += 1
+        visit_record.save()
 
         # 멤버쪽
         member_id = request.session.get('member', {}).get('id')
@@ -137,7 +145,6 @@ class MainView(View):
             request.session['member_name'] = MemberSerializer(
                 Member.objects.get(id=request.session['member']['id'])).data
             member = request.session['member']['id']
-
             profile = MemberFile.objects.filter(member_id=member).first()
             if profile is not None:
                 context = {
@@ -149,6 +156,7 @@ class MainView(View):
                 }
                 return render(request, 'main/main-page.html', context)
 
+        # Member.objects.create(**data)
             else:
                 profile = default_profile_url
                 context = {

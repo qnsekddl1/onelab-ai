@@ -30,7 +30,7 @@ class Community(Period):
         return f'/community/detail/?id={self.id}'
 
 
-class CommunityFile(models.Model):
+class CommunityFile(Period):
     file = models.ForeignKey(File, primary_key=True, on_delete=models.PROTECT, null=False)
     community = models.ForeignKey(Community, on_delete=models.PROTECT, null=False, related_name='files')
     path = models.ImageField(null=False, blank=False, upload_to='community/%y/%m/d')
