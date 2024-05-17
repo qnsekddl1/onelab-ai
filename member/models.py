@@ -2,6 +2,7 @@ from django.db import models
 
 from file.models import File
 from oneLabProject.models import Period
+from tag.models import Tag
 
 
 class Member(Period):
@@ -15,6 +16,7 @@ class Member(Period):
     # 일반 회원: True, 관리자: False
     member_status = models.BooleanField(null=False, default=True)
     member_type = models.TextField(blank=False, default="oneLabProject")
+    tag = models.ForeignKey(Tag, on_delete=models.PROTECT, null=False)
 
     class Meta:
         db_table = 'tbl_member'

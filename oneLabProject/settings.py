@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import pymysql
+
+# pymysql을 MySQLdb로 설치
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'tag',
     'visitRecord',
     'exhibitionMember',
     'placeMember',
@@ -142,15 +147,18 @@ DATABASES = {
         # DBMS 모듈 경로
         'ENGINE': 'django.db.backends.mysql',
         # DATABASE 이름
-        'NAME': 'onelab',
+        'NAME': 'oneai',
         # 계정 이름
-        'USER': 'onelab',
+        'USER': 'oneai',
         # 비밀번호
         'PASSWORD': '1234',
         # DBMS가 설치된 서버 PC의 IP
-        'HOST': '54.180.25.248',
+        'HOST': '54.180.120.54',
         # DBMS의 포트번호
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+        }
     }
 }
 
