@@ -10,9 +10,9 @@ from university.models import University
 
 
 class OneLab(Period):
-    onelab_main_title = models.CharField(blank=False, null=False, max_length=30)
-    onelab_content = models.CharField(blank=False, null=False, max_length=100)
-    onelab_detail_content = models.CharField(blank=False, null=False, max_length=2000)
+    onelab_main_title = models.TextField(blank=False, null=False)
+    onelab_content = models.TextField(blank=False, null=False)
+    onelab_detail_content = models.TextField(blank=False, null=False)
     onelab_url = models.CharField(blank=False, null=False, max_length=300, default='http://localhost:')
     onelab_max_count = models.SmallIntegerField(null=False, default=2, max_length=10)
     onelab_ask_email = models.CharField(null=False, max_length=300)

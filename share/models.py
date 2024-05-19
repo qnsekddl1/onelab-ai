@@ -11,8 +11,8 @@ from university.models import University
 
 
 class Share(Period):
-    share_title = models.CharField(null=False, max_length=30)
-    share_content = models.CharField(null=False, max_length=2000)
+    share_title = models.TextField(null=False, blank=False)
+    share_content = models.TextField(null=False, blank=False)
     share_points = models.BigIntegerField(null=True, default=1000)
     share_choice_major = models.CharField(null=False, max_length=30)
     share_choice_grade = models.CharField(null=False, max_length=30)

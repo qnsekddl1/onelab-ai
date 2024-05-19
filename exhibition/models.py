@@ -8,8 +8,8 @@ from school.models import School
 
 
 class Exhibition(Period):
-    exhibition_title = models.CharField(null=False, max_length=40)
-    exhibition_content = models.CharField(null=False, max_length=2000)
+    exhibition_title = models.TextField(null=False, blank=False)
+    exhibition_content = models.TextField(null=False, blank=False)
     # False=관리자, True=school
     exhibition_status = models.BooleanField(null=False, blank=False, default=True)
     school = models.ForeignKey(School, on_delete=models.PROTECT)
