@@ -12,7 +12,7 @@ class Tag(Period):
     ]
 
     # TAG
-    tag_name = models.SmallIntegerField(blank=False, null=False, max_length=50)
+    tag_name = models.SmallIntegerField(blank=False, null=False)
 
     class Meta:
         db_table = 'tbl_tag'
