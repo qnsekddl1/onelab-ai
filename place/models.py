@@ -14,8 +14,8 @@ from school.models import School
 
 class Place(Period):
 
-    place_title = models.CharField(null=False, max_length=30)
-    place_content = models.CharField(null=False, max_length=300)
+    place_title = models.TextField(null=False, blank=False)
+    place_content = models.TextField(null=False, blank=False)
     place_points = models.BigIntegerField(null=True, default=1000)
     # False=결제 전, True=결제완료
     place_order_status = models.BooleanField(null=False, default=False)
