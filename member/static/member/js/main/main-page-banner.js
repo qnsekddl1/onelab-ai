@@ -17,7 +17,7 @@
             <div>
                 <a href="" class="visualslide-container">
                     <img
-                        src="/staticfiles/member/images/banner-main1.png"
+                        src="/staticfiles/js/main-yujin/images/banner03.jpg"
                         alt=""
                         class="main-banner-img"
                     />
@@ -39,7 +39,7 @@
             <div>
                 <a href="" class="visualslide-container">
                     <img
-                        src="/staticfiles/member/images/banner-main1.png"
+                        src="/staticfiles/js/main-yujin/images/banner01.jpg"
                         alt=""
                         class="main-banner-img"
                     />
