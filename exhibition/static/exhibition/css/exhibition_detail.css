@@ -1074,3 +1074,17 @@ button.comment-ok-btn.active {
 #content {
     white-space: pre-line;
 }
+
+/* AI 추천 공모전 섹션 스타일 */
+.rc-name {
+    font-family: inherit;
+    margin-top: 20px;
+    margin-left: 385px;
+}
+
+.rc-list-card {
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: #0f0f0f;
+    color: red;
+}
