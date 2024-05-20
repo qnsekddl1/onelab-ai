@@ -114,7 +114,56 @@ class ExhibitionWriteView(View):
         return redirect(exhibition.get_absolute_url())
 
 
+# OLD
 
+# class ExhibitionDetailView(View):
+#     def get(self, request):
+#         exhibition = Exhibition.objects.get(id=request.GET['id'])
+#         school = exhibition.school
+#         member = school.member
+#
+#         exhibition.exhibition_view_count += 1
+#         exhibition.save(update_fields=['exhibition_view_count'])
+#
+#         context = {
+#             'exhibition' : exhibition,
+#             'exhibition_files' : list(exhibition.exhibitionfile_set.all()),
+#             'member_name' : member.member_name
+#         }
+#
+#         return render(request, 'exhibition/detail.html', context)
+#     def post(self, request):
+#         data = request.POST
+#         member_id = request.session['member']['id']
+#         university = University.objects.get(member_id=member_id)
+#
+#         if university is None:
+#             return render(request, 'exhibition/detail.html', {'error': '대학생만 참여 가능합니다.'})
+#
+#         exhibition_id = data.get('id')
+#
+#         # 이미 참여한 공모전인지 확인
+#         existing_member = ExhibitionMember.objects.filter(university_id=university.member_id,
+#                                                           exhibition_id=exhibition_id).first()
+#         if existing_member:
+#             # 이미 참여한 경우에는 업데이트 시간만 변경
+#
+#             from django.utils import timezone
+#             existing_member.updated_at = timezone.now()
+#             existing_member.save()
+#         else:
+#             # 참여한 공모전이 없는 경우에만 새로운 데이터 생성
+#             datas = {
+#                 'university_id': university.member_id,
+#                 'exhibition_id': exhibition_id,
+#                 'exhibition_member_status': 0
+#             }
+#             ExhibitionMember.objects.create(**datas)
+#
+#         return redirect('myPage:main')
+
+
+# # NEW
 class ExhibitionDetailView(View):
     def get(self, request):
         exhibition = Exhibition.objects.get(id=request.GET['id'])
@@ -124,13 +173,18 @@ class ExhibitionDetailView(View):
         exhibition.exhibition_view_count += 1
         exhibition.save(update_fields=['exhibition_view_count'])
 
+        # 최근 전시 목록을 가져옵니다. 필요에 따라 쿼리를 조정하세요.
+        exhibitions = Exhibition.objects.order_by('-created_date')[:4]
+
         context = {
-            'exhibition' : exhibition,
-            'exhibition_files' : list(exhibition.exhibitionfile_set.all()),
-            'member_name' : member.member_name
+            'exhibition': exhibition,
+            'exhibition_files': list(exhibition.exhibitionfile_set.all()),
+            'member_name': member.member_name,
+            'exhibitions': exhibitions  # 추가된 부분
         }
 
         return render(request, 'exhibition/detail.html', context)
+
     def post(self, request):
         data = request.POST
         member_id = request.session['member']['id']
@@ -146,7 +200,6 @@ class ExhibitionDetailView(View):
                                                           exhibition_id=exhibition_id).first()
         if existing_member:
             # 이미 참여한 경우에는 업데이트 시간만 변경
-
             from django.utils import timezone
             existing_member.updated_at = timezone.now()
             existing_member.save()
@@ -160,6 +213,8 @@ class ExhibitionDetailView(View):
             ExhibitionMember.objects.create(**datas)
 
         return redirect('myPage:main')
+
+
 
 class ExhibitionFileDownloadView(View):
     def get(self, request, file_path, *args, **kwargs):
@@ -257,3 +312,8 @@ class ExhibitionUpdateView(View):
                                               exhibition=exhibition)
 
         return redirect(exhibition.get_absolute_url())
+
+
+# class ExhibitionRecommendationView(View):
+#     def get_inex_from_title(self, title: str):
+#         exhibition = Exhibition.objects.get()
