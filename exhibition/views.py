@@ -249,6 +249,29 @@ class ExhibitionFileDownloadView(View):
 
 
 # NEW
+# class ExhibitionListView(View):
+#     def get(self, request):
+#         member_data = request.session.get('member')
+#         if member_data:
+#             tag_id = member_data.get('tag')
+#             if tag_id:
+#                 try:
+#                     tag_instance = Tag.objects.get(pk=tag_id)
+#                     member_data['tag'] = tag_instance
+#                 except Tag.DoesNotExist:
+#                     member_data['tag'] = None
+#             member = Member(**member_data)
+#         else:
+#             member = None
+#
+#         context = {
+#             'exhibitions': list(Exhibition.enabled_objects.all()),
+#             'member': member
+#         }
+#
+#         return render(request, 'exhibition/list.html', context)
+
+# # NEW NEW
 class ExhibitionListView(View):
     def get(self, request):
         member_data = request.session.get('member')
@@ -264,13 +287,17 @@ class ExhibitionListView(View):
         else:
             member = None
 
+        exhibition_list = Exhibition.enabled_objects.all()
+        paginator = Paginator(exhibition_list, 8)  # 페이지당 8개씩
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         context = {
-            'exhibitions': list(Exhibition.enabled_objects.all()),
+            'page_obj': page_obj,
             'member': member
         }
 
         return render(request, 'exhibition/list.html', context)
-
 
 
 
