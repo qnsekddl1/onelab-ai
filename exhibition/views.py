@@ -1,5 +1,7 @@
 import mimetypes
 from urllib.parse import quote
+
+from django.core.paginator import Paginator
 from django.utils.encoding import iri_to_uri
 
 from django.core.files.storage import FileSystemStorage
@@ -7,6 +9,7 @@ from django.db import transaction
 from django.http import FileResponse
 from django.shortcuts import render, redirect
 from django.views import View
+from django.http import JsonResponse
 
 from exhibition.models import Exhibition, ExhibitionFile
 from exhibitionMember.models import ExhibitionMember
@@ -14,8 +17,53 @@ from file.models import File
 from member.models import Member
 from school.models import School
 from university.models import University
+from tag.models import Tag
 
+# # OLD
+# class ExhibitionWriteView(View):
+#     def get(self, request):
+#         return render(request, 'exhibition/write.html')
+#
+#     @transaction.atomic
+#     def post(self, request):
+#         data = request.POST
+#         files = request.FILES
+#
+#         member_data = request.session.get('member', {})
+#         tag_id = member_data.get('tag')
+#         if tag_id:
+#             try:
+#                 tag_instance = Tag.objects.get(pk=tag_id)
+#                 member_data['tag'] = tag_instance
+#             except Tag.DoesNotExist:
+#                 member_data['tag'] = None
+#
+#         member = Member(**member_data)
+#         member.save()
+#         school = School.objects.get(member=member)
+#
+#         exhibition_data = {
+#             'exhibition_title': data['exhibition-title'],
+#             'exhibition_content': data['exhibition-content'],
+#             'school': school,
+#             'exhibition_url': data['exhibition-url']
+#         }
+#
+#         exhibition = Exhibition.objects.create(**exhibition_data)
+#
+#         for key, file in files.items():
+#             file_instance = File.objects.create(file_size=file.size)
+#
+#             if key == 'upload4':  # upload4 파일이면 download_path 필드에 저장
+#                 ExhibitionFile.objects.create(file=file_instance, path=None, download_path=file, preview=False,
+#                                               exhibition=exhibition)
+#             else:
+#                 ExhibitionFile.objects.create(file=file_instance, path=file, download_path=None, preview=key == 'upload1',
+#                                               exhibition=exhibition)
+#
+#         return redirect(exhibition.get_absolute_url())
 
+# # NEW
 class ExhibitionWriteView(View):
     def get(self, request):
         return render(request, 'exhibition/write.html')
@@ -23,36 +71,49 @@ class ExhibitionWriteView(View):
     @transaction.atomic
     def post(self, request):
         data = request.POST
-
         files = request.FILES
 
-        member = Member(**request.session['member'])
-        school=School.objects.get(member=member)
-        # school = School(**request.session['member'])
+        member_data = request.session.get('member', {})
+        tag_id = member_data.get('tag')
+        if tag_id:
+            try:
+                tag_instance = Tag.objects.get(pk=tag_id)
+                member_data['tag'] = tag_instance
+            except Tag.DoesNotExist:
+                member_data['tag'] = None
 
-        exhibition_url = data['exhibition-url']
-        print(exhibition_url)
+        member = Member(**member_data)
+        member.save()
 
-        data = {
-            'exhibition_title' : data['exhibition-title'],
-            'exhibition_content' : data['exhibition-content'],
-            'school' : school,
-            'exhibition_url' : data['exhibition-url']
+        try:
+            school = School.objects.get(member=member)
+        except School.DoesNotExist:
+            # School 객체가 없을 경우 새로운 School 객체를 생성합니다.
+            # 적절한 필드를 사용하여 객체를 생성합니다.
+            school = School.objects.create(member=member)
+
+        exhibition_data = {
+            'exhibition_title': data['exhibition-title'],
+            'exhibition_content': data['exhibition-content'],
+            'school': school,
+            'exhibition_url': data['exhibition-url']
         }
 
-        exhibition = Exhibition.objects.create(**data)
+        exhibition = Exhibition.objects.create(**exhibition_data)
 
-        for key, file in request.FILES.items():
+        for key, file in files.items():
             file_instance = File.objects.create(file_size=file.size)
 
             if key == 'upload4':  # upload4 파일이면 download_path 필드에 저장
                 ExhibitionFile.objects.create(file=file_instance, path=None, download_path=file, preview=False,
                                               exhibition=exhibition)
             else:
-                ExhibitionFile.objects.create(file=file_instance, path=file, download_path=None, preview=key=='upload1',
+                ExhibitionFile.objects.create(file=file_instance, path=file, download_path=None, preview=key == 'upload1',
                                               exhibition=exhibition)
 
         return redirect(exhibition.get_absolute_url())
+
+
 
 class ExhibitionDetailView(View):
     def get(self, request):
@@ -119,15 +180,44 @@ class ExhibitionFileDownloadView(View):
         response['Content-Disposition'] = f'attachment; filename="{encoded_file_name}"; filename*=UTF-8\'\'{encoded_file_name}'
         return response
 
+
+# # OLD
+# class ExhibitionListView(View):
+#     def get(self, request):
+#         member = Member(**request.session['member'])
+#         context = {
+#             'exhibitions' : list(Exhibition.enabled_objects.all()),
+#             'member' : member
+#         }
+#
+#         return render(request, 'exhibition/list.html', context)
+
+
+# NEW
 class ExhibitionListView(View):
     def get(self, request):
-        member = Member(**request.session['member'])
+        member_data = request.session.get('member')
+        if member_data:
+            tag_id = member_data.get('tag')
+            if tag_id:
+                try:
+                    tag_instance = Tag.objects.get(pk=tag_id)
+                    member_data['tag'] = tag_instance
+                except Tag.DoesNotExist:
+                    member_data['tag'] = None
+            member = Member(**member_data)
+        else:
+            member = None
+
         context = {
-            'exhibitions' : list(Exhibition.enabled_objects.all()),
-            'member' : member
+            'exhibitions': list(Exhibition.enabled_objects.all()),
+            'member': member
         }
 
         return render(request, 'exhibition/list.html', context)
+
+
+
 
 class ExhibitionUpdateView(View):
     def get(self, request, id):
