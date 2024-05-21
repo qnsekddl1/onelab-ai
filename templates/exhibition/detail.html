@@ -77,18 +77,18 @@
                                                     <!-- 파일 출력 쪽 -->
                                                     <div class="detail-info-header-product-info header-containers">
                                                         <dl>
-                                                            <div class="detail-info-header-app-coupon-banner">
-                                                                {% for file in exhibition.exhibitionfile_set.all %}
-                                                                    {% if file.download_path %}
-                                                                        <a href="{% url 'download' file_path=file.download_path %}" class="available-coupon-button-button">
-                                                                            <input type="file" style="display: none" />양식 다운로드
-                                                                            <svg viewBox="0 0 48 48" focusable="false" role="presentation" class="with-icon-icon available-coupon-button-icon">
-                                                                                <path d="M40.8 43.2H7.2v-2.4h33.6v2.4zm-5.28-22.08L25.2 31.44V4.8h-2.4v26.64L12.48 21.12 10.8 22.8 24 36l13.2-13.2-1.68-1.68z"></path>
-                                                                            </svg>
-                                                                        </a>
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            </div>
+{#                                                            <div class="detail-info-header-app-coupon-banner">#}
+{#                                                                {% for file in exhibition.exhibitionfile_set.all %}#}
+{#                                                                    {% if file.download_path %}#}
+{#                                                                        <a href="{% url 'download' file_path=file.download_path %}" class="available-coupon-button-button">#}
+{#                                                                            <input type="file" style="display: none" />양식 다운로드#}
+{#                                                                            <svg viewBox="0 0 48 48" focusable="false" role="presentation" class="with-icon-icon available-coupon-button-icon">#}
+{#                                                                                <path d="M40.8 43.2H7.2v-2.4h33.6v2.4zm-5.28-22.08L25.2 31.44V4.8h-2.4v26.64L12.48 21.12 10.8 22.8 24 36l13.2-13.2-1.68-1.68z"></path>#}
+{#                                                                            </svg>#}
+{#                                                                        </a>#}
+{#                                                                    {% endif %}#}
+{#                                                                {% endfor %}#}
+{#                                                            </div>#}
                                                         </dl>
                                                     </div>
                                                 </div>
@@ -203,9 +203,9 @@
                                                         {% with preview_image=True %}{% endwith %}
                                                     {% endif %}
                                                 {% endfor %}
-                                                {% if not preview_image %}
-                                                    <img src="{% static 'public/images/competition_poster.png' %}" class="preview">
-                                                {% endif %}
+{#                                                {% if not preview_image %}#}
+{#                                                    <img src="{% static 'public/images/competition_poster.png' %}" class="preview">#}
+{#                                                {% endif %}#}
                                             {% endwith %}
                                         </div>
                                         <div class="css-qn01ot">
