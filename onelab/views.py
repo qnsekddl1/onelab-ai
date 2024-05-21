@@ -112,5 +112,3 @@ class OnelabListView(View):
 
         return render(request, 'onelab/one-lab-list.html', context)
 
-    def post(self, request):
-        pass
