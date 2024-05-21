@@ -35,7 +35,7 @@ class GetRecommendationsAPIView(APIView):
         print(f'평균 유사도 점수 : {mean_similarity_scores}')
 
         max_similarity_index = np.argmax(mean_similarity_scores)
-        print(f'유사도 높은 인덱스 개수 : {max_similarity_index}')
+        print(f'가장 높은 평균 유사도 점수를 가진 OneLab 객체의 인덱스 : {max_similarity_index}')
         return max_similarity_index, content_vectors
 
     def recommend_similar_onelabs(self, member_tag, content_vectors, num_recommendations=3):

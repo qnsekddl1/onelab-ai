@@ -290,7 +290,7 @@
                                 {% with first_onelab_file=onelab.files.0 %}
                                     <div class="recommend-funding-wrap-card" style="width: 253.667px;">
                                         <div class="curation-vertical-card-container">
-                                            <a class="curation-vertical-card-content" href="">
+                                            <a href="{{ onelab.get_absolute_url }}" class="curation-vertical-card-content">
                                                 <div class="curation-vertical-card-thumbnail-box">
                                                     <div class="curation-vertical-card-thumbnail-wrap">
                                                         {% if first_onelab_file %}
@@ -319,18 +319,18 @@
                                 {% endwith %}
                             {% endfor %}
                         </div>
-                        <div class="recommend-funding-wrap-show-more-outer">
-                            <button data-event="web.main.recommendation.more" class="recommend-funding-wrap-google-tagged-button" type="button">
-                                <span>
-                                    <svg viewBox="0 0 40 40" focusable="false" role="presentation" class="withicon-icon button-icon" aria-hidden="true">
-                                        <path d="M35 16V7l-3.3 3.3A17.16 17.16 0 0 0 20 3 17 17 0 0 0 3 20H1a19 19 0 0 1 32.3-13.7L31 3h9v9z"></path>
-                                        <path d="M38 20a18.94 18.94 0 0 1-5.3 13.3L33 37v-9h-9l3.3 3.3A17 17 0 0 0 37 20z"></path>
-                                        <path d="M26 20a6 6 0 1 1-6-6 6 6 0 0 1 6 6z"></path>
-                                    </svg>
-                                    더보기
-                                </span>
-                            </button>
-                        </div>
+{#                        <div class="recommend-funding-wrap-show-more-outer">#}
+{#                            <button data-event="web.main.recommendation.more" class="recommend-funding-wrap-google-tagged-button" type="button">#}
+{#                                <span>#}
+{#                                    <svg viewBox="0 0 40 40" focusable="false" role="presentation" class="withicon-icon button-icon" aria-hidden="true">#}
+{#                                        <path d="M35 16V7l-3.3 3.3A17.16 17.16 0 0 0 20 3 17 17 0 0 0 3 20H1a19 19 0 0 1 32.3-13.7L31 3h9v9z"></path>#}
+{#                                        <path d="M38 20a18.94 18.94 0 0 1-5.3 13.3L33 37v-9h-9l3.3 3.3A17 17 0 0 0 37 20z"></path>#}
+{#                                        <path d="M26 20a6 6 0 1 1-6-6 6 6 0 0 1 6 6z"></path>#}
+{#                                    </svg>#}
+{#                                    더보기#}
+{#                                </span>#}
+{#                            </button>#}
+{#                        </div>#}
 
                         </div>
                     </div>
@@ -613,8 +613,8 @@
                                         style="width: 241px; display: none;"
                                     >
                                         <p>
-                                            <em>급상승 프로젝트</em><br />24시간을 기준으로 전날 대비 달성률이 높은
-                                            프로젝트가 노출됩니다. 단, 의도적으로 악용되는 경우 노출에서 제외될 수
+                                            <em>급상승 프로젝트</em><br />24시간을 기준으로 전날 대비 조회수가 높은
+                                            커뮤니티가 노출됩니다. 단, 의도적으로 악용되는 경우 노출에서 제외될 수
                                             있습니다.
                                         </p>
                                     </div>
@@ -663,15 +663,15 @@
 {#                                    ></a>#}
 {#                                </div>#}
 {#                            </li>#}
-                            {% for onelab in onelabs|slice:":6"  %}
-                                {% with first_onelab_file=onelab.onelabfile_set.first %}
+                                {% for community in communities|slice:":6"  %}
+                                {% with first_community_file=community.communityfile_set.first %}
                                     <li class="hot-funding-list-card">
                                         <div class="curation-vertical-card-container">
-                                            <a class="curation-vertical-card-content" href=""
+                                            <a class="curation-vertical-card-content" href="{{ community.get_absolute_url }}"
                                                 ><div class="curation-vertical-card-thumbnail-box">
                                                     <div class="curation-vertical-card-thumbnail-wrap">
-                                                        {% if first_onelab_file %}
-                                                            <img class="thumbnail-image" alt="" src="/upload/{{ first_onelab_file.path }}" style="width: 100%; height: 100%"/>
+                                                        {% if first_community_file %}
+                                                            <img class="thumbnail-image" alt="" src="/upload/{{ first_community_file.path }}" style="width: 100%; height: 100%"/>
                                                         {% endif %}
                                                     </div>
                                                 </div>
@@ -680,9 +680,9 @@
 {#                                                        <span class="label-badge">예약구매</span>#}
 {#                                                    </div>#}
                                                     <div class="curation-vertical-card-info">
-                                                        <p class="info-string-wrapper-info-string-wrapper">{{ onelab.onelab_main_title }}</p>
+                                                        <p class="info-string-wrapper-info-string-wrapper">{{ community.community_title }}</p>
                                                         <strong class="title-title"
-                                                            >{{ onelab.onelab_content }}</strong
+                                                            >{{ community.community_content }}</strong
                                                         >
                                                     </div>
                                                 </div>
