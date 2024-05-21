@@ -7,7 +7,7 @@ from django.utils.encoding import iri_to_uri
 from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.http import FileResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
 
@@ -18,6 +18,8 @@ from member.models import Member
 from school.models import School
 from university.models import University
 from tag.models import Tag
+
+
 
 # # OLD
 # class ExhibitionWriteView(View):
@@ -113,9 +115,7 @@ class ExhibitionWriteView(View):
 
         return redirect(exhibition.get_absolute_url())
 
-
-# OLD
-
+# # NEW
 # class ExhibitionDetailView(View):
 #     def get(self, request):
 #         exhibition = Exhibition.objects.get(id=request.GET['id'])
@@ -125,13 +125,18 @@ class ExhibitionWriteView(View):
 #         exhibition.exhibition_view_count += 1
 #         exhibition.save(update_fields=['exhibition_view_count'])
 #
+#         # 최근 전시 목록을 가져옵니다. 필요에 따라 쿼리를 조정하세요.
+#         exhibitions = Exhibition.objects.order_by('-created_date')[:4]
+#
 #         context = {
-#             'exhibition' : exhibition,
-#             'exhibition_files' : list(exhibition.exhibitionfile_set.all()),
-#             'member_name' : member.member_name
+#             'exhibition': exhibition,
+#             'exhibition_files': list(exhibition.exhibitionfile_set.all()),
+#             'member_name': member.member_name,
+#             'exhibitions': exhibitions  # 추가된 부분
 #         }
 #
 #         return render(request, 'exhibition/detail.html', context)
+#
 #     def post(self, request):
 #         data = request.POST
 #         member_id = request.session['member']['id']
@@ -147,7 +152,6 @@ class ExhibitionWriteView(View):
 #                                                           exhibition_id=exhibition_id).first()
 #         if existing_member:
 #             # 이미 참여한 경우에는 업데이트 시간만 변경
-#
 #             from django.utils import timezone
 #             existing_member.updated_at = timezone.now()
 #             existing_member.save()
@@ -163,24 +167,26 @@ class ExhibitionWriteView(View):
 #         return redirect('myPage:main')
 
 
-# # NEW
+# NEW NEW
+
 class ExhibitionDetailView(View):
     def get(self, request):
-        exhibition = Exhibition.objects.get(id=request.GET['id'])
+        exhibition_id = request.GET.get('id')
+        exhibition = get_object_or_404(Exhibition, id=exhibition_id)
         school = exhibition.school
         member = school.member
 
         exhibition.exhibition_view_count += 1
         exhibition.save(update_fields=['exhibition_view_count'])
 
-        # 최근 전시 목록을 가져옵니다. 필요에 따라 쿼리를 조정하세요.
-        exhibitions = Exhibition.objects.order_by('-created_date')[:4]
+        # 추천 전시회를 가져옵니다
+        recommended_exhibitions = get_recommendations(exhibition_id)
 
         context = {
             'exhibition': exhibition,
             'exhibition_files': list(exhibition.exhibitionfile_set.all()),
             'member_name': member.member_name,
-            'exhibitions': exhibitions  # 추가된 부분
+            'exhibitions': recommended_exhibitions
         }
 
         return render(request, 'exhibition/detail.html', context)
@@ -236,42 +242,6 @@ class ExhibitionFileDownloadView(View):
         return response
 
 
-# # OLD
-# class ExhibitionListView(View):
-#     def get(self, request):
-#         member = Member(**request.session['member'])
-#         context = {
-#             'exhibitions' : list(Exhibition.enabled_objects.all()),
-#             'member' : member
-#         }
-#
-#         return render(request, 'exhibition/list.html', context)
-
-
-# NEW
-# class ExhibitionListView(View):
-#     def get(self, request):
-#         member_data = request.session.get('member')
-#         if member_data:
-#             tag_id = member_data.get('tag')
-#             if tag_id:
-#                 try:
-#                     tag_instance = Tag.objects.get(pk=tag_id)
-#                     member_data['tag'] = tag_instance
-#                 except Tag.DoesNotExist:
-#                     member_data['tag'] = None
-#             member = Member(**member_data)
-#         else:
-#             member = None
-#
-#         context = {
-#             'exhibitions': list(Exhibition.enabled_objects.all()),
-#             'member': member
-#         }
-#
-#         return render(request, 'exhibition/list.html', context)
-
-# # NEW NEW
 class ExhibitionListView(View):
     def get(self, request):
         member_data = request.session.get('member')
@@ -341,6 +311,49 @@ class ExhibitionUpdateView(View):
         return redirect(exhibition.get_absolute_url())
 
 
-# class ExhibitionRecommendationView(View):
-#     def get_inex_from_title(self, title: str):
-#         exhibition = Exhibition.objects.get()
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+def get_recommendations(exhibition_id, num_recommendations=4):
+    # 모든 전시회 데이터를 가져옵니다
+    exhibitions = Exhibition.objects.all()
+
+    # 전시회 제목과 내용을 결합하여 수집합니다
+    content_list = [
+        f"{' '.join(ex.exhibition_title.split()[1:])} {' '.join(ex.exhibition_content.split()[1:5])}"
+        for ex in exhibitions
+    ]
+    #
+    # # 전시회 내용을 수집합니다
+    # content_list = [ex.exhibition_content for ex in exhibitions]
+
+    # 전시회 제목을 수집합니다
+    # content_list = [ex.exhibition_title for ex in exhibitions]
+
+    # CountVectorizer를 사용하여 텍스트 데이터를 벡터화합니다
+    vectorizer = CountVectorizer()
+    content_vectors = vectorizer.fit_transform(content_list)
+
+    # 코사인 유사도를 계산합니다
+    cosine_sim = cosine_similarity(content_vectors, content_vectors)
+
+    # 해당 전시회의 인덱스를 찾습니다
+    exhibition_list = list(exhibitions)
+    idx = list(exhibitions).index(Exhibition.objects.get(id=exhibition_id))
+
+    # 해당 전시회와 다른 전시회의 유사도를 가져옵니다
+    sim_scores = list(enumerate(cosine_sim[idx]))
+
+    # 유사도 점수를 기준으로 정렬합니다
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+    # 상위 num_recommendations개의 유사한 전시회를 가져옵니다
+    sim_scores = sim_scores[1:num_recommendations + 1]  # 첫 번째는 자기 자신이므로 제외합니다
+    recommended_indices = [i[0] for i in sim_scores]
+    recommended_exhibitions = [exhibitions[i] for i in recommended_indices]
+
+    # 유사도 점수를 소수점 4자리까지 출력
+    for i, score in sim_scores:
+        print(f"Exhibition ID: {exhibition_list[i].id}, Similarity Score: {score:.4f}")
+
+    return recommended_exhibitions
