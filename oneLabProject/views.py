@@ -1,6 +1,17 @@
 import math
+import os
 import ssl
+from pathlib import Path
+from urllib import request
+
+import joblib
+import numpy as np
+import requests
 from django.core.paginator import Paginator, EmptyPage
+from django.http import JsonResponse
+from sklearn.metrics.pairwise import cosine_similarity
+from rest_framework.test import  APIRequestFactory
+from ai.views import GetRecommendationsAPIView
 from community.models import Community
 from django.utils import timezone
 from exhibition.models import Exhibition
@@ -10,7 +21,19 @@ from member.serializers import MemberSerializer
 from onelab.models import OneLab
 from place.models import Place
 from school.models import School
+from django.shortcuts import render
+from django.views import View
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import JsonResponse
+import os.path
+from pathlib import Path
+import joblib
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+from onelab.models import OneLab
+from member.models import Member
+from tag.models import Tag
 
 
 from share.models import Share
@@ -22,13 +45,92 @@ from django.shortcuts import render, redirect
 from django.views import View
 from rest_framework.response import Response
 
+from django.shortcuts import render
+from django.views import View
+from django.utils import timezone
+from onelab.models import OneLab
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import joblib
+from pathlib import Path
+import os
+
+# views.py
+
+import math
+import os
+import ssl
+from pathlib import Path
+import joblib
+import numpy as np
+from django.shortcuts import render
+from django.views import View
+from django.utils import timezone
+from onelab.models import OneLab
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from visitRecord.models import VisitRecord
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from pathlib import Path
+import joblib
+import os
+
+import random
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from pathlib import Path
+import joblib
+import os
+
+from django.shortcuts import render
+from django.views import View
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+from pathlib import Path
+import numpy as np
+import random
+import os
+
+
+
+
+from django.shortcuts import render
+from django.views import View
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+
+
 class MainView(View):
     def get(self, request):
+        member_id = request.session.get('member', {}).get('id')
+        if member_id is None:
+            print('회원 ID 없음')
+            recommended_onelabs = []
+        else:
+            # REST API를 통해 추천 원랩 가져오기
+            api_view = GetRecommendationsAPIView.as_view()
+            factory = APIRequestFactory()
+            api_request = factory.get('/api/recommendations/', {'member_id': member_id})
+            api_response = api_view(api_request)
+            if api_response.status_code == 200:
+                recommended_onelabs = api_response.data['recommended_onelabs']
+            else:
+                recommended_onelabs = []
+
+        # 장소 정보 가져오기
         places = Place.objects.all()
         place_info = {
             'places': []
         }
-        # place 파일쪽
         for place in places:
             place_files = list(place.placefile_set.values('path'))
             place_info['places'].append({
@@ -42,15 +144,11 @@ class MainView(View):
                 'created_date': place.created_date,
             })
 
-        # print(place_info)
-
-        # 공모전쪽
+        # 전시 정보 가져오기
         exhibitions = Exhibition.objects.all()
         exhibition_info = {
             'exhibitions': []
         }
-
-        # 공모전 파일쪽
         for exhibition in exhibitions:
             exhibition_files = list(exhibition.exhibitionfile_set.values('path'))
             exhibition_info['exhibitions'].append({
@@ -59,22 +157,17 @@ class MainView(View):
                 'exhibition_content': exhibition.exhibition_content,
                 'exhibition_status': exhibition.exhibition_status,
             })
-            print(exhibition_files)
-        # print("들어옴")
-        # print(exhibition_info)
 
-        # 쉐어쪽
+        # 공유 정보 가져오기
         shares = Share.objects.all()
         share_info = {
             'shares': []
         }
-
-        # 쉐어 파일쪽
         for share in shares:
             share_files = list(share.sharefile_set.values('path'))
             share_info['shares'].append({
                 'files': share_files,
-                'id':share.id,
+                'id': share.id,
                 'share_title': share.share_title,
                 'share_content': share.share_content,
                 'share_points': share.share_points,
@@ -85,137 +178,90 @@ class MainView(View):
                 'share_choice_grade': share.share_choice_grade,
             })
 
-        # 원랩쪽
-        onelabs = OneLab.objects.all()
-        onelab_info = {
-            'onelabs': []
+        # 커뮤니티 정보 가져오기
+        communities = Community.objects.all()
+        communities_info = {
+            'communities' : []
         }
+        for community in communities:
+            community_files = list(community.files.values('path'))
+            communities_info['communities'].append({
+                'files': community_files,
+                'id': community.id,
+                'community_title': community.community_title,
+                'community_content': community.community_content,
+                'post_status': community.post_status,
+                'status': community.status
+            })
 
-        # 원랩 파일쪽
-        # for onelab in onelabs:
-        #     onelab_files = list(onelab.onelabfile_set.values('path'))
-        #     onelab_info['onelabs'].append({
-        #         'files': onelab_files,
-        #         'onelab_main_title': onelab.onelab_main_title,
-        #         'onelab_content': onelab.onelab_content,
-        #     })
-        # print("들어옴")
-        # print( onelab_info)
-        #
-        # # 커뮤니티 쪽
-        # communities = Community.objects.all()
-        # community_info = {
-        #     'communities': []
-        # }
-        #
-        # # 원랩 파일쪽
-        # for community in communities:
-        #     community.co
-        #     community_files = list(community.)
-        #     community_files = list(community.communityfile_set.values('path'))
-        #     community_info['communities'].append({
-        #         'files': community_files,
-        #         'community_title': community.community_title,
-        #         'community_content': community.community_content,
-        #     })
-        # print("들어옴")
-        # print(onelab_info)
-        # 방문자 기록
-        visit_record, created = VisitRecord.objects.get_or_create(date=timezone.now().date())
-        if created:
-            visit_record.count = 1
-        else:
-            visit_record.count += 1
-        visit_record.save()
-
-        # 멤버쪽
-        member_id = request.session.get('member', {}).get('id')
-        default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
-
-        if member_id is None:
-            profile = default_profile_url
-            context = {
-                'places': places,
-                'exhibitions': exhibitions,
-                'shares': shares,
-                'onelabs': onelabs,
-                'profile': profile,
-            }
-            return render(request, 'main/main-page.html', context)
-        else:
-            request.session['member_name'] = MemberSerializer(
-                Member.objects.get(id=request.session['member']['id'])).data
-            member = request.session['member']['id']
-            profile = MemberFile.objects.filter(member_id=member).first()
-            if profile is not None:
-                context = {
-                    'places': places,
-                    'exhibitions': exhibitions,
-                    'shares': shares,
-                    'onelabs':onelabs,
-                    'profile': profile,
-                }
-                return render(request, 'main/main-page.html', context)
-
-        # Member.objects.create(**data)
+            # 방문자 기록
+            visit_record, created = VisitRecord.objects.get_or_create(date=timezone.now().date())
+            if created:
+                visit_record.count = 1
             else:
+                visit_record.count += 1
+            visit_record.save()
+
+            # 멤버쪽
+            member_id = request.session.get('member', {}).get('id')
+            default_profile_url = 'https://static.wadiz.kr/assets/icon/profile-icon-1.png'
+
+            if member_id is None:
                 profile = default_profile_url
                 context = {
-                    'places': places,
-                    'exhibitions': exhibitions,
-                    'shares': shares,
-                    'onelabs': onelabs,
+                    'places': place_info['places'],
+                    'exhibitions': exhibition_info['exhibitions'],
+                    'shares': share_info['shares'],
+                    'onelabs': recommended_onelabs,
+                    'communities': communities_info['communities'],
                     'profile': profile,
                 }
                 return render(request, 'main/main-page.html', context)
+            else:
+                request.session['member_name'] = MemberSerializer(
+                    Member.objects.get(id=request.session['member']['id'])).data
+                member = request.session['member']['id']
+                profile = MemberFile.objects.filter(member_id=member).first()
+                if profile is not None:
+                    context = {
+                        'places': place_info['places'],
+                        'exhibitions': exhibition_info['exhibitions'],
+                        'shares': share_info['shares'],
+                        'onelabs': recommended_onelabs,
+                        'communities': communities_info['communities'],
+                        'profile': profile,
+                    }
+                    return render(request, 'main/main-page.html', context)
 
-            # Member.objects.create(**data)
+                # Member.objects.create(**data)
+                else:
+                    profile = default_profile_url
+                    context = {
+                        'places': place_info['places'],
+                        'exhibitions': exhibition_info['exhibitions'],
+                        'shares': share_info['shares'],
+                        'onelabs': recommended_onelabs,
+                        'communities': communities_info['communities'],
+                        'profile': profile,
+                    }
+                    return render(request, 'main/main-page.html', context)
 
-        return render(request, 'main/main-page.html', {'places': places, 'exhibitions': exhibitions, 'shares': shares, 'onelabs':onelabs})
-    #
-    # def post(self, request):
-    #     data = request.POST
-    #     data = {
-    #         'member_email': data['member-email'],
-    #         'member_password': data['member-password'],
-    #         'member_name': data['member-name'],
-    #         'member_type': data['member-type'],
-    #     }
-    #
-    #
-    #
+            # context1 = {
+            #         'places': place_info['places'],
+            #         'exhibitions': exhibition_info['exhibitions'],
+            #         'shares': share_info['shares'],
+            #         'onelabs': recommended_onelabs,
+            #         'communities': communities_info['communities'],
+            # }
 
-# class MainListAPI(APIView):
-#
-#     def get(self, request, page):
-#         # 한 페이지에 보여줄 장소의 개수와 페이지당 표시할 최대 페이지 수 설정
-#         row_count = 9
-#
-#         offset = (page - 1) * row_count
-#         limit = page * row_count
-#
-#         # 공모전쪽
-#         exhibitions = Exhibition.objects.all()
-#         exhibition_info = {
-#             'exhibitions': []
-#         }
-#
-#         # 공모전 파일쪽
-#         for exhibition in exhibitions:
-#             exhibition_files = list(exhibition.exhibitionfile_set.values('path'))
-#             exhibition_info['exhibitions'].append({
-#                 'files': exhibition_files,
-#                 'exhibition_title': exhibition.exhibition_title,
-#                 'exhibition_content': exhibition.exhibition_content,
-#                 'exhibition_status': exhibition.exhibition_status,
-#             })
-#
-#         exhibition_count = exhibitions.count()
-#
-#         exhibition_info = {
-#             'exhibitions': [],
-#         }
-#
-#         has_next = exhibition_count > offset + limit
-#
-#         return Response(exhibition_info)
+        return render(request, 'main/main-page.html', {'places': place_info['places'],
+                    'exhibitions': exhibition_info['exhibitions'],
+                    'shares': share_info['shares'],
+                    'onelabs': recommended_onelabs,
+                    'communities': communities_info['communities']})
+
+
+
+
+
+
