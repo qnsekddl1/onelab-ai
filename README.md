@@ -75,7 +75,7 @@
 
 ***
 
-<h3>🪧Pycharm 적용과 Django</h3>
+<h3>🪧Exhibition View 적용</h3>
 <li>Jupyter NoteBook에서 테스트 했던 코드들을 Pycharm으로 가져와서 약간 더 수정을 하였습니다.</li>
 <details><summary>➡️적용 코드</summary>
 1. 함수 정의 및 모든 데이터 가져오기
@@ -84,37 +84,38 @@
     <li>'get_recommendations' 이라는 함수를 정의하였습니다.</li>
     <li>num_recommendations: 추천할 공모전의 수입니다. 기본값은 4입니다.</li>
     <li>'Exhibition' 모델에서 모든 공모전 데이터를 가져옵니다.</li>
-</details>
+  </details>
 2. 공모전 제목과 내용을 결합하여 수집
   <details><summary>➡️코드</summary>
     <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/58f8d747-6c1f-4204-bcb0-dae5bc05d4e9" width="800px">
     <li>각 공모전 게시글의 제목과 내용을 결합하여 리스트로 만듭니다.</li>
     <li>공모전의 첫 단어를 제외하고 내용의 첫 4개의 단어를 결합니다.</li>
-    </details>
+  </details>
 3. 텍스트 데이터 백터
   <details><summary>➡️코드</summary>
     <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/6985c9cc-4558-4170-8542-ce81d33016de" width="800px">
     <li>'CountVectorizer'를 사용해 전시회 제목과 내용을 벡터화한 다음 'content_vectors'에 저장하였습니다.</li>
+  </details>
 4. 코사인 유사도 계산
   <details><summary>➡️코드</summary>
     <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/a5c98613-a345-4e8d-b59c-6b8b6ae57f09" width="800px">
     <li>벡터화된 공모전 데이터 간의 코사인 유사도를 계산합니다.</li>
-    </details>
+  </details>
 5. 유사도 점수를 기준으로 정렬
   <details><summary>➡️코드</summary>
     <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/52252f05-bfd8-470c-8a16-c3b60296b15c" width="800px">
     <li>해당 공모전과 다른 공모전 간의 유사도를 나열합니다.</li>
     <li>유사도 점수를 기준으로 내림차순 정렬합니다.</li>
-    </details>
+  </details>
 6. 유사한 공모전 선택
   <details><summary>➡️코드</summary>
     <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/dc5040bc-d61c-480f-abd0-9f0f64afbb61" width="800px">
     <li>제일 높은 유사도는 회원이 보고 있는 게시물이기 때문에 제외하고 4개의 유사한 공모전을 선택합니다.</li>
     <li>유사한 공모전의 인덱스를 통해 실제 공모전 데이터를 가져옵니다.</li>
-    </details>
-7. 유사한 공모전 반
+  </details>
+7. 유사한 공모전 반환
   <details><summary>➡️코드</summary>
-    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/37552a84-e53a-4b5c-88a8-681b0e0cd270" width="800px">
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/37552a84-e53a-4b5c-88a8-681b0e0cd270" width="400px">
     <li>유사한 공모전 리스트를 반환합니다.</li>
-    </details>
+  </details>
 </details>
