@@ -11,7 +11,7 @@
 <li>화면</li>
 <li>데이터 수집(Data Crowling</li>
 <li>Cosine_Similarity를 이용한 유사도 분석</li>
-<li>Django</li>
+<li>Pycharm 적용과 Django</li>
 <li>화면 시연</li>
 <li>느낀 점</li>
 
@@ -71,6 +71,30 @@
 <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/172309ab-79cd-4315-a47a-0f26e267e7d3" width="550px">
 </details>
 
+***
+
+<h3>🪧Pycharm 적용과 Django</h3>
+<li>Jupyter NoteBook에서 테스트 했던 코드들을 Pycharm으로 가져와서 약간 더 수정을 하였습니다.</li>
+<details><summary>➡️적용 코드</summary>
+1. 함수 정의 및 모든 데이터 가져오기
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/c8a37e0f-d313-4977-8b56-81182dfa3a4a" width="800px">
+    <li>'get_recommendations' 이라는 함수를 정의하였습니다.</li>
+    <li>num_recommendations: 추천할 공모전의 수입니다. 기본값은 4입니다.</li>
+    <li>'Exhibition' 모델에서 모든 공모전 데이터를 가져옵니다.</li>
+</details>
+2. 공모전 제목과 내용을 결합하여 수집
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/58f8d747-6c1f-4204-bcb0-dae5bc05d4e9" width="800px">
+    <li>각 공모전 게시글의 제목과 내용을 결합하여 리스트로 만듭니다.</li>
+    <li>공모전의 첫 단어를 제외하고 내용의 첫 4개의 단어를 결합니다.</li>
+    </details>
+3. 텍스트 데이터 백터
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/6985c9cc-4558-4170-8542-ce81d33016de" width="800px">
+    <li>'CountVectorizer'를 사용해 전시회 제목과 내용을 벡터화한 다음 'content_vectors'에 저장하였습니다. </li>
+
+    </details>
 
 
 
@@ -86,3 +110,11 @@
 
 
 
+
+
+
+
+
+
+
+ </details>
