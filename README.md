@@ -13,7 +13,8 @@
 <li>Cosine_Similarity를 이용한 유사도 분석</li>
 <li>Exhibition View 적용/li>
 <li>Exhibition DetailView 수정/li>
-<li>수정된 화면면</li>
+<li>detail.html 회면 출력 확인</li>
+<li>Trouble Shooting</li>
 <li>느낀 점</li>
 
 <h3>🪧화면</h3>
@@ -88,9 +89,9 @@
     </details>
   2. 공모전 제목과 내용을 결합하여 수집
     <details><summary>➡️코드</summary>
-      <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/58f8d747-6c1f-4204-bcb0-dae5bc05d4e9" width="800px">
-      <li>각 공모전 게시글의 제목과 내용을 결합하여 리스트로 만듭니다.</li>
-      <li>공모전의 첫 단어를 제외하고 내용의 첫 4개의 단어를 결합니다.</li>
+      <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/9f1e0e83-8372-4d8c-adf3-ad2a4503f211" width="800px">
+      <li>각 공모전 게시글의 제목과 내용을 부분 결합하여 리스트로 만듭니다.</li>
+      <li>공모전 제목의 첫 단어를 제외하고 공모전 내용의 2번째 부터 9번째의 단어 결합니다.</li>
     </details>
   3. 텍스트 데이터 백터
     <details><summary>➡️코드</summary>
@@ -133,10 +134,61 @@
 
 ***
 
-<h3>🪧Exhibition DetailView 수정</h3>
-<li>위에서 Exhibition View에서 새로 정의한 'get_recommendations'을 통해 ExhibitionDetailView에 전달하고 이를 detail.html에 출력하였습니다.</li>
-  <details><summary>➡️코드</summary>
-    <li>'get_recommendation' 함수를 호출하여 유사한 공모전을 추천받습니다.</li>
-    <li>context에 'exhibitions'로 추천 받은 공모전을 담아서 detail.html로 전달합니다.</li>
-    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/4e371c13-6263-402c-b41a-45e83fae0f25" width="550px">
+<h3>🪧detail.html 회면 출력 확인</h3>
+<li>ExhibitionDeatilView에서 context에 담은 exhibitions를 detail.html을 통해 화면에 출력하였습니다.</li>
+  <details><summary>➡️화면 확인</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/235b8bbc-7a0e-4d6d-b3a5-cc1f46015cc6" width="550px">
+    <li>당초에 계획했던 위치에 'AI가 추천하는 공모전' 이라는 제목으로 추천 게시글 4개가 표시 되는 것을 확인하였습니다.</li>
   </details>
+
+***
+
+<h3>🪧Trouble Shooting</h3>
+<li>이번 프로젝트를 진행 하면서 생겼던 문제점 중 가장 큰 문제점은 유사도의 점수가 낮게 나온다는 것이었습니다.</li>
+<li>유사도 점수가 0.2 ~ 0.3 정도 밖에 안나왔기 때문에 이 점수를 더 높일 수 있는 방법을 찾아야 했습니다.</li>
+
+<li>몇가지 방법을 생각 하던 도중 공모전의 제목과 내용의 시작 대부분 동일하게 시작한다는 것을 발견 했습니다.
+<li>그래서 제목과 내용을 결합 하는 방법을 바꾸어보기로 했습니다.
+<li>기본적인 방법은 제목 전체와 내용 전체를 하나의 긴 문자열로 결합 하였을 때는 내용이 너무 길어서 유사성을 잘 찾지 못하는 것 같았습니다.
+<details><summary>➡️전체 결합 코드, 유사도 점수</summary>
+  <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/f64c34d9-3780-4f00-baea-a3508bf2d0e1" width="550px">
+  <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/f6c91fc1-61ef-4111-b5d2-be7223783b50" width="550px">
+  <li>공모전의 전체 제목과 내용을 결합 하였을 때의 코드와 유사도 점수입니다.</li>
+  <li>유사도 점수가 0.41에서 0.45정도로 0.5점을 넘지 못하고 있습니다.</li>
+</details>
+> 수정한 결합 방법은 제목의 1번째 단어를 제외한 모든 단어들과 내용의 2번째 단어부터 9번째 단어까지만 결합하여 유사성을 잘 찾을 수 있도록 하는 것이었습니다. 
+<details><summary>➡️부분 결합 코드, 유사도 점수</summary>
+  <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/06f2c8b7-5682-4cf0-b322-a2f90118dd72" width="550px">
+  <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/032c1c00-41d8-420a-9601-976d1419ccf8" width="550px">
+  <li>공모전의 제목에서 첫번째 단어를 제외한 나머지 전체와 내용에서 2번째 단어부터 9번째 단어까지만 결합하였습니다.</li>
+  <li>유사도 점수가 약 0.72로 0.27 정도 상승하였습니다.</li>
+</details>
+
+
+
+
+
+<!--   <details><summary>➡️화면 확인</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/235b8bbc-7a0e-4d6d-b3a5-cc1f46015cc6" width="550px">
+    <li>당초에 계획했던 위치에 'AI가 추천하는 공모전' 이라는 제목으로 추천 게시글 4개가 표시 되는 것을 확인하였습니다.</li>
+  </details> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
