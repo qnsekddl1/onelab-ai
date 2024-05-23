@@ -55,20 +55,22 @@
 <details><summary>➡️코드</summary>
 <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/b24044be-92e6-4502-a680-d14f9f1d36e2" width="550px">
 </details>
-2. 제목 전체와 내용의 4번째 단어까지만 추출하여 하나의 긴 문자열로 합쳐 주었습니다.
+2. 제목과 전체 내용을 하나의 긴 문자열로 합쳐 주었습니다.
 <details><summary>➡️코드</summary>
-<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/9e3aa693-082d-4952-81ff-c3c35b4963fc" width="550px">
+<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/a1cc9b62-1b69-4a26-9122-0233ef60cca8="550px">
 </details>
 3. 합쳐준 문자열을 통해 입력한 키워드(문자열)와의 유사도를 분석하여 제일 높은 5개(제일 유사도가 높은 것은 입력한 키워드이기 때문에 제외)를 출력하였습니다.
 <details><summary>➡️코드</summary>
-<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/00061f0a-b8ee-44f5-ac0c-73b6f136f595" width="550px">
+<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/5346eece-047c-425f-93f1-5ed9bd7335b1" width="550px">
 </details>
 4. 입력한 키워드와 결과 출력을 확인 했습니다.
 <details><summary>➡️코드</summary>
 <li>입력 키워드</li> 
-<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/9f0e6b10-d572-4537-badc-a07d5da47e11" width="550px">
-<li>출력 결과</li>
-<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/172309ab-79cd-4315-a47a-0f26e267e7d3" width="550px">
+<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/f147ba9f-273d-4e70-aed1-0bea176ff447" width="550px">
+<li>출력된 결과</li>
+<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/e2ce8373-53c0-4b12-bbdf-1d474ca5ef16" width="550px">
+<li>출력된 결과들의 유사도 점수</li>
+<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/351301d6-54b6-4844-a179-a8bceb03b2f2" width="550px">
 </details>
 
 ***
@@ -92,29 +94,27 @@
 3. 텍스트 데이터 백터
   <details><summary>➡️코드</summary>
     <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/6985c9cc-4558-4170-8542-ce81d33016de" width="800px">
-    <li>'CountVectorizer'를 사용해 전시회 제목과 내용을 벡터화한 다음 'content_vectors'에 저장하였습니다. </li>
-
+    <li>'CountVectorizer'를 사용해 전시회 제목과 내용을 벡터화한 다음 'content_vectors'에 저장하였습니다.</li>
+4. 코사인 유사도 계산
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/a5c98613-a345-4e8d-b59c-6b8b6ae57f09" width="800px">
+    <li>벡터화된 공모전 데이터 간의 코사인 유사도를 계산합니다.</li>
     </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- </details>
+5. 유사도 점수를 기준으로 정렬
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/52252f05-bfd8-470c-8a16-c3b60296b15c" width="800px">
+    <li>해당 공모전과 다른 공모전 간의 유사도를 나열합니다.</li>
+    <li>유사도 점수를 기준으로 내림차순 정렬합니다.</li>
+    </details>
+6. 유사한 공모전 선택
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/dc5040bc-d61c-480f-abd0-9f0f64afbb61" width="800px">
+    <li>제일 높은 유사도는 회원이 보고 있는 게시물이기 때문에 제외하고 4개의 유사한 공모전을 선택합니다.</li>
+    <li>유사한 공모전의 인덱스를 통해 실제 공모전 데이터를 가져옵니다.</li>
+    </details>
+7. 유사한 공모전 반
+  <details><summary>➡️코드</summary>
+    <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/37552a84-e53a-4b5c-88a8-681b0e0cd270" width="800px">
+    <li>유사한 공모전 리스트를 반환합니다.</li>
+    </details>
+</details>
