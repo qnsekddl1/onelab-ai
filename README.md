@@ -40,14 +40,15 @@
 <details><summary>➡️Crowling 코드</summary>
 <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/cda1b2d7-f2c3-4b48-907d-1d0af81c7115" width="550px">
 </details>
-3. 위의 작업들로 얻은 데이터들을 CSV파일로 만들어서 DataSET로 만들었습니다.
-<details><summary>➡️Crowling 결과 CSV로 저장 코드</summary>
-<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/ce09e077-63b4-4fa4-a32c-bb1af8ef4fd8" width="550px">
-</details>
-4. Web Crowling 하는 과정에서 불필요한 특수문자들을 제외하였습니다.
+3. Web Crowling 하는 과정에서 불필요한 특수문자들을 제외하였습니다.
 <details><summary>➡️특수문자 제거 코드</summary>
 <img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/e57984aa-f872-4024-9b61-5007aaa5d40d" width="550px">
 </details>
+4. 위의 작업들로 얻은 데이터들을 CSV파일로 만들어서 DataSET로 만들었습니다.
+<details><summary>➡️Crowling 결과 CSV로 저장 코드</summary>
+<img src="https://github.com/onelab-server-ai/onelab-ai/assets/156397913/ce09e077-63b4-4fa4-a32c-bb1af8ef4fd8" width="550px">
+</details>
+
 
 ***
 
