@@ -8,7 +8,7 @@
 <h2>🪧목차</h2>
 
 <li>화면</li>
-<li>데이터 수집(Data Crowling</li>
+<li>데이터 수집(Data Crowling)</li>
 <li>Cosine_Similarity를 이용한 유사도 분석</li>
 <li>Exhibition View 적용</li>
 <li>Exhibition DetailView 수정</li>
